@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  background-color: #9edec6;
+  color: black;
+  height: 40px;
+  bottom: 0;
+  align-items: center;
+}
+.copyright {
+    width: 100%;
+  padding: 3px 0 3px 0;
+  text-align: center;
+}
+.copyright p {
+  font-size: 13px;
+}

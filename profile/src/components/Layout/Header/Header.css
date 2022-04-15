@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+}
+.header {
+  top: 0;
+  background-color: aliceblue;
+  box-sizing: border-box;
+  height: 40px;
+}
+.user {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.name-user {
+  font-size: 13px;
+  right: 20px;
+  color: #000;
+  margin-right: 20px;
+}
+.avatar {
+  padding-top: 5px;
+  padding-right: 10px;
+}
+.avatar img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
+}
