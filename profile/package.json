@@ -42,5 +42,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "https://my-json-server.typicode.com/nguyenthimynhi2409/ProfileProject"
 }

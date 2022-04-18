@@ -46,7 +46,7 @@ const Register = (navigate) => {
         account[key] = value;
       }
       register(account);
-      navigate("/login");
+      navigate("/");
     }
   };
 
