@@ -2,7 +2,13 @@ import "./Register.css";
 import React, { useState } from "react";
 import { register } from "../../api/api";
 import { useNavigate } from "react-router-dom";
-import { validatePassword } from "./validation";
+import {
+  validateAge,
+  validateEmail,
+  validateGender,
+  validatePassword,
+  validatePhone,
+} from "./validation";
 
 const Register = (navigate) => {
   navigate = useNavigate();
@@ -16,21 +22,15 @@ const Register = (navigate) => {
   const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  var phone_regex = /((09|03|07|08|05)+([0-9]{9})\b)/g;
-  var email_regex =
-    /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
-    
-    validatePassword(password,confirmPassword);
+
     if (
-      password === confirmPassword &&
-      age > 0 &&
-      
-      gender !== "" &&
-      email_regex.test(email) == true &&
-      password.length >= 8
+      validatePassword(password, confirmPassword) &&
+      validateAge(age) &&
+      validateGender(gender) &&
+      (await validateEmail(email)) &&
+      validatePhone(phone)
     ) {
       const myForm = new FormData();
       let account = {};
@@ -46,7 +46,7 @@ const Register = (navigate) => {
         account[key] = value;
       }
       register(account);
-      navigate("/view");
+      navigate("/login");
     }
   };
 
@@ -54,27 +54,30 @@ const Register = (navigate) => {
     <div className="register">
       <h1>Register</h1>
       <form className="form" onSubmit={handleSubmitForm}>
-        <label>
-          First Name
-          <input
-            type="text"
-            placeholder="First name"
-            required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            placeholder="Last name"
-            required
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </label>
-        <label>
+        <div className="name-container">
+          <label>
+            First Name
+            <input
+              type="text"
+              placeholder="First name"
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </label>
+          <label className="last-name">
+            Last Name
+            <input
+              type="text"
+              placeholder="Last name"
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <label className="email">
           Email
           <input
             type="text"
@@ -90,11 +93,11 @@ const Register = (navigate) => {
             setGender(e.target.value);
             if (e.target.value === "Male")
               setAvatar(
-                "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650012178/ProfileProject/male_lnnezr.png"
+                "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png"
               );
             if (e.target.value === "Female")
               setAvatar(
-                "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650012124/ProfileProject/female_ioyhza.jpg"
+                "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png"
               );
           }}
           value={gender}
