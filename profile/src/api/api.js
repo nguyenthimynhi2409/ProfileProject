@@ -7,13 +7,11 @@ export const register = async (data) => {
         "Content-Type": "application/json",
       },
     };
-
     await axios.post(`/users`, data, config);
   } catch (err) {
     console.log(err);
   }
 };
-
 export const editUser = async (id, user) => {
   try {
     return await axios.put(`/users/${id}`,user);
@@ -30,4 +28,6 @@ export const getUserById = async (id) => {
     console.log(error);
   }
 }
-
+export const getAllAccount = async () => {
+  return await axios.get(`/users/`);
+};
