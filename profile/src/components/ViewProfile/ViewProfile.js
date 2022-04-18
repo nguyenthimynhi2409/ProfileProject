@@ -1,33 +1,47 @@
+import "./ViewProfile.css";
+import {getUserById} from "../../api/api";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import "./ViewProfile.css"
 
-const ViewProfile = () => {
+const ViewProfile = (navigate) => {
+  navigate = useNavigate();
+  const [user, setUser] = useState([]);
+    useEffect(() => {
+        getUsers();
+        console.log(user);
+    }, [])
+  // const {id} = curentser.id;
+  const getUsers = async () =>{
+    const response = await getUserById(1);
+    setUser(response.data);
+  }    
+
   return (
-    <div class="profile">
+    <div className="profile">
       <figure>
-        <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/55758/random-user-31.jpg" alt="" />
+        <img src={user.avatar} alt="" />
       </figure>
       <header>
-        <h1>Username
+        <h1>{user.last_name} {user.first_name}
           <small>Link fb, twiter here</small></h1>
       </header>
       <main>
         <dl>
           <dt>Full name</dt>
-            <dd></dd>
+            <dd>{user.last_name} {user.first_name}</dd>
           <dt>Age</dt>
-            <dd></dd>
+            <dd>{user.age}</dd>
           <dt>Address</dt>
-            <dd></dd>
+            <dd>{user.address}</dd>
           <dt>Gender</dt>
-            <dd></dd>
-          <dt>Phone Number</dt>
-            <dd></dd>
-
+            <dd>{user.gender}</dd>
+          <dt>Phone Number </dt>
+            <dd>{user.phone_number}</dd>
         </dl>
-      </main>
+      </main> 
       <div className="btn-edit">
-          <button>Edit</button>
+          <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button>
       </div>
     </div>
   )

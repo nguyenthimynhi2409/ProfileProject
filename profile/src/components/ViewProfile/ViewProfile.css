@@ -67,7 +67,7 @@
     padding-right: 5px;
   }
   .profile main dl dt {
-    width: 30%;
+    width: 40%;
     padding-right: 10px;
     font-weight: bold;
   }
@@ -75,7 +75,7 @@
     content: ":";
   }
   .profile main dl dd {
-    width: 70%;
+    width: 60%;
   }
   .profile main {
     font-size: 16px;

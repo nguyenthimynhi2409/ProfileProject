@@ -13,3 +13,21 @@ export const register = async (data) => {
     console.log(err);
   }
 };
+
+export const editUser = async (id, user) => {
+  try {
+    return await axios.put(`/users/${id}`,user);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getUserById = async (id) => {
+  try {
+    id = id || '';
+    return await axios.get(`/users/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
