@@ -12,12 +12,16 @@ export const register = async (data) => {
     console.log(err);
   }
 };
-
-export const editUser = async (id, user) => {
+export const editUser = async (id, data) => {
   try {
-    return await axios.put(`/users/${id}`,user);
-  } catch (error) {
-    console.log(error);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await axios.put(`/users/${id}`, data, config);
+  } catch (err) {
+    console.log(err);
   }
 }
 
