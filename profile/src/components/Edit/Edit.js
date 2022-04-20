@@ -3,10 +3,17 @@ import React from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {
+    numberValidator,
+    emailValidator,
+    requireValue
+}
+from "./Validation"
 
 const Edit = (navigate) => {
     navigate = useNavigate();
     const [user, setUser] = useState({});
+    // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
 
     const { id } = useParams();
 
@@ -18,19 +25,29 @@ const Edit = (navigate) => {
         setUser(response.data);
     }
 
-    const onValueChange = (e) =>
-    {
-      //  console.log(e);
-      // console.log(e.target.value);
+    const onValueChange = (e) => {
+        //  console.log(e);
+        // console.log(e.target.value);
         setUser({...user, [e.target.name]: e.target.value});
     }
-    console.log(user);
-    const edit = async () => {
-        await editUser(id, user);
-        
+    // console.log(user);
+    const gender = user.gender;
+        // console.log(gender);
+        if(gender === "male") {
+            user.avatar = "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png"
+        }
+        if(gender === "female") {
+            user.avatar =  "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png"
+        }
+    const edit = (e) => {
+        e.preventDefault();
+        editUser(id, user).then(() => {
+            navigate(`/view/${id}`);
+        })
     }
     
     return (
+        
         <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
             <div className="wrapper wrapper--w680">
                 <div className="card card-4">
@@ -48,6 +65,7 @@ const Edit = (navigate) => {
                                             value={user.first_name}
                                             onChange={(e) => onValueChange(e)}
                                         />
+                                        <span className="text-danger">{requireValue(user.first_name)}</span>
                                     </div>
                                 </div>
                                 <div className="col-2">
@@ -60,6 +78,7 @@ const Edit = (navigate) => {
                                             value={user.last_name}
                                             onChange={(e) => onValueChange(e)}
                                         />
+                                        <span className="text-danger">{requireValue(user.last_name)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,23 +93,22 @@ const Edit = (navigate) => {
                                                 name="age"
                                                 value={user.age}
                                                 onChange={(e) => onValueChange(e)}
-                                                />
+                                            />
+                                            <span className="text-danger">{requireValue(user.age)} {numberValidator(user.age)}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-2">
                                     <div className="input-group">
-                                        <label className="label">Gender</label>
-                                        <div className="p-t-10">
-                                            <label className="radio-container m-r-45">Male
-                                                <input type="radio" checked="checked" name="gender"/>
-                                                <span className="checkmark"></span>
-                                            </label>
-                                            <label className="radio-container">Female
-                                                <input type="radio" name="gender"/>
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div>
+                                        <label className="label">Address</label>
+                                        <input 
+                                            className="input--style-4" 
+                                            type="text" 
+                                            name="address"
+                                            value={user.address}
+                                            onChange={(e) => onValueChange(e)}
+                                        />
+                                        <span className="text-danger">{requireValue(user.address)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -105,6 +123,7 @@ const Edit = (navigate) => {
                                             value={user.email}
                                             onChange={(e) => onValueChange(e)}
                                         />
+                                        <span className="text-danger">{emailValidator(user.email)}</span>
                                     </div>
                                 </div>
                                 <div className="col-2">
@@ -115,15 +134,35 @@ const Edit = (navigate) => {
                                             type="text" 
                                             name="phone_number"
                                             value={user.phone_number}
-                                            onChange={(e) => onValueChange(e)}/>
+                                            onChange={(e) => onValueChange(e)}
+                                        />
+                                        <span className="text-danger">{numberValidator(user.phone_number)}</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="input-group">
-                                <label className="label">Choose Avatar</label>
+                                <label className="label">Gender</label>
+                                <div className="select">
+                                    <select 
+                                        name="gender"
+                                        value = {user.gender}
+                                        onChange={(e) => {
+                                            if(onValueChange(e) === "male") {
+                                                user.avatar =  "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
+                                            }
+                                            if(onValueChange(e) === "female") {
+                                                user.avatar =  "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
+                                            }  
+                                        }}
+                                    >
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <div className = "select-dropdown"></div>
+                                </div>
                             </div>
                             <div className="p-t-15">
-                                <button className="btn btn--radius-2 btn--blue" onClick={() => navigate(`/view/${id}`)}  type="submit" >Update</button>
+                                <button className="btn btn--radius-2 btn--blue" type="submit" >Update</button>
                             </div>
                         </form>
                     </div>
