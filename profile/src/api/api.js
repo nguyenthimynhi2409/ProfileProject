@@ -19,7 +19,7 @@ export const editUser = async (id, data) => {
         "Content-Type": "application/json",
       },
     };
-    await axios.put(`/users/${id}`, data, config);
+    await axios.put(`https://profile-json-server.herokuapp.com/users/${id}`, data, config);
   } catch (err) {
     console.log(err);
   }
@@ -28,7 +28,7 @@ export const editUser = async (id, data) => {
 export const getUserById = async (id) => {
   try {
     id = id || '';
-    return await axios.get(`/users/${id}`);
+    return await axios.get(`https://profile-json-server.herokuapp.com/users/${id}`);
   } catch (error) {
     console.log(error);
   }
