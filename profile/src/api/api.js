@@ -7,7 +7,7 @@ export const register = async (data) => {
         "Content-Type": "application/json",
       },
     };
-    await axios.post(`/users`, data, config);
+    await axios.post(`https://profile-json-server.herokuapp.com/users`, data, config);
   } catch (err) {
     console.log(err);
   }
@@ -34,6 +34,5 @@ export const getUserById = async (id) => {
   }
 }
 export const getAllAccount = async () => {
-  console.log("i");
-  return await axios.get(`/users`);
+  return await axios.get(`https://profile-json-server.herokuapp.com/users`);
 };

@@ -1,5 +1,4 @@
 import "./Register.css";
-import React, { useState } from "react";
 import { register } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import {
