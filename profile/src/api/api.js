@@ -30,5 +30,6 @@ export const getUserById = async (id) => {
   }
 }
 export const getAllAccount = async () => {
+  console.log("i");
   return await axios.get(`/users`);
 };
