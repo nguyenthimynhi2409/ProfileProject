@@ -8,7 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "server":"json-server --watch db.json --port 5000",
+    "server": "json-server --watch db.json --port 5000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
