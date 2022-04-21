@@ -4,7 +4,7 @@ import { getAllAccount } from "../../api/api";
 
 toast.configure();
 var phone_regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-var email_regex =
+var email_regex = 
   /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 export const validatePassword = (password, confirmPassword) => {

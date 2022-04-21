@@ -4,25 +4,24 @@
       "id": 1,
       "first_name": "Quang Bao",
       "last_name": "Nguyen",
-      "email": "bao16t1@gmail.com",
+      "email": "bao@gmail.com",
       "age": "12",
-      "phone_number": "0979295573",
+      "phone_number": "0922763576",
       "address": "Quang Nam",
-      "gender": "male",
-      "password": 135616,
-      "avatar": "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png",
-      "": "Female"
+      "gender": "Male",
+      "password": "13561611",
+      "avatar": "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png"
     },
     {
       "id": 2,
       "first_name": "Hoang",
       "last_name": "Nguyen",
       "email": "hoang@gmail.com",
-      "age": 12,
-      "phone_number": 123456789,
+      "age": "22",
+      "phone_number": "0798987667",
       "address": "DaNang",
-      "gender": "male",
-      "password": 135616,
+      "gender": "Male",
+      "password": "13561611",
       "avatar": "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png"
     },
     {
@@ -30,11 +29,11 @@
       "first_name": "Nhi",
       "last_name": "Nguyen",
       "email": "nhi@gmail.com",
-      "age": 12,
-      "phone_number": 123456789,
+      "age": "12",
+      "phone_number": "0887676554",
       "address": "DaNang",
-      "gender": "female",
-      "password": 135616,
+      "gender": "Female",
+      "password": "13561611",
       "avatar": "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png"
     }
   ]
