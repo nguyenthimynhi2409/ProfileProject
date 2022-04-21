@@ -21,7 +21,7 @@ const Edit = (navigate) => {
         getInforUser();
     },[]);
     const getInforUser = async() => {
-        const response = await getUserById(1)
+        const response = await getUserById(id)
         setUser(response.data);
     }
 
