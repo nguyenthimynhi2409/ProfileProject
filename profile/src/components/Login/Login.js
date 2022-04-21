@@ -7,10 +7,8 @@ import { useNavigate } from "react-router-dom";
 // import PropTypes from "prop-types";
 import { login } from "../../api/api";
 
-const Login = (navigate) => {
-    navigate = useNavigate();
-//   const [email, setEmail] = useState();
-//   const [password, setPassword] = useState();
+const Login = ({auth}) => {
+  const navigate = useNavigate();
 
   const handleButton = async (e) => {
     e.preventDefault();
@@ -20,7 +18,7 @@ const Login = (navigate) => {
     console.log(email);
     console.log(password);
     const user = await login(email, password);
-    console.log(user);
+    if (user) auth();
     navigate(`/view/${user.id}`);
   };
 
@@ -30,13 +28,8 @@ const Login = (navigate) => {
         <Form.Label id="login-label">Login</Form.Label>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            name="email"
-          />
-          <Form.Text className="text-muted">
-          </Form.Text>
+          <Form.Control type="email" placeholder="Enter email" name="email" />
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -54,6 +47,6 @@ const Login = (navigate) => {
       </Form>
     </Container>
   );
-}
+};
 
 export default Login;

@@ -1,9 +1,11 @@
 .footer {
   display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background-color: #000;
   color: white;
   height: 40px;
-  bottom: 0;
   align-items: center;
 }
 .copyright {

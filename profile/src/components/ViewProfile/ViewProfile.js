@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logout from "../../images/logout.png";
 
-const ViewProfile = (navigate) => {
-  navigate = useNavigate();
+const ViewProfile = ({ logout }) => {
+  const navigate = useNavigate();
 
   const [user, setUser] = useState([]);
   useEffect(() => {
@@ -17,11 +17,6 @@ const ViewProfile = (navigate) => {
   const getUsers = async () => {
     const response = await getUserById(id);
     setUser(response.data);
-  };
-
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = "/";
   };
 
   return (
