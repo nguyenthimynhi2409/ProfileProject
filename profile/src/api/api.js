@@ -12,11 +12,16 @@ export const register = async (data) => {
     console.log(err);
   }
 };
-export const editUser = async (id, user) => {
+export const editUser = async (id, data) => {
   try {
-    return await axios.put(`/users/${id}`,user);
-  } catch (error) {
-    console.log(error);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await axios.put(`/users/${id}`, data, config);
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -29,5 +34,6 @@ export const getUserById = async (id) => {
   }
 }
 export const getAllAccount = async () => {
-  return await axios.get(`/users/`);
+  console.log("i");
+  return await axios.get(`/users`);
 };

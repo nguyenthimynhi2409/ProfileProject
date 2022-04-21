@@ -12,41 +12,46 @@ import {
 
 const Register = (navigate) => {
   navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [avatar, setAvatar] = useState("");
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
+    const first_name = e.target.first_name.value;
+    const last_name = e.target.last_name.value;
+    const email = e.target.email.value;
+    const age = e.target.age.value;
+    const gender = e.target.gender.value;
+    const password = e.target.password.value;
+    const confirm_password = e.target.confirm_password.value;
+    const phone = e.target.phone.value;
+    let avatar = "";
+    const address = "";
+    if (gender == "Male")
+      avatar =
+        "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
+    if (gender == "Female")
+      avatar =
+        "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
+
     if (
-      validatePassword(password, confirmPassword) &&
+      validatePassword(password, confirm_password) &&
       validateAge(age) &&
       validateGender(gender) &&
       (await validateEmail(email)) &&
       validatePhone(phone)
     ) {
-      const myForm = new FormData();
-      let account = {};
-      myForm.set("first_name", firstName);
-      myForm.set("last_name", lastName);
-      myForm.set("email", email);
-      myForm.set("age", age);
-      myForm.set("gender", gender);
-      myForm.set("phone_number", phone);
-      myForm.set("avatar", avatar);
-      myForm.set("password", password);
-      for (const [key, value] of myForm) {
-        account[key] = value;
-      }
-      register(account);
-      navigate("/login");
+      let account = {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        age: age,
+        gender: gender,
+        password: password,
+        avatar: avatar,
+        phone_number: phone,
+        address: address,
+      };
+      register(account).then(() => navigate("/"));
     }
   };
 
@@ -61,8 +66,7 @@ const Register = (navigate) => {
               type="text"
               placeholder="First name"
               required
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              name="first_name"
             />
           </label>
           <label className="last-name">
@@ -71,60 +75,28 @@ const Register = (navigate) => {
               type="text"
               placeholder="Last name"
               required
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              name="last_name"
             />
           </label>
         </div>
 
         <label className="email">
           Email
-          <input
-            type="text"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <input type="text" placeholder="Email" required name="email" />
         </label>
         <label>Gender</label>
-        <select
-          onChange={(e) => {
-            setGender(e.target.value);
-            if (e.target.value === "Male")
-              setAvatar(
-                "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png"
-              );
-            if (e.target.value === "Female")
-              setAvatar(
-                "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png"
-              );
-          }}
-          value={gender}
-        >
+        <select name="gender">
           <option value="">Select...</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
         <label>
           Age
-          <input
-            type="number"
-            placeholder="Age"
-            required
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-          />
+          <input type="number" placeholder="Age" required name="age" />
         </label>
         <label>
           Phone number
-          <input
-            type="tel"
-            placeholder="Phone number"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+          <input type="tel" placeholder="Phone number" required name="phone" />
         </label>
         <label>
           Password
@@ -132,8 +104,7 @@ const Register = (navigate) => {
             type="password"
             placeholder="Password"
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
           />
         </label>
         <label>
@@ -142,8 +113,7 @@ const Register = (navigate) => {
             type="password"
             placeholder="Confirm password"
             required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            name="confirm_password"
           />
         </label>
         <input type="submit" value="Submit" />

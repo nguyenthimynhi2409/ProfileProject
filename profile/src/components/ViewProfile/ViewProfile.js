@@ -36,6 +36,8 @@ const ViewProfile = (navigate) => {
             <dd>{user.address}</dd>
           <dt>Gender</dt>
             <dd>{user.gender}</dd>
+            <dt>Email</dt>
+            <dd>{user.email}</dd>
           <dt>Phone Number </dt>
             <dd>{user.phone_number}</dd>
         </dl>
