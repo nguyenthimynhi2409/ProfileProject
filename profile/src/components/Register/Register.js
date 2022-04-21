@@ -9,8 +9,8 @@ import {
   validatePhone,
 } from "./validation";
 
-const Register = (navigate) => {
-  navigate = useNavigate();
+const Register = () => {
+  const navigate = useNavigate();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();

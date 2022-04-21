@@ -4,7 +4,6 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Edit from "./components/Edit/Edit";
 import ViewProfile from "./components/ViewProfile/ViewProfile";
-import Footer from "./components/Layout/Footer/Footer";
 import React, { useEffect, useState } from "react";
 
 function App() {
@@ -35,7 +34,6 @@ function App() {
                   logout={() => {
                     setUser(false);
                     localStorage.clear();
-                    window.location.href = "/ProfileProject";
                   }}
                 />
               }
@@ -44,7 +42,6 @@ function App() {
           </>
         )}
       </Routes>
-      <Footer />
     </Router>
   );
 }

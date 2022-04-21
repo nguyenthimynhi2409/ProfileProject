@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-// import ReactDOM from "react-dom";
 import { Container } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import PropTypes from "prop-types";
+import "./Login.css";
 import { login } from "../../api/api";
 
-const Login = ({auth}) => {
+const Login = ({ auth }) => {
   const navigate = useNavigate();
 
   const handleButton = async (e) => {
@@ -17,7 +16,7 @@ const Login = ({auth}) => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     const user = await login(email, password);
 
     if (user) auth();
@@ -46,10 +45,14 @@ const Login = ({auth}) => {
             name="password"
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
+        <div className="button-container">
+          <Button variant="primary" type="submit" className="login">
+            Login
+          </Button>
+          <Button className="register" onClick={() => navigate("/register")}>
+            Register
+          </Button>
+        </div>
       </Form>
     </Container>
   );

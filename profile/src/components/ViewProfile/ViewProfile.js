@@ -3,6 +3,7 @@ import { getUserById } from "../../api/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logout from "../../images/logout.png";
+import Footer from "../Layout/Footer/Footer";
 
 const ViewProfile = ({ logout }) => {
   const navigate = useNavigate();
@@ -22,7 +23,13 @@ const ViewProfile = ({ logout }) => {
   return (
     <>
       <div className="container-logout">
-        <button className="logout" onClick={logout}>
+        <button
+          className="logout"
+          onClick={() => {
+            logout();
+            navigate("/");
+          }}
+        >
           <img src={Logout} />
         </button>
       </div>
@@ -59,6 +66,7 @@ const ViewProfile = ({ logout }) => {
           <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
