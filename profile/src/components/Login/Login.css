@@ -1,14 +1,14 @@
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
+.header-title{
+    font-family: 'Brush Script MT', cursive;
+    text-align: center;
+    font-size: 53px;
 }
-.login {
-  display: flex;
+.container{
+    width: 40%;
 }
-.login h1 {
-  width: 100%;
-  font-size: 50px;
-  text-align: center;
+#login-label{
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    font-family: cursive;
 }
