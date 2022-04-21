@@ -33,9 +33,9 @@ function App() {
               element={
                 <ViewProfile
                   logout={() => {
-                    localStorage.clear();
-                    window.location.href = "/";
                     setUser(false);
+                    localStorage.clear();
+                    window.location.href = "/ProfileProject";
                   }}
                 />
               }

@@ -4,6 +4,8 @@ import { Container } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import PropTypes from "prop-types";
 import { login } from "../../api/api";
 
@@ -15,10 +17,14 @@ const Login = ({auth}) => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email);
-    console.log(password);
+  
     const user = await login(email, password);
+
     if (user) auth();
+    else {
+      toast("Please check your email or password");
+    }
+
     navigate(`/view/${user.id}`);
   };
 
