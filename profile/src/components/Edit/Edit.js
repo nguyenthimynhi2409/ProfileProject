@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import {
     numberValidator,
     emailValidator,
-    requireValue
+    requireValue,
+    requireUncontainNumber
 }
 from "./Validation"
+import Header from "../Layout/Header/Header";
 
 const Edit = (navigate) => {
     navigate = useNavigate();
@@ -20,8 +22,9 @@ const Edit = (navigate) => {
     useEffect(() => {
         getInforUser();
     },[]);
+
     const getInforUser = async() => {
-        const response = await getUserById(1)
+        const response = await getUserById(id)
         setUser(response.data);
     }
 
@@ -30,7 +33,7 @@ const Edit = (navigate) => {
         // console.log(e.target.value);
         setUser({...user, [e.target.name]: e.target.value});
     }
-    // console.log(user);
+    console.log(user);
     const gender = user.gender;
         // console.log(gender);
         if(gender === "male") {
@@ -47,8 +50,9 @@ const Edit = (navigate) => {
     }
     
     return (
-        
-        <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <>
+            <Header/>
+            <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
             <div className="wrapper wrapper--w680">
                 <div className="card card-4">
                     <div className="card-body">
@@ -65,7 +69,7 @@ const Edit = (navigate) => {
                                             value={user.first_name}
                                             onChange={(e) => onValueChange(e)}
                                         />
-                                        <span className="text-danger">{requireValue(user.first_name)}</span>
+                                        <span className="text-danger">{requireValue(user.first_name)} {requireUncontainNumber(user.first_name)}</span>
                                     </div>
                                 </div>
                                 <div className="col-2">
@@ -169,6 +173,7 @@ const Edit = (navigate) => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

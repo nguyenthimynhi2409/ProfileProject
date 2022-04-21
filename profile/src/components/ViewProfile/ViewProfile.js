@@ -2,6 +2,7 @@ import "./ViewProfile.css";
 import {getUserById} from "../../api/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../Layout/Header/Header";
 
 
 const ViewProfile = (navigate) => {
@@ -9,15 +10,18 @@ const ViewProfile = (navigate) => {
   const [user, setUser] = useState([]);
     useEffect(() => {
         getUsers();
-        console.log(user);
     }, [])
   // const {id} = curentser.id;
   const getUsers = async () =>{
-    const response = await getUserById(1);
+    const response = await getUserById(2);
     setUser(response.data);
+    console.log(user);
+
   }    
 
   return (
+    <>
+    <Header/>
     <div className="profile">
       <figure>
         <img src={user.avatar} alt="" />
@@ -46,6 +50,8 @@ const ViewProfile = (navigate) => {
           <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button>
       </div>
     </div>
+    </>
+    
   )
 };
 
