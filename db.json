@@ -2,15 +2,16 @@
   "users": [
     {
       "id": 1,
-      "first_name": "Bao",
+      "first_name": "Quang Bao",
       "last_name": "Nguyen",
-      "email": "bao@gmail.com",
-      "age": 12,
-      "phone_number": 123456789,
+      "email": "bao16t1@gmail.com",
+      "age": "12",
+      "phone_number": "0979295573",
       "address": "Quang Nam",
       "gender": "male",
       "password": 135616,
-      "avatar": "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png"
+      "avatar": "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png",
+      "": "Female"
     },
     {
       "id": 2,
