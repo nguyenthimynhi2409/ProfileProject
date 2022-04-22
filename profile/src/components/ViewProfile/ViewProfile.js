@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logout from "../../images/logout.png";
 import Footer from "../Layout/Footer/Footer";
+import 'bootstrap/dist/css/bootstrap.css';
 import Header from "../Layout/Header/Header";
 
 const ViewProfile = ({ logout }) => {
@@ -20,10 +21,13 @@ const ViewProfile = ({ logout }) => {
     const response = await getUserById(id);
     setUser(response.data);
   };
-
+  if(user.address === "")
+  { 
+    user.address = "-"
+  }
   return (
     <>
-      <Header u={user} />
+      <Header user = {user} />
       <div className="container-logout">
         <button
           className="logout"

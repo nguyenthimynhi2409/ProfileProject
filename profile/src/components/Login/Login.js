@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import { login } from "../../api/api";
+import Footer from "../Layout/Footer/Footer";
 
 const Login = ({ auth }) => {
   const navigate = useNavigate();
@@ -28,33 +26,32 @@ const Login = ({ auth }) => {
   };
 
   return (
-    <Container className="login-container">
-      <Form onSubmit={handleButton}>
-        <Form.Label id="login-label">Login</Form.Label>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" name="email" />
-          <Form.Text className="text-muted"></Form.Text>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            name="password"
-          />
-        </Form.Group>
-        <div className="button-container">
-          <Button variant="primary" type="submit" className="login">
-            Login
-          </Button>
-          <Button className="register" onClick={() => navigate("/register")}>
-            Register
-          </Button>
+    <>
+      <div className="container">
+        <div className="row">
+            <div className="col-md-7">
+              <form onSubmit={handleButton} className="box">
+                <h1>Login</h1>
+                <p className="text-muted"> Please enter your email and password!</p> 
+                <input 
+                  type="text" 
+                  name="email" 
+                  placeholder="Email address"
+                />           
+                <input 
+                  type="password" 
+                  name="password" 
+                  placeholder="Password"
+                /> 
+                <a className="forgot text-muted" href="#">Forgot password?</a> 
+                <input type="submit" name="" value="Login" />
+                <input type="submit" name="" value="Register" onClick={() => navigate(`/register`)}/>                
+              </form>
+            </div>
         </div>
-      </Form>
-    </Container>
+    </div>
+    <Footer/>
+    </>
   );
 };
 
