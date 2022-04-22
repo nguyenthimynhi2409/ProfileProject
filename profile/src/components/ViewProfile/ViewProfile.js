@@ -1,7 +1,7 @@
 import "./ViewProfile.css";
 import {getUserById} from "../../api/api";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../Layout/Header/Header";
 
 
@@ -11,9 +11,11 @@ const ViewProfile = (navigate) => {
     useEffect(() => {
         getUsers();
     }, [])
-  // const {id} = curentser.id;
+
+  const {id} = useParams();
+
   const getUsers = async () =>{
-    const response = await getUserById(2);
+    const response = await getUserById(id);
     setUser(response.data);
     console.log(user);
 
