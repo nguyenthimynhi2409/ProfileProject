@@ -3,6 +3,7 @@ import React from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Header from "../Layout/Header/Header"
 import {
     numberValidator,
     emailValidator,
@@ -10,7 +11,6 @@ import {
     requireUncontainNumber
 }
 from "./Validation"
-import Header from "../Layout/Header/Header";
 
 const Edit = (navigate) => {
     navigate = useNavigate();
@@ -22,9 +22,8 @@ const Edit = (navigate) => {
     useEffect(() => {
         getInforUser();
     },[]);
-
     const getInforUser = async() => {
-        const response = await getUserById(id)
+        const response = await getUserById(1)
         setUser(response.data);
     }
 
@@ -33,7 +32,7 @@ const Edit = (navigate) => {
         // console.log(e.target.value);
         setUser({...user, [e.target.name]: e.target.value});
     }
-    console.log(user);
+    // console.log(user);
     const gender = user.gender;
         // console.log(gender);
         if(gender === "male") {
@@ -51,8 +50,8 @@ const Edit = (navigate) => {
     
     return (
         <>
-            <Header/>
-            <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <Header/>
+        <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
             <div className="wrapper wrapper--w680">
                 <div className="card card-4">
                     <div className="card-body">

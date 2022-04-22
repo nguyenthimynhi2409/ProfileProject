@@ -1,14 +1,30 @@
-.header-title{
-    font-family: 'Brush Script MT', cursive;
-    text-align: center;
-    font-size: 53px;
+.header-title {
+  font-family: "Brush Script MT", cursive;
+  text-align: center;
+  font-size: 53px;
 }
-.container{
-    width: 40%;
+.login-container {
+  width: 400px;
 }
-#login-label{
-    display: block;
-    text-align: center;
-    font-size: 30px;
-    font-family: cursive;
+#form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+#login-label {
+  display: block;
+  text-align: center;
+  font-size: 30px;
+  font-family: cursive;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px 20px 50px;
+}
+.login {
+  font-weight: bold;
+}
+.register {
+  font-weight: bold;
 }
