@@ -8,7 +8,7 @@
     justify-content: space-between;
   }
   
-  .col-2 {
+  /* .col-2 {
     width: calc((100% - 30px) / 2);
   }
   
@@ -16,7 +16,7 @@
     .col-2 {
       width: 100%;
     }
-  }
+  } */
   
 * {
     box-sizing: border-box;
@@ -27,7 +27,7 @@
      #PAGE WRAPPER
      ========================================================================== */
   .page-wrapper {
-    min-height: 100vh;
+    max-height: 70vh;
   }
   
   body {
@@ -67,11 +67,11 @@
      #SPACING
      ========================================================================== */
   .p-t-130 {
-    padding-top: 130px;
+    padding-top: 50px;
   }
   
   .p-t-180 {
-    padding-top: 180px;
+    padding-top: 80px;
   }
   
   .p-t-20 {
@@ -79,7 +79,8 @@
   }
   
   .p-t-15 {
-      text-align: center;
+    display: flex;
+    justify-content: center;
     padding-top: 15px;
   }
   
@@ -99,43 +100,24 @@
   /* ==========================================================================
      #BUTTON
      ========================================================================== */
-  .btn {
-    display: inline-block;
+
+  .p-t-15 button {
     line-height: 50px;
-    padding: 0 50px;
-    transition: all 0.4s ease;
+    background-color: #4CAF50;
+    height: 40px;
+    width: 80px;
     cursor: pointer;
-    font-size: 18px;
-    color: #fff;
+    text-align: center;
     font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    justify-content: center;
   }
   
-  .btn--radius {
-    border-radius: 3px;
-  }
-  
-  .btn--radius-2 {
-    border-radius: 5px;
-  }
-  
-  .btn--pill {
-    border-radius: 20px;
-  }
-  
-  .btn--green {
-    background: #57b846;
-  }
-  
-  .btn--green:hover {
-    background: #4dae3c;
-  }
-  
-  .btn--blue {
-    background: #4272d7;
-  }
-  
-  .btn--blue:hover {
-    background: #3868cd;
+  button:hover {
+    color: black;
+    transition-duration: 0.4s;
+    background-color: wheat;
+    border: 1px green solid;
   }
   
   .wrapper {
@@ -180,62 +162,10 @@
   
   .label {
     font-size: 16px;
-    color: #555;
+    color: rgb(43, 33, 33);
     text-transform: capitalize;
     display: block;
     margin-bottom: 5px;
-  }
-  
-  .radio-container {
-    display: inline-block;
-    position: relative;
-    padding-left: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #666;
-    user-select: none;
-  }
-  
-  .radio-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .radio-container input:checked ~ .checkmark {
-    background-color: #e5e5e5;
-  }
-  
-  .radio-container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  .radio-container .checkmark:after {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #57b846;
-  }
-  
-  .checkmark {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #e5e5e5;
-    border-radius: 50%;
-    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
-  }
-  
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
   }
   
   .input-group {

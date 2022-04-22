@@ -4,6 +4,7 @@ import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../Layout/Header/Header"
+import Footer from "../Layout/Footer/Footer";
 import {
     numberValidator,
     emailValidator,
@@ -23,7 +24,7 @@ const Edit = (navigate) => {
         getInforUser();
     },[]);
     const getInforUser = async() => {
-        const response = await getUserById(1)
+        const response = await getUserById(id)
         setUser(response.data);
     }
 
@@ -43,6 +44,9 @@ const Edit = (navigate) => {
         }
     const edit = (e) => {
         e.preventDefault();
+        if(requireValue(user.address)) {
+
+        }
         editUser(id, user).then(() => {
             navigate(`/view/${id}`);
         })
@@ -50,7 +54,7 @@ const Edit = (navigate) => {
     
     return (
         <>
-        <Header/>
+        <Header user = {user}/>
         <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
             <div className="wrapper wrapper--w680">
                 <div className="card card-4">
@@ -58,10 +62,11 @@ const Edit = (navigate) => {
                         <h2 className="title">Update User Form</h2>
                         <form onSubmit={edit}>
                             <div className="row row-space">
-                                <div className="col-2">
+                                <div className="col-6">
                                     <div className="input-group">
                                         <label className="label">First Name</label>
                                         <input 
+                                            required
                                             className="input--style-4" 
                                             type="text" 
                                             name="first_name"
@@ -71,10 +76,11 @@ const Edit = (navigate) => {
                                         <span className="text-danger">{requireValue(user.first_name)} {requireUncontainNumber(user.first_name)}</span>
                                     </div>
                                 </div>
-                                <div className="col-2">
+                                <div className="col-6">
                                     <div class="input-group">
                                         <label className="label">Last Name</label>
                                         <input 
+                                            required
                                             className="input--style-4" 
                                             type="text" 
                                             name="last_name"
@@ -86,11 +92,12 @@ const Edit = (navigate) => {
                                 </div>
                             </div>
                             <div className="row row-space">
-                                <div className="col-2">
+                                <div className="col-6">
                                     <div className="input-group">
                                         <label className="label">Age</label>
                                         <div className="input-group-icon">
                                             <input 
+                                                required
                                                 className="input--style-4" 
                                                 type="text" 
                                                 name="age"
@@ -101,10 +108,11 @@ const Edit = (navigate) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-2">
+                                <div className="col-6">
                                     <div className="input-group">
                                         <label className="label">Address</label>
                                         <input 
+                                            required
                                             className="input--style-4" 
                                             type="text" 
                                             name="address"
@@ -116,10 +124,11 @@ const Edit = (navigate) => {
                                 </div>
                             </div>
                             <div className="row row-space">
-                                <div className="col-2">
+                                <div className="col-6">
                                     <div className="input-group">
                                         <label className="label">Email</label>
                                         <input 
+                                            readOnly
                                             className="input--style-4" 
                                             type="email" 
                                             name="email"
@@ -129,10 +138,11 @@ const Edit = (navigate) => {
                                         <span className="text-danger">{emailValidator(user.email)}</span>
                                     </div>
                                 </div>
-                                <div className="col-2">
+                                <div className="col-6">
                                     <div className="input-group">
                                         <label className="label">Phone Number</label>
                                         <input 
+                                            required
                                             className="input--style-4" 
                                             type="text" 
                                             name="phone_number"
@@ -149,14 +159,7 @@ const Edit = (navigate) => {
                                     <select 
                                         name="gender"
                                         value = {user.gender}
-                                        onChange={(e) => {
-                                            if(onValueChange(e) === "male") {
-                                                user.avatar =  "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
-                                            }
-                                            if(onValueChange(e) === "female") {
-                                                user.avatar =  "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
-                                            }  
-                                        }}
+                                        onChange={(e) => onValueChange(e)}
                                     >
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -165,13 +168,14 @@ const Edit = (navigate) => {
                                 </div>
                             </div>
                             <div className="p-t-15">
-                                <button className="btn btn--radius-2 btn--blue" type="submit" >Update</button>
+                                <button className="btn-edit" type="submit" >Update</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <Footer />
         </>
     );
 };

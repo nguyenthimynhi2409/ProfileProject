@@ -17,21 +17,22 @@ const Footer = () => {
 							<a href="#">Contact</a>
 						</p>
 						<div className="icon">
-                <FaFacebookF className="icon"/>
-                <FaGooglePlay className="icon"/>
-                <FaTwitter className="icon"/>
-                <FaYoutube className="icon-ch"/>
-            </div>
+							<FaFacebookF className="icon"/>
+							<FaGooglePlay className="icon"/>
+							<FaTwitter className="icon"/>
+							<FaYoutube className="icon-ch"/>
+						</div>
 					</div>
-				</div>
-				<div className="row mt-4">
+					<div className="row mt-4">
 					<div className="col-md-12 text-center">
 						<p className="copyright">
-					  Copyright &copy;2022. All rights </p>
+					  		Copyright &copy;2022. All rights 
+						</p>
 					</div>
 				</div>
 			</div>
-		</footer>
+		</div>
+	</footer>
   );
 };
 
