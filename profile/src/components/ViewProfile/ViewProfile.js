@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logout from "../../images/logout.png";
 import Footer from "../Layout/Footer/Footer";
+import Header from "../Layout/Header/Header";
 
 const ViewProfile = ({ logout }) => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const ViewProfile = ({ logout }) => {
 
   return (
     <>
+      <Header u={user} />
       <div className="container-logout">
         <button
           className="logout"
