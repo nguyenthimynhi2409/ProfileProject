@@ -1,16 +1,26 @@
 .footer {
+  margin-top: 200px;
   display: flex;
-  background-color: #000;
-  color: white;
-  height: 40px;
   bottom: 0;
-  align-items: center;
-}
-.copyright {
   width: 100%;
-  padding: 3px 0 3px 0;
-  text-align: center;
+  height: 200px;
+  background-color: #85a1cc;
+  color: #212529;
 }
-.copyright p {
-  font-size: 13px;
+.footer-heading {
+  margin-top: 20px;
+  color: #212529;
+}
+.container a {
+  text-decoration: none;
+  margin-left: 20px;
+  color: #212529;
+}
+.icon {
+  font-size: 20px;
+  margin:0 15px;
+  color: blue;  
+}
+.icon-ch {
+  margin-left: 15px;
 }

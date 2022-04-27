@@ -1,5 +1,4 @@
 import "./Register.css";
-import React, { useState } from "react";
 import { register } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,8 +9,8 @@ import {
   validatePhone,
 } from "./validation";
 
-const Register = (navigate) => {
-  navigate = useNavigate();
+const Register = () => {
+  const navigate = useNavigate();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
