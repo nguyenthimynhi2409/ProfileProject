@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -38,7 +38,7 @@ function App() {
                 />
               }
             />
-            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="/edit/:id" element={<Edit auth={user}/>} />
           </>
         )}
       </Routes>
