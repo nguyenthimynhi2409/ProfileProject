@@ -4,30 +4,27 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logout from "../../images/logout.png";
 import Footer from "../Layout/Footer/Footer";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import Header from "../Layout/Header/Header";
 
 const ViewProfile = ({ logout }) => {
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const [user, setUser] = useState([]);
   useEffect(() => {
     getUsers();
   }, []);
-
-  const { id } = useParams();
-
   const getUsers = async () => {
     const response = await getUserById(id);
     setUser(response.data);
   };
-  if(user.address === "")
-  { 
-    user.address = "-"
+  if (user.address === "") {
+    user.address = "-";
   }
+
   return (
     <>
-      <Header user = {user} />
+      <Header user={user} />
       <div className="container-logout">
         <button
           className="logout"
