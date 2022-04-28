@@ -1,19 +1,36 @@
-.header-title {
-  font-family: "Brush Script MT", cursive;
+.header-title{
+  font-family: 'Brush Script MT', cursive;
   text-align: center;
   font-size: 53px;
 }
-.container {
-  width: 68%;
+#container{
+  height: 427px;
+}
+
+
+#login-container {
+  width: 45%;
+  position: relative;
+  top: 44px;
+  left: 434px;
+  margin-bottom: 320px;
 }
 #login-label {
+
   display: block;
   text-align: center;
   font-size: 30px;
   font-family: cursive;
 }
-.register_btn {
-  width: 26%;
+#register_btn {
+
   position: relative;
-  left: 327px;
+  left: 315px;
+}
+#login_btn{
+  position: relative;
+  left: 240px;
+}
+.container{
+  width: 100%;
 }
