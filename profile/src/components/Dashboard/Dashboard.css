@@ -1,0 +1,107 @@
+.layout {
+  height: 100vh;
+}
+.trigger {
+  padding: 0 20px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger svg:hover {
+  color: #1890ff;
+}
+
+.logo {
+  display: flex;
+  height: 32px;
+  margin: 16px;
+}
+
+.logo span {
+  margin: 0;
+  padding: 10px;
+}
+
+.logo h2 {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding-top: 5px;
+  color: #1890ff;
+  text-align: center;
+  font-size: 16px;
+}
+
+.site-layout .site-layout-background {
+  display: flex;
+  background: #fff;
+}
+
+.account {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.account h2 {
+  font-size: 13px;
+  color: #000;
+  font-weight: lighter;
+  margin: 0;
+}
+
+.ava {
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ava img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.logout {
+  display: none;
+  z-index: 1;
+  border: 1px solid rgb(203, 203, 203);
+  border-radius: 15px;
+  position: absolute;
+  top: 50px;
+  background-color: #fff;
+  padding: 0 10px;
+  right: 15px;
+  flex-direction: row;
+}
+
+.logout:hover {
+  border: 1px solid rgb(203, 203, 203);
+  background-color: #D8DADF;
+}
+
+.logout span {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  align-items: center;
+}
+
+.logout img {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.ava-img:hover .logout {
+  display: flex;
+}

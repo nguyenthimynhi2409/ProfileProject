@@ -2,12 +2,11 @@ import "./ViewProfile.css";
 import { getUserById } from "../../api/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Logout from "../../images/logout.png";
 import Footer from "../Layout/Footer/Footer";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "../Layout/Header/Header";
 
-const ViewProfile = ({ logout }) => {
+const ViewProfile = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [user, setUser] = useState([]);
@@ -25,18 +24,9 @@ const ViewProfile = ({ logout }) => {
   return (
     <>
       <Header user={user} />
-      <div className="container-logout">
-        <button
-          className="logout"
-          onClick={() => {
-            logout();
-            navigate("/");
-          }}
-        >
-          <img src={Logout} />
-        </button>
+      <div className="return">
+      <button onClick={() => navigate(`/dashboard/${id}`)}>Return</button>
       </div>
-
       <div className="profile">
         <figure>
           <img src={user.avatar} alt="" />
