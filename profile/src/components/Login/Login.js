@@ -27,9 +27,9 @@ const Login = ({ auth }) => {
   };
 
   return (
-    <>
-      <Container className="login-container">
-        <Form onSubmit={handleButton}>
+
+      <div id="container">
+        <Form id="login-container" onSubmit={handleButton}>
           <Form.Label id="login-label">Login</Form.Label>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -46,8 +46,8 @@ const Login = ({ auth }) => {
             />
           </Form.Group>
           <div className="button-container">
-            <Button variant="primary" type="submit" className="login">
-              Login
+            <Button variant="primary" type="submit" id="login_btn" className="login">
+              &ensp;Login&ensp;
             </Button>
             <Button
               className="register_btn"
@@ -56,10 +56,11 @@ const Login = ({ auth }) => {
               Register
             </Button>
           </div>
-        </Form>
-      </Container>
-      <Footer />
-    </>
+        </Form >
+        <Footer/>
+      </div>
+
+
   );
 };
 
