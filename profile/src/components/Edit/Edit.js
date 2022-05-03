@@ -12,7 +12,7 @@ import {
   requireUncontainNumber,
 } from "./Validation";
 
-const Edit = ({ auth }) => {
+const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
@@ -206,6 +206,7 @@ const Edit = ({ auth }) => {
                   <button className="btn-edit" type="submit">
                     Update
                   </button>
+                  <button className="btn-edit cancel" onClick={() => navigate(-1)}>Cancel</button>
                 </div>
               </form>
             </div>

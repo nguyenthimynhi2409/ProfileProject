@@ -22,8 +22,8 @@ const Login = ({ auth }) => {
     else {
       toast("Please check your email or password");
     }
-
-    navigate(`/view/${user.id}`);
+    navigate(`/dashboard/${user.id}`);
+    // navigate(`/view/${user.id}`);
   };
 
   return (
@@ -51,8 +51,7 @@ const Login = ({ auth }) => {
             </Button>
             <Button
               className="register_btn"
-              onClick={() => navigate("/register")}
-              id="register_btn"
+              onClick={() => navigate(`/register`)}
             >
               Register
             </Button>
