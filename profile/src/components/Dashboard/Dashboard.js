@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Layout, Menu } from "antd";
+import React, { useEffect, useState } from "react";
+import { Layout, Menu, Switch } from "antd";
 import {
   DashboardTwoTone,
   MenuUnfoldOutlined,
@@ -15,19 +15,22 @@ import {
 } from "@ant-design/icons";
 import "./Dashboard.css";
 import { useNavigate, useParams } from "react-router-dom";
-import Logout from "../../images/logout.png";
 import { getUserById } from "../../api/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
+import { Link } from "react-router-dom";
 
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
+  const { SubMenu } = Menu;
   const navigate = useNavigate();
-  // const ref = useRef(null);
   const [user, setUser] = useState({});
   const [option, setOption] = useState(1);
 
+  let switchText = "switchText";
+  let switcher = "";
+  let dashboardName = "";
   const { id } = useParams();
 
   useEffect(async () => {
@@ -42,49 +45,114 @@ const Dashboard = ({ logout }) => {
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
     setCollapsed(!collapsed);
-    // ref.current.onClick();
   };
-  const handleMenu = (i) => {
-    console.log(i);
-  };
-  function getItem(label, key, icon, children, type) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
-    };
+
+  if (collapsed) {
+    console.log(collapsed);
+    switchText += " collapsed";
+    switcher += " collapsed";
+    dashboardName += " collapsed";
+  } else {
+    switchText -= " collapsed";
+    switcher -= " collapsed";
+    dashboardName -= " collapsed";
   }
-  const items = [
-    getItem("TodoList", "1", <UnorderedListOutlined />),
-    getItem("Users", "2", <UserOutlined />),
-    getItem("Charts", "sub1", <BarChartOutlined />, [
-      getItem("LineChart", "3", <LineChartOutlined />),
-      getItem("AreaChart", "4", <AreaChartOutlined />),
-      getItem("HighCharts", "sub2", <DotChartOutlined />, [
-        getItem("PieChart", "5", <PieChartOutlined />),
-        getItem("RadarChart", "6", <RadarChartOutlined />),
-      ]),
-    ]),
-  ];
+
+  const [theme, setTheme] = React.useState("dark");
+
+  theme == "dark" ? (switchText += " dark") : (switchText -= " dark");
+
+  const changeTheme = (value) => {
+    setTheme(value ? "dark" : "light");
+  };
+
   return (
     <Layout className="layout">
-      <Sider collapsed={collapsed}>
+      <Sider collapsed={collapsed} theme={theme}>
         <div className="logo">
           <DashboardTwoTone />
-          <h2 id="dashboard">DASHBOARD</h2>
+          <h2 className={dashboardName}>DASHBOARD</h2>
         </div>
         <Menu
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
           mode="inline"
-          theme="dark"
-          inlineCollapsed={collapsed}
-          items={items}
-          onClick={() => handleMenu(items)}
-        />
+          theme={theme}
+        >
+          <Menu.Item key="1" onClick={() => setOption(1)}>
+            <Link to="/todoList" style={{ textDecoration: "none" }}>
+              <UnorderedListOutlined />
+              <span>TodoList</span>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="2" onClick={() => setOption(2)}>
+            <Link to="/users" style={{ textDecoration: "none" }}>
+              <UserOutlined />
+              <span>Users</span>
+            </Link>
+          </Menu.Item>
+          <SubMenu
+            key="sub1"
+            mode="inline"
+            theme={theme}
+            title={
+              <Link to="" style={{ textDecoration: "none" }}>
+                <BarChartOutlined />
+                <span>Charts</span>
+              </Link>
+            }
+          >
+            <Menu.Item key="3">
+              <Link to="" style={{ textDecoration: "none" }}>
+                <LineChartOutlined />
+                <span>LineChart</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="4">
+              <Link to="" style={{ textDecoration: "none" }}>
+                <AreaChartOutlined />
+                <span>AreaChart</span>
+              </Link>
+            </Menu.Item>
+            <SubMenu
+              key="sub2"
+              mode="inline"
+              theme={theme}
+              title={
+                <Link to="" style={{ textDecoration: "none" }}>
+                  <DotChartOutlined />
+                  <span>HighCharts</span>
+                </Link>
+              }
+            >
+              <Menu.Item key="5">
+                <Link to="" style={{ textDecoration: "none" }}>
+                  <PieChartOutlined />
+                  <span>PieChart</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="6">
+                <Link to="" style={{ textDecoration: "none" }}>
+                  <RadarChartOutlined />
+                  <span>RadarChart</span>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+          </SubMenu>
+        </Menu>
+        <div className="switch-theme">
+          <span className={switchText}>Switch theme</span>
+          <div className={switcher}>
+            <Switch
+              checked={theme === "dark"}
+              onChange={changeTheme}
+              checkedChildren="Dark"
+              unCheckedChildren="Light"
+            />
+          </div>
+        </div>
       </Sider>
+
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
           {collapsed ? (
@@ -100,7 +168,7 @@ const Dashboard = ({ logout }) => {
               <div className="ava-img">
                 <img
                   onClick={() => navigate(`/view/${id}`)}
-                  src="https://res.cloudinary.com/dn1b78bjj/image/upload/v1651370153/ProfileProject/female_iycsvy.jpg"
+                  src={user.avatar}
                 />
                 <button
                   className="logout"
@@ -110,7 +178,6 @@ const Dashboard = ({ logout }) => {
                   }}
                 >
                   <span>Logout</span>
-                  <img src={Logout} />
                 </button>
               </div>
             </div>

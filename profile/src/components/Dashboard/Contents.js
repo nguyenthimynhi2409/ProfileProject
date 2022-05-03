@@ -1,9 +1,10 @@
+import TodoList from "../TodoList/TodoList";
+import ListUsers from "../Users/ListUsers";
+
 const Contents = ({ option }) => {
   console.log(option);
   return (
-    <>
-      <h1>hi</h1>
-    </>
+    <>{option == 1 ? <TodoList /> : option == 2 ? <ListUsers /> : <></>}</>
   );
 };
 
