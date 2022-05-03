@@ -1,4 +1,3 @@
-// import "./App.css";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -41,8 +40,8 @@ function App() {
                 />
               }
             />
-            <Route path="/todolist" element={<Dashboard option="1"/>} />
-            <Route path="/users" element={<Dashboard option="2" />} />
+            <Route path="/todolist" element={<Dashboard />} />
+            <Route path="/users" element={<Dashboard />} />
             <Route path="/users/:id" element={<UserDetails />} />
             <Route path="/view/:id" element={<ViewProfile />} />
             <Route path="/edit/:id" element={<Edit />} />
