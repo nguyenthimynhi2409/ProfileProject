@@ -54,4 +54,23 @@ export const getAllAccount = async () => {
   return await axios.get(`https://profile-json-server.herokuapp.com/users`);
 };
 
-
+export const login1 = async(e, p) => {
+  const records = await axios.get(`/users`);
+  const  user = {};
+  console.log(records.data)
+  for (let r of records.data) {
+    console.log(r);
+    let found = true;
+    if(e == r.email && p == r.password) {
+      found = false;
+      user = r;
+    }
+    if(found === false) {
+      return user;
+    }
+    else {
+      return "Email hoac Mat khau khong chinh xac!"
+    }
+  }
+ 
+};
