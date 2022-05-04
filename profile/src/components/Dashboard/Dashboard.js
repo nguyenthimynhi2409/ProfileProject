@@ -23,6 +23,8 @@ import { Link } from "react-router-dom";
 import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
 import "../TodoList/TodoHeader/TodoHeader.css"
 import TodoList from "../TodoList/TodoList";
+import { Footer } from "antd/lib/layout/layout";
+
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
   const { SubMenu } = Menu;
@@ -33,6 +35,7 @@ const Dashboard = ({ logout }) => {
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
+  let charts = "";
   const { id } = useParams();
 
   useEffect(async () => {
@@ -60,10 +63,16 @@ const Dashboard = ({ logout }) => {
     dashboardName -= " collapsed";
   }
 
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = useState("dark");
 
-  theme == "dark" ? (switchText += " dark") : (switchText -= " dark");
-
+  if (theme == "dark") {
+    switchText += " dark";
+    charts = "charts dark";
+  } else {
+    switchText -= " dark";
+    charts = "light charts";
+  }
+  console.log(charts);
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
@@ -77,9 +86,9 @@ const Dashboard = ({ logout }) => {
         </div>
         <Menu
           defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
           mode="inline"
           theme={theme}
+          className="menu-sidebar"
         >
           <Menu.Item key="1" onClick={() => setOption(1)}>
             <Link to="/todoList" style={{ textDecoration: "none" }}>
@@ -98,9 +107,11 @@ const Dashboard = ({ logout }) => {
             mode="inline"
             theme={theme}
             title={
-              <Link to="" style={{ textDecoration: "none" }}>
-                <BarChartOutlined />
-                <span>Charts</span>
+              <Link to="" style={{ textDecoration: "none" }} className={charts}>
+                <div className={charts}>
+                  <BarChartOutlined />
+                  <span>Charts</span>
+                </div>
               </Link>
             }
           >
@@ -122,8 +133,10 @@ const Dashboard = ({ logout }) => {
               theme={theme}
               title={
                 <Link to="" style={{ textDecoration: "none" }}>
-                  <DotChartOutlined />
-                  <span>HighCharts</span>
+                  <div className={charts}>
+                    <DotChartOutlined />
+                    <span>HighCharts</span>
+                  </div>
                 </Link>
               }
             >
@@ -186,6 +199,22 @@ const Dashboard = ({ logout }) => {
           </div>
         </Header>
         <TodoList/>
+
+        <Content
+          className="site-layout-background"
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            minHeight: 280,
+          }}
+        >
+          <Contents option={option} />
+        </Content>
+        <Footer className="ft">
+          <div className="copyright">
+            <p>Copyright &copy; 2022</p>
+          </div>
+        </Footer>
       </Layout>
     </Layout>
   );
