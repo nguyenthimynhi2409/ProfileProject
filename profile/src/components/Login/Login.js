@@ -50,6 +50,7 @@ const Login = ({ auth }) => {
               &ensp;Login&ensp;
             </Button>
             <Button
+                id="register_btn"
               className="register_btn"
               onClick={() => navigate(`/register`)}
             >
@@ -57,7 +58,7 @@ const Login = ({ auth }) => {
             </Button>
           </div>
         </Form >
-        <Footer/>
+
       </div>
 
 
