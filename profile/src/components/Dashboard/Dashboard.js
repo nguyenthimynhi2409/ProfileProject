@@ -32,7 +32,7 @@ const Dashboard = ({ logout }) => {
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
-  let charts = "charts";
+  let charts = "";
   const { id } = useParams();
 
   useEffect(async () => {
@@ -64,11 +64,10 @@ const Dashboard = ({ logout }) => {
 
   if (theme == "dark") {
     switchText += " dark";
-    charts += " dark";
+    charts = "charts dark";
   } else {
     switchText -= " dark";
-    charts -= " dark";
-    charts += " light";
+    charts = "light charts";
   }
   console.log(charts);
   const changeTheme = (value) => {
@@ -105,9 +104,11 @@ const Dashboard = ({ logout }) => {
             mode="inline"
             theme={theme}
             title={
-              <Link to="" style={{ textDecoration: "none" }}>
-                <BarChartOutlined className={charts} />
-                <span className={charts}>Charts</span>
+              <Link to="" style={{ textDecoration: "none" }} className={charts}>
+                <div className={charts}>
+                  <BarChartOutlined />
+                  <span>Charts</span>
+                </div>
               </Link>
             }
           >
@@ -129,8 +130,10 @@ const Dashboard = ({ logout }) => {
               theme={theme}
               title={
                 <Link to="" style={{ textDecoration: "none" }}>
-                  <DotChartOutlined className={charts} />
-                  <span className={charts}>HighCharts</span>
+                  <div className={charts}>
+                    <DotChartOutlined />
+                    <span>HighCharts</span>
+                  </div>
                 </Link>
               }
             >

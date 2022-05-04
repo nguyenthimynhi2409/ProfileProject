@@ -165,9 +165,16 @@ a {
 }
 
 .charts {
-  color: #000;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
 }
 
-.charts:hover {
-  color: #1890ff;
+.ant-menu-submenu-active:hover .light {
+  color: #1890ff !important;
 }
+
+.ant-menu-submenu-active:hover .dark {
+  color: #fff !important;
+}
+
