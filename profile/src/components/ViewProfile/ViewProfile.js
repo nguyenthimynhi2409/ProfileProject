@@ -21,6 +21,8 @@ const ViewProfile = ({ logout }) => {
     setUser(response.data);
   };
 
+  if (user.address === "") user.address = "-";
+
   return (
     <>
       <Header u={user} />

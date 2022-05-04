@@ -15,6 +15,37 @@ export const login = async(email, password) => {
   }
 };
 
+async function getOneBy(filters) {
+  const records = await getAllAccount();
+  for (let record of records.data) {
+    let found = true;
+    for (let key in filters) {
+      if (record[key] !== filters[key]) {
+        found = false;
+      }
+    }
+    if (found) return record;
+  }
+}
+
+export const checkEmailExist = async (email) => {
+  if ((await getOneBy({ email })) == undefined) {
+    return false;
+  } else return await getOneBy({ email });
+};
+
+// export const login = async (email, password) => {
+//   try {
+//     const data = await checkEmailExist(email);
+//     if (data.password == password) {
+//       console.log(data);
+//       return data;
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
 export const register = async (data) => {
   try {
     const config = {

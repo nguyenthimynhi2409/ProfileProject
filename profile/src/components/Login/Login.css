@@ -3,13 +3,8 @@
   text-align: center;
   font-size: 53px;
 }
-.login-container {
-  width: 400px;
-}
-#form {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+.container {
+  width: 68%;
 }
 #login-label {
   display: block;
@@ -17,14 +12,8 @@
   font-size: 30px;
   font-family: cursive;
 }
-.button-container {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 50px 20px 50px;
-}
-.login {
-  font-weight: bold;
-}
-.register {
-  font-weight: bold;
+.register_btn {
+  width: 26%;
+  position: relative;
+  left: 327px;
 }

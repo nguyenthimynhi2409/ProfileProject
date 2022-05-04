@@ -16,18 +16,19 @@ const Login = ({ auth }) => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    auth();
+    // const user = await login(email, password);
 
-    const user = await login(email, password);
+    // if (user) auth();
+    // else {
+    //   toast("Please check your email or password");
+    // }
 
-    if (user) auth();
-    else {
-      toast("Please check your email or password");
-    }
-
-    navigate(`/view/${user.id}`);
+    // navigate(`/view/${user.id}`);
   };
 
   return (
+    
     <Container className="login-container">
       <Form onSubmit={handleButton}>
         <Form.Label id="login-label">Login</Form.Label>
@@ -49,7 +50,7 @@ const Login = ({ auth }) => {
           <Button variant="primary" type="submit" className="login">
             Login
           </Button>
-          <Button className="register" onClick={() => navigate("/register")}>
+          <Button className="register_btn" onClick={() => navigate("/register")}>
             Register
           </Button>
         </div>
