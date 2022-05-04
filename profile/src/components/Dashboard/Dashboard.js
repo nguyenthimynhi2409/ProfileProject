@@ -20,6 +20,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
+import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
+import "../TodoList/TodoHeader/TodoHeader.css"
+import TodoList from "../TodoList/TodoList";
 import { Footer } from "antd/lib/layout/layout";
 
 const Dashboard = ({ logout }) => {
@@ -195,6 +198,8 @@ const Dashboard = ({ logout }) => {
             </div>
           </div>
         </Header>
+        <TodoList/>
+
         <Content
           className="site-layout-background"
           style={{
