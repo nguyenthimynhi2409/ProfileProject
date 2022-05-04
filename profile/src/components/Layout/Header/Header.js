@@ -1,13 +1,12 @@
 import "./Header.css";
 
-const Header = ({u}) => {
-
+const Header = ({user}) => {
   return (
     <div className="header">
       <div className="user">
-        <span className="name-user">{u.first_name} {u.last_name}</span>
+        <span className="name-user">{user.first_name} {user.last_name}</span>
         <div className="avatar">
-          <img src="http://cdn.onlinewebfonts.com/svg/img_411076.png" />
+          <img src={user.avatar} />
         </div>
       </div>
     </div>

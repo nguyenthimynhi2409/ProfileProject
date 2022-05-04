@@ -54,3 +54,12 @@ export const emailValidator = (control) => {
       return 'Chưa nhập thông tin.';
     }
   }    
+
+  export const requireUncontainNumber = (control) => {
+    let require_regex = (/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/);
+    if (require_regex.test(control) === true ) {
+      return 'Không được chứa số.';
+    } else {
+      return null;
+    }
+  } 

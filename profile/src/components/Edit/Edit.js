@@ -3,36 +3,51 @@ import React from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { numberValidator, emailValidator, requireValue } from "./Validation";
 import Header from "../Layout/Header/Header";
+import Footer from "../Layout/Footer/Footer";
+import {
+  numberValidator,
+  emailValidator,
+  requireValue,
+  requireUncontainNumber,
+} from "./Validation";
 
 const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
+  // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
+  // console.log(auth);
   const { id } = useParams();
 
   useEffect(() => {
     getInforUser();
   }, []);
+
   const getInforUser = async () => {
     const response = await getUserById(id);
     setUser(response.data);
   };
 
   const onValueChange = (e) => {
+    //  console.log(e);
+    // console.log(e.target.value);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+  // console.log(user);
   const gender = user.gender;
-  if (gender === "male") {
+  // console.log(gender);
+  if (gender === "Male") {
     user.avatar =
       "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
   }
-  if (gender === "female") {
+  if (gender === "Female") {
     user.avatar =
       "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
   }
   const edit = (e) => {
     e.preventDefault();
+    if (requireValue(user.address)) {
+    }
     editUser(id, user).then(() => {
       navigate(`/view/${id}`);
     });
@@ -40,7 +55,7 @@ const Edit = () => {
 
   return (
     <>
-      <Header u={user} />
+      <Header user={user} />
       <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div className="wrapper wrapper--w680">
           <div className="card card-4">
@@ -48,10 +63,11 @@ const Edit = () => {
               <h2 className="title">Update User Form</h2>
               <form onSubmit={edit}>
                 <div className="row row-space">
-                  <div className="col-2">
+                  <div className="col-6">
                     <div className="input-group">
                       <label className="label">First Name</label>
                       <input
+                        required
                         className="input--style-4"
                         type="text"
                         name="first_name"
@@ -59,14 +75,16 @@ const Edit = () => {
                         onChange={(e) => onValueChange(e)}
                       />
                       <span className="text-danger">
-                        {requireValue(user.first_name)}
+                        {requireValue(user.first_name)}{" "}
+                        {requireUncontainNumber(user.first_name)}
                       </span>
                     </div>
                   </div>
-                  <div className="col-2">
+                  <div className="col-6">
                     <div class="input-group">
                       <label className="label">Last Name</label>
                       <input
+                        required
                         className="input--style-4"
                         type="text"
                         name="last_name"
@@ -80,11 +98,12 @@ const Edit = () => {
                   </div>
                 </div>
                 <div className="row row-space">
-                  <div className="col-2">
+                  {/* <div className="col-6">
                     <div className="input-group">
                       <label className="label">Age</label>
                       <div className="input-group-icon">
                         <input
+                          required
                           className="input--style-4"
                           type="text"
                           name="age"
@@ -96,11 +115,31 @@ const Edit = () => {
                         </span>
                       </div>
                     </div>
+                  </div> */}
+                   <div className="col-6">
+                    <div className="input-group">
+                      <label className="label">Age</label>
+                      <input
+                        required
+                        className="input--style-4"
+                        type="number"
+                        max={90}
+                        min= {1}
+                        name="age"
+                        value={user.age}
+                        onChange={(e) => onValueChange(e)}
+                      />
+                      <span className="text-danger">
+                        {requireValue(user.age)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="col-2">
+                  
+                  <div className="col-6">
                     <div className="input-group">
                       <label className="label">Address</label>
                       <input
+                        required
                         className="input--style-4"
                         type="text"
                         name="address"
@@ -114,10 +153,11 @@ const Edit = () => {
                   </div>
                 </div>
                 <div className="row row-space">
-                  <div className="col-2">
+                  <div className="col-6">
                     <div className="input-group">
                       <label className="label">Email</label>
                       <input
+                        readOnly
                         className="input--style-4"
                         type="email"
                         name="email"
@@ -129,12 +169,15 @@ const Edit = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="col-2">
+                  <div className="col-6">
                     <div className="input-group">
                       <label className="label">Phone Number</label>
                       <input
+                        required
                         className="input--style-4"
                         type="text"
+                        maxLength={12}
+                        minLength={9}
                         name="phone_number"
                         value={user.phone_number}
                         onChange={(e) => onValueChange(e)}
@@ -151,33 +194,26 @@ const Edit = () => {
                     <select
                       name="gender"
                       value={user.gender}
-                      onChange={(e) => {
-                        if (onValueChange(e) === "male") {
-                          user.avatar =
-                            "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
-                        }
-                        if (onValueChange(e) === "female") {
-                          user.avatar =
-                            "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
-                        }
-                      }}
+                      onChange={(e) => onValueChange(e)}
                     >
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                     <div className="select-dropdown"></div>
                   </div>
                 </div>
                 <div className="p-t-15">
-                  <button className="btn btn--radius-2 btn--blue" type="submit">
+                  <button className="btn-edit" type="submit">
                     Update
                   </button>
+                  <button className="btn-edit cancel" onClick={() => navigate(-1)}>Cancel</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

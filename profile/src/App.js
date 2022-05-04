@@ -1,10 +1,11 @@
-import "./App.css";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Edit from "./components/Edit/Edit";
 import ViewProfile from "./components/ViewProfile/ViewProfile";
 import React, { useEffect, useState } from "react";
+import UserDetails from "./components/Users/UserDetails";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -28,9 +29,9 @@ function App() {
         {user && (
           <>
             <Route
-              path="/view/:id"
+              path="/dashboard/:id"
               element={
-                <ViewProfile
+                <Dashboard
                   logout={() => {
                     setUser(false);
                     localStorage.clear();
@@ -38,6 +39,10 @@ function App() {
                 />
               }
             />
+            <Route path="/todolist" element={<Dashboard />} />
+            <Route path="/users" element={<Dashboard />} />
+            <Route path="/users/:id" element={<UserDetails />} />
+            <Route path="/view/:id" element={<ViewProfile />} />
             <Route path="/edit/:id" element={<Edit />} />
           </>
         )}

@@ -1,15 +1,41 @@
 import axios from "axios";
 
-export const login = async(email, password) => {
-  const data = { email, password }
+// export const login = async(email, password) => {
+//   const data = { email, password }
+//   try {
+//     const config = {
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     };
+//     const user = await axios.post(`https://profile-json-server.herokuapp.com/login`, data, config);
+//     return user.data;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// Find record by properties
+async function getOneBy(filters) {
+  const records = await getAllAccount();
+  for (let record of records.data) {
+    let found = true;
+    for (let key in filters) {
+      if (record[key] !== filters[key]) {
+        found = false;
+      }
+    }
+    if (found) return record;
+  }
+}
+
+export const login = async (email, password) => {
   try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const user = await axios.post(`https://profile-json-server.herokuapp.com/login`, data, config);
-    return user.data;
+    const data = await checkEmailExist(email);
+    if (data.password == password) {
+      console.log(data);
+      return data;
+    }
   } catch (err) {
     console.log(err);
   }
@@ -84,3 +110,5 @@ export const getUserById = async (id) => {
 export const getAllAccount = async () => {
   return await axios.get(`https://profile-json-server.herokuapp.com/users`);
 };
+
+

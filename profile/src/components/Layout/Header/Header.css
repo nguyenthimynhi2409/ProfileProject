@@ -6,7 +6,7 @@
 }
 .header {
   top: 0;
-  background-color: #B5E5CF;
+  background-color: #85A1CC;
   box-sizing: border-box;
   height: 40px;
 }
@@ -17,9 +17,10 @@
   align-items: center;
 }
 .name-user {
-  font-size: 13px;
-  right: 20px;
-  color: #000;
+  transform: translateY(4px);
+  font-size: 15px;
+  color: #fff;
+  font-weight: bold;
   margin-right: 20px;
 }
 .avatar {
