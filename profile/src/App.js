@@ -5,7 +5,6 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Edit from "./components/Edit/Edit";
 import ViewProfile from "./components/ViewProfile/ViewProfile";
 import React, { useEffect, useState } from "react";
-import Contents from "./components/Dashboard/Contents";
 import UserDetails from "./components/Users/UserDetails";
 
 function App() {

@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
+import { Footer } from "antd/lib/layout/layout";
 
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
@@ -31,6 +32,7 @@ const Dashboard = ({ logout }) => {
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
+  let charts = "charts";
   const { id } = useParams();
 
   useEffect(async () => {
@@ -58,10 +60,17 @@ const Dashboard = ({ logout }) => {
     dashboardName -= " collapsed";
   }
 
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = useState("dark");
 
-  theme == "dark" ? (switchText += " dark") : (switchText -= " dark");
-
+  if (theme == "dark") {
+    switchText += " dark";
+    charts += " dark";
+  } else {
+    switchText -= " dark";
+    charts -= " dark";
+    charts += " light";
+  }
+  console.log(charts);
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
@@ -75,9 +84,9 @@ const Dashboard = ({ logout }) => {
         </div>
         <Menu
           defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
           mode="inline"
           theme={theme}
+          className="menu-sidebar"
         >
           <Menu.Item key="1" onClick={() => setOption(1)}>
             <Link to="/todoList" style={{ textDecoration: "none" }}>
@@ -97,8 +106,8 @@ const Dashboard = ({ logout }) => {
             theme={theme}
             title={
               <Link to="" style={{ textDecoration: "none" }}>
-                <BarChartOutlined />
-                <span>Charts</span>
+                <BarChartOutlined className={charts} />
+                <span className={charts}>Charts</span>
               </Link>
             }
           >
@@ -120,8 +129,8 @@ const Dashboard = ({ logout }) => {
               theme={theme}
               title={
                 <Link to="" style={{ textDecoration: "none" }}>
-                  <DotChartOutlined />
-                  <span>HighCharts</span>
+                  <DotChartOutlined className={charts} />
+                  <span className={charts}>HighCharts</span>
                 </Link>
               }
             >
@@ -193,6 +202,11 @@ const Dashboard = ({ logout }) => {
         >
           <Contents option={option} />
         </Content>
+        <Footer className="ft">
+          <div className="copyright">
+            <p>Copyright &copy; 2022</p>
+          </div>
+        </Footer>
       </Layout>
     </Layout>
   );
