@@ -61,6 +61,7 @@ ul {
 
 .account h2 {
   font-size: 13px;
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", "Arial";
   color: #000;
   font-weight: lighter;
   margin: 0;
@@ -117,7 +118,7 @@ ul {
   display: flex;
 }
 
-span {
+.menu-sidebar span {
   display: flex !important;
   flex-direction: column;
   justify-content: center;
@@ -141,6 +142,39 @@ a {
   color: #000;
 }
 
-.dark{
-  color: #fff;
+.dark {
+  color: rgba(255, 255, 255, 0.65) !important;
 }
+
+.light {
+  color: #000 !important;
+}
+
+.ft {
+  background-color: #fff;
+}
+
+.copyright {
+  align-items: center;
+}
+
+.copyright p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.charts {
+  width: 100%;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+}
+
+.ant-menu-submenu-active:hover .light {
+  color: #1890ff !important;
+}
+
+.ant-menu-submenu-active:hover .dark {
+  color: #fff !important;
+}
+
