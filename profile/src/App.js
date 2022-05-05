@@ -48,6 +48,7 @@ function App() {
               path="/users"
               element={
                 <Dashboard
+                  user = {user}
                   logout={() => {
                     setUser(null);
                     localStorage.clear();
