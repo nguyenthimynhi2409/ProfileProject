@@ -14,13 +14,10 @@ import {
   RadarChartOutlined,
 } from "@ant-design/icons";
 import "./Dashboard.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { getUserById } from "../../api/api";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
-import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
 import "../TodoList/TodoHeader/TodoHeader.css"
 import TodoList from "../TodoList/TodoList";
 import { Footer } from "antd/lib/layout/layout";
@@ -29,9 +26,8 @@ const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
   const { SubMenu } = Menu;
   const navigate = useNavigate();
-  // const [user, setUser] = useState({});
 
-  // option 1 == todoList ; option 2 == list users
+  // option 1 == todoList ; option 2 == list users; option 3 == view account
   const [option, setOption] = useState(1);
 
   // get data user
@@ -40,15 +36,7 @@ const Dashboard = ({ logout }) => {
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
-  let charts = "";
-
-  // useEffect(async () => {
-  //   try {
-  //     const { data } = await getUserById(user.id);
-  //   } catch (err) {
-  //     toast("server die");
-  //   }
-  // }, []);
+  // let charts = "";
 
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -70,12 +58,12 @@ const Dashboard = ({ logout }) => {
 
   if (theme == "dark") {
     switchText += " dark";
-    charts = "charts dark";
+    // charts = "charts dark";
   } else {
     switchText -= " dark";
-    charts = "light charts";
+    // charts = "light charts";
   }
-  console.log(charts);
+
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
@@ -105,7 +93,7 @@ const Dashboard = ({ logout }) => {
               <span>Users</span>
             </Link>
           </Menu.Item>
-          <SubMenu
+          {/* <SubMenu
             key="sub1"
             mode="inline"
             theme={theme}
@@ -156,7 +144,7 @@ const Dashboard = ({ logout }) => {
                 </Link>
               </Menu.Item>
             </SubMenu>
-          </SubMenu>
+          </SubMenu> */}
         </Menu>
         <div className="switch-theme">
           <span className={switchText}>Switch theme</span>
@@ -186,7 +174,10 @@ const Dashboard = ({ logout }) => {
               <div className="ava-img">
                 <img
                   // onClick={() => navigate(`/view/${id}`)}
-                  onClick={() => navigate(`/account`)}
+                  onClick={() => {
+                    setOption(3);
+                    navigate(`/account`);
+                  }}
                   src={user && user.avatar}
                 />
                 <button

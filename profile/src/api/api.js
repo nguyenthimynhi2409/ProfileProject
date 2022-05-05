@@ -25,7 +25,8 @@ export const login = async (email, password) => {
   try {
     const data = await checkEmailExist(email);
     if (data.password == password) {
-      console.log(data);
+      if(localStorage.getItem("user") === null)
+        localStorage.setItem("user",JSON.stringify(data));
       return data;
     }
   } catch (err) {
