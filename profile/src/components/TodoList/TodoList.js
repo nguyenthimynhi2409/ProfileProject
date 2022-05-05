@@ -13,12 +13,13 @@ const TodoList = () => {
             .then(response => setState({todos:response.data}))
     },[])
     return (
-        <div className="container">
-            <TodoHeader/>
-            {/* <Todos todos={state.todos} /> */}
+        // <div className="container">
+        //     <TodoHeader/>
+        //     {/* <Todos todos={state.todos} /> */}
 
 
-        </div>
+        // </div>
+        <></>
     );
 }
 

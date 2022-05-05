@@ -2,9 +2,7 @@ import "./ViewProfile.css";
 import { getUserById } from "../../api/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../Layout/Footer/Footer";
 import "bootstrap/dist/css/bootstrap.css";
-import Header from "../Layout/Header/Header";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
@@ -30,11 +28,6 @@ const ViewProfile = () => {
 
   return (
     <>
-      <Header user={user} />
-      <div className="return">
-      {/* <button onClick={() => navigate(`/dashboard/${id}`)}>Return</button> */}
-      <button onClick={() => navigate(`/dashboard`)}>Return</button>
-      </div>
       <div className="profile">
         <figure>
           <img src={user.avatar} alt="" />
@@ -68,7 +61,6 @@ const ViewProfile = () => {
           <button onClick={() => navigate(`/account/update`)}>Edit</button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
