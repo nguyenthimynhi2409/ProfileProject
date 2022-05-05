@@ -1,5 +1,5 @@
 import "./Edit.css";
-import React from "react";
+import React, { useContext } from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -47,6 +47,9 @@ const Edit = () => {
     user.avatar =
       "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
   }
+
+  const [, setOption] = useContext(Option);
+
   const edit = (e) => {
     e.preventDefault();
     if (requireValue(user.address)) {
@@ -54,18 +57,19 @@ const Edit = () => {
     // editUser(id, user).then(() => {
     editUser(user.id, user).then(() => {
       // navigate(`/view/${id}`);
+      setOption(3);
       navigate(`/account`);
     });
   };
 
   return (
     <>
-      <Header user={user} />
+      
       <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div className="wrapper wrapper--w680">
           <div className="card card-4">
             <div className="card-body">
-              <h2 className="title">Update User Form</h2>
+              <h2 className="title">My Account</h2>
               <form onSubmit={edit}>
                 <div className="row row-space">
                   <div className="col-6">
@@ -214,7 +218,9 @@ const Edit = () => {
                   <button
                     className="btn-edit cancel"
                     // onClick={() => navigate(-1)}
-                    onClick={() => navigate("/account")}
+                    onClick={() => {
+                      setOption(3);
+                      navigate("/account");}}
                   >
                     Cancel
                   </button>
@@ -224,7 +230,6 @@ const Edit = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import "./ViewProfile.css";
 import { getUserById } from "../../api/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -16,15 +16,16 @@ const ViewProfile = () => {
   //   setUser(response.data);
   // };
 
-    // get data user
-    const user = JSON.parse(localStorage.getItem("user"));
-
+  // get data user
+  const user = JSON.parse(localStorage.getItem("user"));
 
   if (user.address === "") {
     user.address = "-";
   }
 
   if (user.address === "") user.address = "-";
+
+  const [, setOption] = useContext(Option);
 
   return (
     <>
@@ -58,7 +59,14 @@ const ViewProfile = () => {
         </main>
         <div className="btn-edit">
           {/* <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button> */}
-          <button onClick={() => navigate(`/account/update`)}>Edit</button>
+          <button
+            onClick={() => {
+              setOption(4);
+              navigate(`/account/update`);
+            }}
+          >
+            Edit
+          </button>
         </div>
       </div>
     </>

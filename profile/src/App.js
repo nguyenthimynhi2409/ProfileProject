@@ -2,8 +2,6 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Edit from "./components/Edit/Edit";
-import ViewProfile from "./components/ViewProfile/ViewProfile";
 import React, { useEffect, useState } from "react";
 import UserDetails from "./components/Users/UserDetails";
 
@@ -45,7 +43,7 @@ function App() {
               path="/users"
               element={
                 <Dashboard
-                  user = {user}
+                  user={user}
                   logout={() => {
                     setUser(null);
                     localStorage.clear();
@@ -53,7 +51,7 @@ function App() {
                 />
               }
             />
-            <Route path="/users/:id" element={<UserDetails />} />
+            <Route path="/user/:id" element={<UserDetails />} />
             <Route
               path="/account"
               element={
@@ -65,7 +63,28 @@ function App() {
                 />
               }
             />
-            <Route path="/account/update" element={<Edit />} />
+            <Route
+              path="/account/update"
+              element={
+                <Dashboard
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
+            />
+            <Route
+              path="/user/new"
+              element={
+                <Dashboard
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
+            />
           </>
         )}
       </Routes>

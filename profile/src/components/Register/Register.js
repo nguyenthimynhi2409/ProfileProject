@@ -19,6 +19,7 @@ import "antd/dist/antd.css";
 import { Footer } from "antd/lib/layout/layout";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 const Register = () => {
   toast.configure();
@@ -87,7 +88,6 @@ const Register = () => {
     const role = "user";
     let avatar = "";
     const address = "";
-    console.log(validatePhone(phone));
     if (gender == "Male")
       avatar =
         "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
@@ -112,7 +112,7 @@ const Register = () => {
         avatar: avatar,
         phone_number: phone,
         address: address,
-        role: role
+        role: role,
       };
       register(account)
         .then(() => navigate("/"))
@@ -219,6 +219,7 @@ const Register = () => {
               rules={[
                 {
                   type: "email",
+                  required: true,
                 },
               ]}
             >
@@ -250,6 +251,7 @@ const Register = () => {
                   max: 150,
                 },
               ]}
+              value={Number(this.value)<1? 1 : this.value}
             >
               <InputNumber />
             </Form.Item>
