@@ -15,7 +15,7 @@ const TodoList = () => {
     return (
         <div className="container">
             <TodoHeader/>
-            <Todos todos={state.todos} />
+            {/* <Todos todos={state.todos} /> */}
 
 
         </div>

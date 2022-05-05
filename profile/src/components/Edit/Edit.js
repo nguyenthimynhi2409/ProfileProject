@@ -54,7 +54,7 @@ const Edit = () => {
     // editUser(id, user).then(() => {
     editUser(user.id, user).then(() => {
       // navigate(`/view/${id}`);
-      navigate(`account`);
+      navigate(`/account`);
     });
   };
 
