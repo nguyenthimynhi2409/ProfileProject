@@ -3,10 +3,6 @@
   text-align: center;
   font-size: 53px;
 }
-<<<<<<< HEAD
-.container {
-  width: 68%;
-=======
 #container{
   height: 427px;
 }
@@ -18,7 +14,6 @@
   top: 44px;
   left: 434px;
   margin-bottom: 320px;
->>>>>>> 5daa72f52d9a6b9f77db1db947da392393599e16
 }
 #login-label {
 
@@ -27,12 +22,6 @@
   font-size: 30px;
   font-family: cursive;
 }
-<<<<<<< HEAD
-.register_btn {
-  width: 26%;
-  position: relative;
-  left: 327px;
-=======
 #register_btn {
 
   position: relative;
@@ -41,7 +30,6 @@
 #login_btn{
   position: relative;
   left: 240px;
->>>>>>> 5daa72f52d9a6b9f77db1db947da392393599e16
 }
 .container{
   width: 100%;

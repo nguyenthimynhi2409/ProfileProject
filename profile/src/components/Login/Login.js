@@ -8,6 +8,7 @@ import Footer from "../Layout/Footer/Footer";
 import { Form, Button, Container } from "react-bootstrap";
 
 const Login = ({ auth }) => {
+
   const navigate = useNavigate();
 
   const handleButton = async (e) => {
@@ -18,12 +19,14 @@ const Login = ({ auth }) => {
 
     const user = await login(email, password);
 
-    if (user) auth();
+    // if (user) auth();
+    if (user) auth(user);
     else {
       toast("Please check your email or password");
     }
-    navigate(`/dashboard/${user.id}`);
-    // navigate(`/view/${user.id}`);
+    navigate(`/dashboard`);
+    // navigate(`/view/${user.id}`);  
+
   };
 
   return (

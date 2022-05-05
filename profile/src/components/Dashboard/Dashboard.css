@@ -33,7 +33,6 @@ ul {
 
 .logo span {
   margin: 0;
-  padding: 10px;
 }
 
 .logo h2 {
@@ -45,6 +44,7 @@ ul {
   color: #1890ff;
   text-align: center;
   font-size: 16px;
+  padding-left: 10px;
 }
 
 .site-layout .site-layout-background {
