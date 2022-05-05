@@ -15,10 +15,13 @@ import {
 const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
-  // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
-  // console.log(auth);
-  const { id } = useParams();
+  // // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
+  // // console.log(auth);
+  // const { id } = useParams();
 
+  // get id user
+  const id = JSON.parse(localStorage.getItem("user")).id;
+  
   useEffect(() => {
     getInforUser();
   }, []);
@@ -48,8 +51,10 @@ const Edit = () => {
     e.preventDefault();
     if (requireValue(user.address)) {
     }
-    editUser(id, user).then(() => {
-      navigate(`/view/${id}`);
+    // editUser(id, user).then(() => {
+    editUser(user.id, user).then(() => {
+      // navigate(`/view/${id}`);
+      navigate(`/account`);
     });
   };
 
@@ -116,7 +121,7 @@ const Edit = () => {
                       </div>
                     </div>
                   </div> */}
-                   <div className="col-6">
+                  <div className="col-6">
                     <div className="input-group">
                       <label className="label">Age</label>
                       <input
@@ -124,7 +129,7 @@ const Edit = () => {
                         className="input--style-4"
                         type="number"
                         max={90}
-                        min= {1}
+                        min={1}
                         name="age"
                         value={user.age}
                         onChange={(e) => onValueChange(e)}
@@ -134,7 +139,7 @@ const Edit = () => {
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="col-6">
                     <div className="input-group">
                       <label className="label">Address</label>
@@ -206,7 +211,13 @@ const Edit = () => {
                   <button className="btn-edit" type="submit">
                     Update
                   </button>
-                  <button className="btn-edit cancel" onClick={() => navigate(-1)}>Cancel</button>
+                  <button
+                    className="btn-edit cancel"
+                    // onClick={() => navigate(-1)}
+                    onClick={() => navigate("/account")}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </form>
             </div>

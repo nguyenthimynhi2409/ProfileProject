@@ -9,8 +9,14 @@ import {
   validatePhone,
 } from "./validation";
 import { Form, Input, InputNumber, Button, Select } from "antd";
+import {
+  FacebookFilled,
+  YoutubeFilled,
+  TwitterCircleFilled,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import "antd/dist/antd.css";
-import Footer from "../Layout/Footer/Footer";
+import { Footer } from "antd/lib/layout/layout";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -175,109 +181,125 @@ const Register = () => {
         </label>
         <input type="submit" value="Submit" />
       </form> */}
-      <Form {...layout} name="nest-messages" onFinish={handleSubmitForm}>
-        {/* firstname */}
-        <Form.Item
-          className="name"
-          name={"first_name"}
-          label="First Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* last name */}
-        <Form.Item
-          className="name"
-          name={"last_name"}
-          label="Last Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* email */}
-        <Form.Item
-          name={"email"}
-          label="Email"
-          rules={[
-            {
-              type: "email",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* select gender */}
-        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Select gender"
-            // onChange={this.onGenderChange}
-            allowClear
+      <div className="form-register">
+        <Form {...layout} name="nest-messages" onFinish={handleSubmitForm}>
+          {/* firstname */}
+          <Form.Item
+            className="name"
+            name={"first_name"}
+            label="First Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
-            <Option value="Male">Male</Option>
-            <Option value="Female">Female</Option>
-          </Select>
-        </Form.Item>
-        {/* age */}
-        <Form.Item
-          name={"age"}
-          label="Age"
-          rules={[
-            {
-              type: "number",
-              min: 1,
-              max: 150,
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        {/* number */}
-        <Form.Item
-          name={"phone_number"}
-          label="Phone number"
-          rules={[
-            { required: true, message: "Please input your phone number!" },
-          ]}
-        >
-          <Input maxLength={12} minLength={9} />
-        </Form.Item>
-        {/* password */}
-        <Form.Item
-          name={"password"}
-          label="Password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        {/* confirm password */}
-        <Form.Item
-          name={"confirm_password"}
-          label="Confirm Password"
-          rules={[
-            { required: true, message: "Please input your confirm password!" },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        {/* submit */}
-        <Form.Item
-          className="submit"
-          wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
-        >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-      <Footer />
+            <Input />
+          </Form.Item>
+          {/* last name */}
+          <Form.Item
+            className="name"
+            name={"last_name"}
+            label="Last Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          {/* email */}
+          <Form.Item
+            name={"email"}
+            label="Email"
+            rules={[
+              {
+                type: "email",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          {/* select gender */}
+          <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+            <Select
+              placeholder="Select gender"
+              // onChange={this.onGenderChange}
+              allowClear
+            >
+              <Option value="Male">Male</Option>
+              <Option value="Female">Female</Option>
+            </Select>
+          </Form.Item>
+          {/* age */}
+          <Form.Item
+            name={"age"}
+            label="Age"
+            rules={[
+              {
+                type: "number",
+                min: 1,
+                max: 150,
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          {/* number */}
+          <Form.Item
+            name={"phone_number"}
+            label="Phone number"
+            rules={[
+              { required: true, message: "Please input your phone number!" },
+            ]}
+          >
+            <Input maxLength={12} minLength={9} />
+          </Form.Item>
+          {/* password */}
+          <Form.Item
+            name={"password"}
+            label="Password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          {/* confirm password */}
+          <Form.Item
+            name={"confirm_password"}
+            label="Confirm Password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your confirm password!",
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          {/* submit */}
+          <Form.Item
+            className="submit"
+            wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
+          >
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+
+      <Footer>
+        <div className="copyright">
+          <div className="media">
+            <FacebookFilled />
+            <YoutubeFilled />
+            <TwitterCircleFilled />
+            <AppstoreFilled />
+          </div>
+          <p>Copyright &copy; 2022. Allrights</p>
+        </div>
+      </Footer>
     </div>
   );
 };

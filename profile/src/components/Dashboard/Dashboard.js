@@ -20,27 +20,35 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
+import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
+import "../TodoList/TodoHeader/TodoHeader.css"
+import TodoList from "../TodoList/TodoList";
+import { Footer } from "antd/lib/layout/layout";
 
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
   const { SubMenu } = Menu;
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
+
+  // option 1 == todoList ; option 2 == list users
   const [option, setOption] = useState(1);
+
+  // get data user
+  const user = JSON.parse(localStorage.getItem("user"));
 
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
-  const { id } = useParams();
+  let charts = "";
 
-  useEffect(async () => {
-    try {
-      const { data } = await getUserById(id);
-      setUser(data);
-    } catch (err) {
-      toast("server die");
-    }
-  }, []);
+  // useEffect(async () => {
+  //   try {
+  //     const { data } = await getUserById(user.id);
+  //   } catch (err) {
+  //     toast("server die");
+  //   }
+  // }, []);
 
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -58,10 +66,16 @@ const Dashboard = ({ logout }) => {
     dashboardName -= " collapsed";
   }
 
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = useState("dark");
 
-  theme == "dark" ? (switchText += " dark") : (switchText -= " dark");
-
+  if (theme == "dark") {
+    switchText += " dark";
+    charts = "charts dark";
+  } else {
+    switchText -= " dark";
+    charts = "light charts";
+  }
+  console.log(charts);
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
@@ -75,17 +89,17 @@ const Dashboard = ({ logout }) => {
         </div>
         <Menu
           defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
           mode="inline"
           theme={theme}
+          className="menu-sidebar"
         >
           <Menu.Item key="1" onClick={() => setOption(1)}>
-            <Link to="/todoList" style={{ textDecoration: "none" }}>
+            <Link to="/dashboard" style={{ textDecoration: "none" }}>
               <UnorderedListOutlined />
               <span>TodoList</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => setOption(2)}>
+          <Menu.Item key="2" onClick={() => setOption(2)} disabled={user && user.role !== "manager"}>
             <Link to="/users" style={{ textDecoration: "none" }}>
               <UserOutlined />
               <span>Users</span>
@@ -96,9 +110,11 @@ const Dashboard = ({ logout }) => {
             mode="inline"
             theme={theme}
             title={
-              <Link to="" style={{ textDecoration: "none" }}>
-                <BarChartOutlined />
-                <span>Charts</span>
+              <Link to="" style={{ textDecoration: "none" }} className={charts}>
+                <div className={charts}>
+                  <BarChartOutlined />
+                  <span>Charts</span>
+                </div>
               </Link>
             }
           >
@@ -120,8 +136,10 @@ const Dashboard = ({ logout }) => {
               theme={theme}
               title={
                 <Link to="" style={{ textDecoration: "none" }}>
-                  <DotChartOutlined />
-                  <span>HighCharts</span>
+                  <div className={charts}>
+                    <DotChartOutlined />
+                    <span>HighCharts</span>
+                  </div>
                 </Link>
               }
             >
@@ -162,13 +180,14 @@ const Dashboard = ({ logout }) => {
           )}
           <div className="account">
             <h2>
-              Hi, {user.first_name} {user.last_name}
+              Hi, {user && user.first_name} {user && user.last_name}
             </h2>
             <div className="ava">
               <div className="ava-img">
                 <img
-                  onClick={() => navigate(`/view/${id}`)}
-                  src={user.avatar}
+                  // onClick={() => navigate(`/view/${id}`)}
+                  onClick={() => navigate(`/account`)}
+                  src={user && user.avatar}
                 />
                 <button
                   className="logout"
@@ -183,6 +202,8 @@ const Dashboard = ({ logout }) => {
             </div>
           </div>
         </Header>
+        <TodoList/>
+
         <Content
           className="site-layout-background"
           style={{
@@ -193,6 +214,11 @@ const Dashboard = ({ logout }) => {
         >
           <Contents option={option} />
         </Content>
+        <Footer className="ft">
+          <div className="copyright">
+            <p>Copyright &copy; 2022</p>
+          </div>
+        </Footer>
       </Layout>
     </Layout>
   );

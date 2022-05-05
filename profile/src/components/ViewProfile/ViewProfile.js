@@ -8,24 +8,32 @@ import Header from "../Layout/Header/Header";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const [user, setUser] = useState([]);
-  useEffect(() => {
-    getUsers();
-  }, []);
-  const getUsers = async () => {
-    const response = await getUserById(id);
-    setUser(response.data);
-  };
+  // const { id } = useParams();
+  // const [user, setUser] = useState([]);
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
+  // const getUsers = async () => {
+  //   const response = await getUserById(id);
+  //   setUser(response.data);
+  // };
+
+    // get data user
+    const user = JSON.parse(localStorage.getItem("user"));
+
+
   if (user.address === "") {
     user.address = "-";
   }
+
+  if (user.address === "") user.address = "-";
 
   return (
     <>
       <Header user={user} />
       <div className="return">
-      <button onClick={() => navigate(`/dashboard/${id}`)}>Return</button>
+      {/* <button onClick={() => navigate(`/dashboard/${id}`)}>Return</button> */}
+      <button onClick={() => navigate(`/dashboard`)}>Return</button>
       </div>
       <div className="profile">
         <figure>
@@ -56,7 +64,8 @@ const ViewProfile = () => {
           </dl>
         </main>
         <div className="btn-edit">
-          <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button>
+          {/* <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button> */}
+          <button onClick={() => navigate(`/account/update`)}>Edit</button>
         </div>
       </div>
       <Footer />
