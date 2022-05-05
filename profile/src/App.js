@@ -13,19 +13,23 @@ function App() {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
     const u = localStorage.getItem("user");
-    u && JSON.parse(u) ? setUser(user) : setUser({});
+    u && JSON.parse(u) ? setUser(user) : setUser(null);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
-
+  
+  console.log(user);
   return (
     <Router>
       <Routes>
         <Route path="/register" element={<Register />} />
-        {(user == undefined) && (
-          <Route path="/" element={<Login auth={(userData) => setUser(userData)} />} />
+        {user == undefined && (
+          <Route
+            path="/"
+            element={<Login auth={(userData) => setUser(userData)} />}
+          />
         )}
         {user && (
           <>
@@ -41,12 +45,17 @@ function App() {
               }
             />
             <Route
-              isAdmin={user.role == "manager" ? true : false}
               path="/users"
-              element={<Dashboard />}
+              element={
+                <Dashboard
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
             />
             <Route
-              isAdmin={user.role == "manager" ? true : false}
               path="/users/:id"
               element={<UserDetails />}
             />
