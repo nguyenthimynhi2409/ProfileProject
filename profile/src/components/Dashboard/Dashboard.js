@@ -87,7 +87,7 @@ const Dashboard = ({ logout }) => {
               <span>TodoList</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => setOption(2)} disabled={user && user.role !== "manager"}>
+          <Menu.Item key="2" onClick={() => setOption(2)} disabled={user && user.role === "user"}>
             <Link to="/users" style={{ textDecoration: "none" }}>
               <UserOutlined />
               <span>Users</span>
