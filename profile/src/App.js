@@ -11,39 +11,56 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
     const u = localStorage.getItem("user");
-    u && JSON.parse(u) ? setUser(true) : setUser(false);
+    u && JSON.parse(u) ? setUser(user) : setUser(null);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("user", user);
+    localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
-
+  
+  console.log(user);
   return (
     <Router>
       <Routes>
         <Route path="/register" element={<Register />} />
-        {!user && (
-          <Route path="/" element={<Login auth={() => setUser(true)} />} />
+        {user == undefined && (
+          <Route
+            path="/"
+            element={<Login auth={(userData) => setUser(userData)} />}
+          />
         )}
         {user && (
           <>
             <Route
-              path="/dashboard/:id"
+              path="/dashboard"
               element={
                 <Dashboard
                   logout={() => {
-                    setUser(false);
+                    setUser(null);
                     localStorage.clear();
                   }}
                 />
               }
             />
-            <Route path="/todolist" element={<Dashboard />} />
-            <Route path="/users" element={<Dashboard />} />
-            <Route path="/users/:id" element={<UserDetails />} />
-            <Route path="/view/:id" element={<ViewProfile />} />
-            <Route path="/edit/:id" element={<Edit />} />
+            <Route
+              path="/users"
+              element={
+                <Dashboard
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
+            />
+            <Route
+              path="/users/:id"
+              element={<UserDetails />}
+            />
+            <Route path="/account" element={<ViewProfile />} />
+            <Route path="/account/update" element={<Edit />} />
           </>
         )}
       </Routes>

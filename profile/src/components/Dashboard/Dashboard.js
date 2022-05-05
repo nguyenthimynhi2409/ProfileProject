@@ -29,23 +29,26 @@ const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
   const { SubMenu } = Menu;
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
+
+  // option 1 == todoList ; option 2 == list users
   const [option, setOption] = useState(1);
+
+  // get data user
+  const user = JSON.parse(localStorage.getItem("user"));
 
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
   let charts = "";
-  const { id } = useParams();
 
-  useEffect(async () => {
-    try {
-      const { data } = await getUserById(id);
-      setUser(data);
-    } catch (err) {
-      toast("server die");
-    }
-  }, []);
+  // useEffect(async () => {
+  //   try {
+  //     const { data } = await getUserById(user.id);
+  //   } catch (err) {
+  //     toast("server die");
+  //   }
+  // }, []);
 
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -91,12 +94,12 @@ const Dashboard = ({ logout }) => {
           className="menu-sidebar"
         >
           <Menu.Item key="1" onClick={() => setOption(1)}>
-            <Link to="/todoList" style={{ textDecoration: "none" }}>
+            <Link to="/dashboard" style={{ textDecoration: "none" }}>
               <UnorderedListOutlined />
               <span>TodoList</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => setOption(2)}>
+          <Menu.Item key="2" onClick={() => setOption(2)} disabled={user && user.role !== "manager"}>
             <Link to="/users" style={{ textDecoration: "none" }}>
               <UserOutlined />
               <span>Users</span>
@@ -177,13 +180,14 @@ const Dashboard = ({ logout }) => {
           )}
           <div className="account">
             <h2>
-              Hi, {user.first_name} {user.last_name}
+              Hi, {user && user.first_name} {user && user.last_name}
             </h2>
             <div className="ava">
               <div className="ava-img">
                 <img
-                  onClick={() => navigate(`/view/${id}`)}
-                  src={user.avatar}
+                  // onClick={() => navigate(`/view/${id}`)}
+                  onClick={() => navigate(`/account`)}
+                  src={user && user.avatar}
                 />
                 <button
                   className="logout"

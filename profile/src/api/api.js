@@ -71,5 +71,3 @@ export const getUserById = async (id) => {
 export const getAllAccount = async () => {
   return await axios.get(`https://profile-json-server.herokuapp.com/users`);
 };
-
-
