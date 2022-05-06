@@ -1,19 +1,30 @@
 import { Table, Tag, Space, Button, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllAccount } from "../../api/api";
+import { getAllAccount, getUserById } from "../../api/api";
 import "./ListUsers.css";
 import { deleteUser } from "../../api/api";
+import { FaVrCardboard } from "react-icons/fa";
 
 const ListUsers = (props) => {
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const [users, setUsers] = useState([]);
   const { Column, ColumnGroup } = Table;
-  const user = JSON.parse(localStorage.getItem("user"));
+  // get id user
+  const id = JSON.parse(localStorage.getItem("user"));
+  var user;
+
   useEffect(() => {
     getAllUsers();
+    getInforUser();
   }, []);
+
+  const getInforUser = async () => {
+    const response = await getUserById(id);
+    user = response.data;
+  };
+
   const getAllUsers = async () => {
     const response = await getAllAccount();
     setListUser(response.data);

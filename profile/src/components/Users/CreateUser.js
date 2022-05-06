@@ -50,8 +50,7 @@ const CreateUser = (props) => {
         avatar: avatar,
         phone_number: phone,
         address: address,
-        role: role,
-        todo: [],
+        role: role
       };
       register(account)
         .then(() => {

@@ -3,8 +3,6 @@ import React, { useCallback } from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import {
   numberValidator,
   emailValidator,
@@ -28,7 +26,7 @@ const Edit = (props) => {
   // const { id } = useParams();
 
   // get id user
-  const id = JSON.parse(localStorage.getItem("user")).id;
+  const id = JSON.parse(localStorage.getItem("user"));
   
   useEffect(() => {
     getInforUser();

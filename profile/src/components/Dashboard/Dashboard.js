@@ -20,24 +20,33 @@ import Contents from "./Contents";
 import { Link } from "react-router-dom";
 import "../TodoList/TodoList.css"
 import { Footer } from "antd/lib/layout/layout";
+import { getUserById } from "../../api/api";
 
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
   // const { SubMenu } = Menu;
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
+
+  // get id user
+  const id = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const o = localStorage.getItem("option");
     o && JSON.parse(o) ? setOption(options) : setOption(1);
+    getInforUser();
   }, []);
+
+  const getInforUser = async () => {
+    const response = await getUserById(id);
+    setUser(response.data);
+  };
 
   const options = JSON.parse(localStorage.getItem("option"));
 
   // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; option5 == create user
   // option 6 == user details ; option7 == todolist of user
   const [option, setOption] = useState(options);
-
-  // get data user
-  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     localStorage.setItem("option", option);
