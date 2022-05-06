@@ -3,14 +3,19 @@ import TodoItem from "./TodoItem";
 
 class Todos extends React.Component {
 	render() {
+		const {id,todo} = this.props.todos
 		return (
 			<div>
 				<ul>
-					{this.props.todos.map(todo =>(
+
 						<TodoItem
-						key={todo.id}
-						/>
-					))}
+							key={id}
+							todo={todo}
+							handleChange={this.props.handleChange}
+							deleteTodo={this.props.deleteTodo}
+							/>
+
+
 				</ul>
 			</div>
 		);

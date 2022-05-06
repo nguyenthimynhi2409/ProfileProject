@@ -18,8 +18,7 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
-import "../TodoList/TodoHeader/TodoHeader.css";
-import TodoList from "../TodoList/TodoList";
+import "../TodoList/TodoList.css"
 import { Footer } from "antd/lib/layout/layout";
 
 const Dashboard = ({ logout }) => {

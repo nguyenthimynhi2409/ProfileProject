@@ -9,18 +9,7 @@ const CreateUser = (props) => {
   };
 
   return (
-    // <div className="create-user">
-    //   <h1>Create User</h1>
-    //   <button
-    //     className="create"
-    //     onClick={() => {
-    //       props.onOptionchange(2);
-    //       navigate(`/users`);
-    //     }}
-    //   >
-    //     create
-    //   </button>
-    // </div>
+
     <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
       <div className="wrapper wrapper--w680">
         <div className="card card-4">
