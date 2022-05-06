@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 class TodoItem extends React.Component {
 	render() {
-		const { completed,todoId,title} = this.props.todos
+		const { completed, id, title } = this.props.todo
+		console.log("dsada",completed)
 		return (
-			<div>
-				<li className="todo-item">
-					<input type="checkbox"
-							checked={completed}
-
-					/>
-					<span >
-
-					</span>
-					<button className="btn-style" >X</button>
-				</li>
-			</div>
+			<li className="todo-item">
+				<input
+					type="checkbox"
+					checked={completed}
+					onChange={() => this.props.handleChange(id)}
+				/>
+				<span className={completed ? "completed" : null}>
+                    {title}
+                </span>
+				<button className="btn-style" onClick={() => this.props.deleteTodo(id)}> X </button>
+			</li>
 		);
+
 	}
 }
-export default TodoItem
+export default TodoItem;
