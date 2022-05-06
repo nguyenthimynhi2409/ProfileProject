@@ -3,22 +3,23 @@ import TodoItem from "./TodoItem";
 
 class Todos extends React.Component {
 	render() {
-		const {id,todo} = this.props.todos
 		return (
-			<div className="todos">
+			<div>
 				<ul>
-
+					{this.props.todos.map(todo => (
 						<TodoItem
-							id={id}
+							key={todo.id}
 							todo={todo}
 							handleChange={this.props.handleChange}
 							deleteTodo={this.props.deleteTodo}
-							/>
+						/>
 
 
+					))}
 				</ul>
 			</div>
 		);
 	}
 }
-export default Todos
+export default Todos;
+

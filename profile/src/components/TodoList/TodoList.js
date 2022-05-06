@@ -11,8 +11,20 @@ const TodoList = () => {
     const id_user = JSON.parse(localStorage.getItem("user"))
 
     const [state,setState] = useState({
-
+        todos:[]
     })
+
+    useEffect(() => {
+        const config = {
+            params: {
+                _limit: 5
+            }
+
+        }
+        // tạo GET request để lấy danh sách todos
+        axios.get(`https://profile-json-server.herokuapp.com/todos`, config)
+            .then(response => setState({ todos: response.data }));
+    }, []);
 
     const handleCheckboxChange = id => {
         setState({
@@ -26,23 +38,22 @@ const TodoList = () => {
         });
 
     };
-    const deleteTodo = (todoId,id) => {
-        axios.delete(`https://profile-json-server.herokuapp.com/users/${id}/todo/${todoId}`)
+    const deleteTodo = id => {
+        axios.delete(`https://profile-json-server.herokuapp.com/todos/$id`)
             .then(reponse => setState({
                 todos: [
-                    ...state.todos.todo.filter(todo => {
-                        return todo.todoId !== todoId;
+                    ...state.todos.filter(todo => {
+                        return todo.id !== id;
                     })
                 ]
             }))
     };
-    const addTodo = (title,id) => {
+    const addTodo = title => {
         const todoData = {
-            id:id,
             title: title,
             completed: false
         }
-        axios.post(`https://profile-json-server.herokuapp.com/users/${id}/todo`, todoData)
+        axios.post("https://server1todo.herokuapp.com/todos", todoData)
             .then(response => {
                 console.log(response.data)
                 setState({
