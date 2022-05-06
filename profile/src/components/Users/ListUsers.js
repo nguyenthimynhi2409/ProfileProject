@@ -1,19 +1,22 @@
-import { Table, Tag, Space, Button, Form, Input } from "antd";
+import { Table, Space, Button, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllAccount, getUserById } from "../../api/api";
 import "./ListUsers.css";
 import { deleteUser } from "../../api/api";
-import { FaVrCardboard } from "react-icons/fa";
 
-const ListUsers = (props) => {
+const ListUsers = () => {
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const [users, setUsers] = useState([]);
   const { Column, ColumnGroup } = Table;
+  const [user, setUser] = useState([]);
   // get id user
-  const id = JSON.parse(localStorage.getItem("user"));
-  var user;
+  const id = JSON.parse(localStorage.getItem("id"));
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
 
   useEffect(() => {
     getAllUsers();
@@ -22,7 +25,7 @@ const ListUsers = (props) => {
 
   const getInforUser = async () => {
     const response = await getUserById(id);
-    user = response.data;
+    setUser(response.data);
   };
 
   const getAllUsers = async () => {
@@ -61,7 +64,6 @@ const ListUsers = (props) => {
           <div>
             <Button
               onClick={() => {
-                props.onOptionChange(5);
                 navigate(`/user/new`);
               }}
             >
@@ -71,11 +73,8 @@ const ListUsers = (props) => {
         </Form>
         <Table className="table-list" dataSource={users}>
           <Column title="Id" dataIndex="id" key="id" />
-          {/* <ColumnGroup title="Name"> */}
-
           <Column title="First Name" dataIndex="first_name" key="first_name" />
           <Column title="Last Name" dataIndex="last_name" key="last_name" />
-          {/* </ColumnGroup> */}
           <Column title="Age" dataIndex="age" key="age" />
           <Column title="Gender" dataIndex="gender" key="gender" />
           <Column title="Address" dataIndex="address" key="address" />
@@ -93,7 +92,6 @@ const ListUsers = (props) => {
                 <Button
                   type="primary"
                   onClick={() => {
-                    props.onOptionChange(6);
                     navigate(`/user/${record.id}`);
                   }}
                   disabled={user && user.role !== "manager"}
@@ -103,8 +101,7 @@ const ListUsers = (props) => {
                 <Button
                   type="dashed"
                   onClick={() => {
-                    props.onOptionChange(7);
-                    navigate(`/user/todo/${record.id}`);
+                    navigate(`/todo/${record.id}`);
                   }}
                 >
                   TodoList

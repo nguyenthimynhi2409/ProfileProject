@@ -1,16 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
 
-const UserDetails = (props) => {
+const UserDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleOptionChange = useCallback(
-    (o) => {
-      props.onOptionChange(o);
-    },
-    [props.onOptionChange]
-  );
+ 
   const [user, setUser] = useState([]);
   useEffect(() => {
     getUsers();
@@ -43,7 +38,6 @@ const UserDetails = (props) => {
   const update = async (e) => {
     e.preventDefault();
     editUser(id, user).then(() => {
-      handleOptionChange(2);
       navigate(`/users`);
     });
   };
