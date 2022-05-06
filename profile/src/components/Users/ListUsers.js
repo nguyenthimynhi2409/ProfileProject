@@ -1,11 +1,13 @@
 import { Table, Tag, Space, Button, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getAllAccount } from '../../api/api';
 import "./ListUsers.css";
 
 
 const ListUsers = () => {
 
+  const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const { Column, ColumnGroup } = Table;
   const user = JSON.parse(localStorage.getItem("user"));
@@ -18,6 +20,10 @@ const ListUsers = () => {
     setListUser(response.data);
   };
 
+  // const getUsers = async () => {
+  //   const response = await getUserById(id);
+  // };
+
   console.log(user);
 
   return (
@@ -29,7 +35,7 @@ const ListUsers = () => {
             <Button>Search</Button>
           </div>
           <div>
-            <Button>Create Account</Button>
+            <Button className={user && user.role === "admin" ? '' : 'disable-btn'}>Create Account</Button>
           </div>
         </Form>
         <Table className='table-list' dataSource={listUser}>
@@ -46,10 +52,10 @@ const ListUsers = () => {
           <Column
             title="Action"
             key="action"
-            render={() => (
+            render={(record) => (
               <Space>
-                <Button type="primary">Edit</Button>
-                <Button type="dashed">Todo List</Button>
+                <Button className={user && user.role === "admin" ? '' : 'disable-btn'} type="primary">Edit</Button>
+                <Button onClick={() => navigate(`/account/${record.id}`)} type="dashed">Todo List {record.id}</Button>
                 <Button type="danger">Delete</Button>
               </Space>
             )}

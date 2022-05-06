@@ -36,6 +36,7 @@ const Dashboard = ({ logout }) => {
 
   // get data user
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user + "1232");
 
   let switchText = "switchText";
   let switcher = "";

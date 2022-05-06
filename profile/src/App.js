@@ -60,7 +60,7 @@ function App() {
               path="/users/:id"
               element={<UserDetails />}
             />
-            <Route path="/account" element={<ViewProfile />} />
+            <Route path="/account/:id" element={<ViewProfile />} />
             <Route path="/account/update" element={<Edit />} />
           </>
         )}

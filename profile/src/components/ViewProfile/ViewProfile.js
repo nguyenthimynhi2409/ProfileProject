@@ -8,18 +8,18 @@ import Header from "../Layout/Header/Header";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
-  // const { id } = useParams();
-  // const [user, setUser] = useState([]);
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
-  // const getUsers = async () => {
-  //   const response = await getUserById(id);
-  //   setUser(response.data);
-  // };
+  const { id } = useParams();
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    getUsers();
+  }, []);
+  const getUsers = async () => {
+    const response = await getUserById(id);
+    setUser(response.data);
+  };
 
     // get data user
-    const user = JSON.parse(localStorage.getItem("user"));
+    // const user = JSON.parse(localStorage.getItem("user"));
 
 
   if (user.address === "") {
