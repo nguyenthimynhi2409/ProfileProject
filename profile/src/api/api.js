@@ -26,7 +26,7 @@ export const login = async (email, password) => {
     const data = await checkEmailExist(email);
     if (data.password == password) {
       if(localStorage.getItem("user") === null)
-        localStorage.setItem("user",JSON.stringify(data));
+        localStorage.setItem("user",JSON.stringify(data.id));
       return data;
     }
   } catch (err) {
@@ -66,6 +66,7 @@ export const getUserById = async (id) => {
     return await axios.get(`https://profile-json-server.herokuapp.com/users/${id}`);
   } catch (error) {
     console.log(error);
+    return undefined;
   }
 }
 

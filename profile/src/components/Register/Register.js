@@ -112,8 +112,7 @@ const Register = () => {
         avatar: avatar,
         phone_number: phone,
         address: address,
-        role: role,
-        todo: []
+        role: role
       };
       register(account)
         .then(() => navigate("/"))

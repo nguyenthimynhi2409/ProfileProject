@@ -7,17 +7,19 @@ import "bootstrap/dist/css/bootstrap.css";
 const ViewProfile = (props) => {
   const navigate = useNavigate();
   // const { id } = useParams();
-  // const [user, setUser] = useState([]);
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
-  // const getUsers = async () => {
-  //   const response = await getUserById(id);
-  //   setUser(response.data);
-  // };
 
-  // get data user
-  const user = JSON.parse(localStorage.getItem("user"));
+  // get id user
+  const id = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const response = await getUserById(id);
+    setUser(response.data);
+  };
 
   if (user.address === "") {
     user.address = "-";
