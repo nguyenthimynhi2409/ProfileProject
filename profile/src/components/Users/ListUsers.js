@@ -3,35 +3,47 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllAccount } from "../../api/api";
 import "./ListUsers.css";
-import { deleteUser } from "../../api/api";
+import { deleteUser, searchUserByName } from "../../api/api";
 
 const ListUsers = (props) => {
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
+  const [users, setUsers] = useState([]);
   const { Column, ColumnGroup } = Table;
- 
+  
   useEffect(() => {
     getAllUsers();
   }, []);
   const getAllUsers = async () => {
     const response = await getAllAccount();
     setListUser(response.data);
+    setUsers(response.data);
   };
-  
+
   const onDeleteUser = (id) => {
-    deleteUser(id).then(()=>{
+    deleteUser(id).then(() => {
       window.location.reload();
     });
+  };
 
-  }
+  const onSearchUser = async(value) => {
+    const keyword = value.keyword.toLowerCase();
+    if(keyword == "") setUsers(listUser);
+    const data = listUser.filter(user => user.first_name.toLowerCase().includes(keyword));
+    setUsers(data);
+  };
 
   return (
     <>
       <div className="list-user">
-        <Form className="form-atnd">
+        <Form className="form-atnd" onFinish={onSearchUser}>
           <div className="search-form">
-            <Input placeholder="Search Name" type="text" />
-            <Button>Search</Button>
+            <Form.Item name="keyword">
+              <Input placeholder="Search Name" type="text" />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">
+              Search
+            </Button>
           </div>
           <div>
             <Button
@@ -44,10 +56,10 @@ const ListUsers = (props) => {
             </Button>
           </div>
         </Form>
-        <Table className="table-list" dataSource={listUser}>
-          <Column title="Id" dataIndex="id" key="id"/>
+        <Table className="table-list" dataSource={users}>
+          <Column title="Id" dataIndex="id" key="id" />
           {/* <ColumnGroup title="Name"> */}
-         
+
           <Column title="First Name" dataIndex="first_name" key="first_name" />
           <Column title="Last Name" dataIndex="last_name" key="last_name" />
           {/* </ColumnGroup> */}
@@ -83,7 +95,9 @@ const ListUsers = (props) => {
                 >
                   TodoList
                 </Button>
-                <Button type="danger" onClick={() => onDeleteUser(record.id)}>Delete</Button>
+                <Button type="danger" onClick={() => onDeleteUser(record.id)}>
+                  Delete
+                </Button>
               </Space>
             )}
           />
