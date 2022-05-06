@@ -34,6 +34,7 @@ function App() {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={1}
                 />
               }
             />
@@ -46,6 +47,7 @@ function App() {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={2}
                 />
               }
             />
@@ -57,6 +59,7 @@ function App() {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={6}
                 />
               }
             />
@@ -68,6 +71,7 @@ function App() {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={3}
                 />
               }
             />
@@ -79,6 +83,7 @@ function App() {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={4}
                 />
               }
             />
@@ -90,17 +95,19 @@ function App() {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={5}
                 />
               }
             />
             <Route
-              path="/user/todo/:id"
+              path="/todo/:id"
               element={
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
                     setIsLogin(false);
                   }}
+                  option={7}
                 />
               }
             />

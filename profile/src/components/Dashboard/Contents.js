@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import Edit from "../Edit/Edit";
 import TodoList from "../TodoList/TodoList";
 import CreateUser from "../Users/CreateUser";
@@ -7,39 +6,23 @@ import UserDetails from "../Users/UserDetails";
 import UserTodo from "../Users/UserTodo";
 import ViewProfile from "../ViewProfile/ViewProfile";
 
-const Contents = (props) => {
-  const handleOptionChange = useCallback(
-    (o) => {
-      props.onOptionChange(o);
-    },
-    [props.onOptionChange]
-  );
-
+const Contents = ({ option }) => {
   return (
     <>
-      {props.option == 1 ? (
+      {option == 1 ? (
         <TodoList />
-      ) : props.option == 2 ? (
-        <ListUsers option={props.option} onOptionChange={handleOptionChange} />
-      ) : props.option == 3 ? (
-        <ViewProfile
-          option={props.option}
-          onOptionChange={handleOptionChange}
-        />
-      ) : props.option == 4 ? (
-        <Edit option={props.option} onOptionChange={handleOptionChange} />
-      ) : props.option == 5 ? (
-        <CreateUser option={props.option} onOptionChange={handleOptionChange} />
-      ) : props.option == 6 ? (
-        <UserDetails
-          option={props.option}
-          onOptionChange={handleOptionChange}
-        />
-      ) : props.option == 7 ? (
-        <UserTodo
-          option={props.option}
-          onOptionChange={handleOptionChange}
-        />
+      ) : option == 2 ? (
+        <ListUsers />
+      ) : option == 3 ? (
+        <ViewProfile />
+      ) : option == 4 ? (
+        <Edit />
+      ) : option == 5 ? (
+        <CreateUser />
+      ) : option == 6 ? (
+        <UserDetails />
+      ) : option == 7 ? (
+        <UserTodo />
       ) : (
         <></>
       )}

@@ -112,7 +112,7 @@ const Register = () => {
         avatar: avatar,
         phone_number: phone,
         address: address,
-        role: role
+        role: role,
       };
       register(account)
         .then(() => navigate("/"))
@@ -124,69 +124,12 @@ const Register = () => {
     <div>
       <div className="register">
         <h1>Register</h1>
-        {/* <form className="form" onSubmit={handleSubmitForm}>
-        <div className="name-container">
-          <label>
-            First Name
-            <input
-              type="text"
-              placeholder="First name"
-              required
-              name="first_name"
-            />
-          </label>
-          <label className="last-name">
-            Last Name
-            <input
-              type="text"
-              placeholder="Last name"
-              required
-              name="last_name"
-            />
-          </label>
-        </div>
-
-        <label className="email">
-          Email
-          <input type="text" placeholder="Email" required name="email" />
-        </label>
-        <label>Gender</label>
-        <select name="gender">
-          <option value="">Select...</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-        <label>
-          Age
-          <input type="number" placeholder="Age" required name="age" />
-        </label>
-        <label>
-          Phone number
-          <input type="tel" placeholder="Phone number" required name="phone" />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            name="password"
-          />
-        </label>
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            placeholder="Confirm password"
-            required
-            name="confirm_password"
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form> */}
         <div className="form-register">
-          <Form {...layout} className="nest-messages" onFinish={handleSubmitForm}>
-            {/* firstname */}
+          <Form
+            {...layout}
+            className="nest-messages"
+            onFinish={handleSubmitForm}
+          >
             <Form.Item
               className="name"
               name={"first_name"}
@@ -199,7 +142,6 @@ const Register = () => {
             >
               <Input />
             </Form.Item>
-            {/* last name */}
             <Form.Item
               className="name"
               name={"last_name"}
@@ -212,7 +154,6 @@ const Register = () => {
             >
               <Input />
             </Form.Item>
-            {/* email */}
             <Form.Item
               name={"email"}
               label="Email"
@@ -225,22 +166,16 @@ const Register = () => {
             >
               <Input />
             </Form.Item>
-            {/* select gender */}
             <Form.Item
               name="gender"
               label="Gender"
               rules={[{ required: true }]}
             >
-              <Select
-                placeholder="Select gender"
-                // onChange={this.onGenderChange}
-                allowClear
-              >
+              <Select placeholder="Select gender" allowClear>
                 <Option value="Male">Male</Option>
                 <Option value="Female">Female</Option>
               </Select>
             </Form.Item>
-            {/* age */}
             <Form.Item
               name={"age"}
               label="Age"
@@ -251,11 +186,9 @@ const Register = () => {
                   max: 150,
                 },
               ]}
-              // value={Number(this.value)<1? 1 : this.value}
             >
               <InputNumber />
             </Form.Item>
-            {/* number */}
             <Form.Item
               name={"phone_number"}
               label="Phone number"
@@ -265,7 +198,6 @@ const Register = () => {
             >
               <Input maxLength={12} minLength={9} />
             </Form.Item>
-            {/* password */}
             <Form.Item
               name={"password"}
               label="Password"
@@ -275,7 +207,6 @@ const Register = () => {
             >
               <Input.Password />
             </Form.Item>
-            {/* confirm password */}
             <Form.Item
               name={"confirm_password"}
               label="Confirm Password"
@@ -288,7 +219,6 @@ const Register = () => {
             >
               <Input.Password />
             </Form.Item>
-            {/* submit */}
             <Form.Item
               className="submit"
               wrapperCol={{ ...layout.wrapperCol, offset: 8 }}

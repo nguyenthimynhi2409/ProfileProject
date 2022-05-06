@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { register } from "../../api/api";
 
-const CreateUser = (props) => {
+const CreateUser = () => {
   const navigate = useNavigate();
 
   const create = async (e) => {
@@ -50,11 +50,10 @@ const CreateUser = (props) => {
         avatar: avatar,
         phone_number: phone,
         address: address,
-        role: role
+        role: role,
       };
       register(account)
         .then(() => {
-          props.onOptionchange(2);
           navigate(`/users`);
         })
         .catch(() => toast("Server die"));
