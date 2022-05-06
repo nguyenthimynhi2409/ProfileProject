@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import { login } from "../../api/api";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 const Login = ({ auth }) => {
   const navigate = useNavigate();
@@ -16,15 +16,12 @@ const Login = ({ auth }) => {
     const password = e.target.password.value;
 
     const user = await login(email, password);
-
-    // if (user) auth();
     if (user) {
       auth(user);
       navigate(`/dashboard`);
     } else {
       toast("Please check your email or password");
     }
-    // navigate(`/view/${user.id}`);
   };
 
   return (

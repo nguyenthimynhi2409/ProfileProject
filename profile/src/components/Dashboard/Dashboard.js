@@ -26,7 +26,10 @@ const Dashboard = (props) => {
 
   // get id user
   const id = JSON.parse(localStorage.getItem("user"));
-
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
   useEffect(() => {
     getInforUser();
     setOption(props.option);
