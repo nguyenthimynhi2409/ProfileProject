@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import { Table, Tag, Space, Button, Form, Input } from 'antd';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllAccount } from '../../api/api';
-import "./ListUsers.css";
-
-
-const ListUsers = () => {
-
-=======
 import { Table, Tag, Space, Button, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +5,6 @@ import { getAllAccount } from "../../api/api";
 import "./ListUsers.css";
 
 const ListUsers = (props) => {
->>>>>>> f8b537c85cd9c1ef7a20cf99d76b9e82cb7bda5e
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const { Column, ColumnGroup } = Table;
@@ -29,15 +17,12 @@ const ListUsers = (props) => {
     const response = await getAllAccount();
     setListUser(response.data);
   };
-<<<<<<< HEAD
 
   // const getUsers = async () => {
   //   const response = await getUserById(id);
   // };
 
-=======
   var id;
->>>>>>> f8b537c85cd9c1ef7a20cf99d76b9e82cb7bda5e
   console.log(user);
 
   return (
