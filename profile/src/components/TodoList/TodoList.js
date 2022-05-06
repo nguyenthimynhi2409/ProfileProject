@@ -15,16 +15,21 @@ const TodoList = () => {
     })
 
     useEffect(() => {
-        const config = {
-            params: {
-                _limit: 5
-            }
 
-        }
         // tạo GET request để lấy danh sách todos
-        axios.get(`https://profile-json-server.herokuapp.com/todos`, config)
-            .then(response => setState({ todos: response.data }));
+        axios.get(`https://profile-json-server.herokuapp.com/todos`)
+            .then(response => {
+                response.data.map( current_user =>{
+                    if (current_user.id === 2){
+                        setState({todos: current_user})
+                    }
+                })
+            });
+        // axios.get(`https://server1todo.herokuapp.com/todos/`)
+        //     .then(response => setState({ todos: response.data }));
     }, []);
+
+
 
     const handleCheckboxChange = id => {
         setState({
@@ -50,6 +55,7 @@ const TodoList = () => {
     };
     const addTodo = title => {
         const todoData = {
+            use:id_user,
             title: title,
             completed: false
         }

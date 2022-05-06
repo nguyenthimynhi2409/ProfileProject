@@ -140,7 +140,9 @@ body {
     margin: 0px;
 }
 .todo-container {
-    max-width: 600px;
+    /*max-width: 600px;*/
+    width: 33%;
+    margin-right: 733px;
     border: 1px solid #678c89;
     position: relative;
     left: 468px;

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 class TodoItem extends React.Component {
 	render() {
 		const { completed, id, title } = this.props.todo
+		console.log("dsada",completed)
 		return (
 			<li className="todo-item">
 				<input

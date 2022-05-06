@@ -6,16 +6,16 @@ class Todos extends React.Component {
 		return (
 			<div>
 				<ul>
-					{this.props.todos.map(todo => (
+
 						<TodoItem
-							key={todo.id}
-							todo={todo}
+							key={this.props.todos.id}
+							todo={this.props.todos}
 							handleChange={this.props.handleChange}
 							deleteTodo={this.props.deleteTodo}
 						/>
 
 
-					))}
+
 				</ul>
 			</div>
 		);
