@@ -1,5 +1,5 @@
 .register {
-  min-height: calc(90vh - 102.6px);;
+  min-height: calc(100vh - 102.6px);
 }
 
 .register h1 {
