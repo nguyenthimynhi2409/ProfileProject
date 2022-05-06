@@ -1,5 +1,5 @@
 import "./Edit.css";
-import React, { useContext } from "react";
+import React, { useCallback } from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -12,8 +12,16 @@ import {
   requireUncontainNumber,
 } from "./Validation";
 
-const Edit = () => {
+const Edit = (props) => {
   const navigate = useNavigate();
+
+  const handleOptionChange = useCallback(
+    (o) => {
+      props.onOptionChange(o);
+    },
+    [props.onOptionChange]
+  );
+
   const [user, setUser] = useState({});
   // // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
   // // console.log(auth);
@@ -48,8 +56,6 @@ const Edit = () => {
       "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
   }
 
-  const [, setOption] = useContext(Option);
-
   const edit = (e) => {
     e.preventDefault();
     if (requireValue(user.address)) {
@@ -57,14 +63,13 @@ const Edit = () => {
     // editUser(id, user).then(() => {
     editUser(user.id, user).then(() => {
       // navigate(`/view/${id}`);
-      setOption(3);
+      handleOptionChange(3);
       navigate(`/account`);
     });
   };
 
   return (
     <>
-      
       <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div className="wrapper wrapper--w680">
           <div className="card card-4">
@@ -219,7 +224,7 @@ const Edit = () => {
                     className="btn-edit cancel"
                     // onClick={() => navigate(-1)}
                     onClick={() => {
-                      setOption(3);
+                      handleOptionChange(3);
                       navigate("/account");}}
                   >
                     Cancel

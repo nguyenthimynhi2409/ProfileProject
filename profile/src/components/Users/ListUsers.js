@@ -1,16 +1,15 @@
 import { Table, Tag, Space, Button, Form, Input } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllAccount } from "../../api/api";
 import "./ListUsers.css";
 
-const ListUsers = () => {
+const ListUsers = (props) => {
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const { Column, ColumnGroup } = Table;
   const user = JSON.parse(localStorage.getItem("user"));
-  const [, setOption] = useContext(Option);
-
+  
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -18,7 +17,7 @@ const ListUsers = () => {
     const response = await getAllAccount();
     setListUser(response.data);
   };
-
+  var id;
   console.log(user);
 
   return (
@@ -30,7 +29,10 @@ const ListUsers = () => {
             <Button>Search</Button>
           </div>
           <div>
-            <Button>Create Account</Button>
+            <Button onClick={() => {
+              props.onOptionChange(5);
+              navigate(`/user/new`);
+            }}>Create Account</Button>
           </div>
         </Form>
         <Table className="table-list" dataSource={listUser}>
@@ -61,7 +63,7 @@ const ListUsers = () => {
                 <Button
                   type="dashed"
                   onClick={() => {
-                    setOption(1);
+                    props.onOptionChange(1);
                     navigate(`/dashboard`);
                   }}
                 >

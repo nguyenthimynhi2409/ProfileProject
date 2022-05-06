@@ -251,7 +251,7 @@ const Register = () => {
                   max: 150,
                 },
               ]}
-              value={Number(this.value)<1? 1 : this.value}
+              // value={Number(this.value)<1? 1 : this.value}
             >
               <InputNumber />
             </Form.Item>

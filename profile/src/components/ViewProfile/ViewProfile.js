@@ -1,10 +1,10 @@
 import "./ViewProfile.css";
 import { getUserById } from "../../api/api";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
-const ViewProfile = () => {
+const ViewProfile = (props) => {
   const navigate = useNavigate();
   // const { id } = useParams();
   // const [user, setUser] = useState([]);
@@ -24,8 +24,6 @@ const ViewProfile = () => {
   }
 
   if (user.address === "") user.address = "-";
-
-  const [, setOption] = useContext(Option);
 
   return (
     <>
@@ -61,7 +59,7 @@ const ViewProfile = () => {
           {/* <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button> */}
           <button
             onClick={() => {
-              setOption(4);
+              props.onOptionChange(4);
               navigate(`/account/update`);
             }}
           >
