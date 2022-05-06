@@ -8,7 +8,7 @@ const ViewProfile = () => {
   const navigate = useNavigate();
 
   // get id user
-  const id = JSON.parse(localStorage.getItem("user"));
+  const id = JSON.parse(localStorage.getItem("id"));
   if (id == undefined) {
     localStorage.clear();
     navigate(`/`);

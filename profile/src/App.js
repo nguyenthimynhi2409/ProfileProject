@@ -6,17 +6,16 @@ import React, { useEffect, useState } from "react";
 import NotFound from "./components/NotFound/NotFound";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const login = localStorage.getItem("isLogin");
-    login && JSON.parse(login) ? setIsLogin(true) : setIsLogin(false);
+    const login = localStorage.getItem("user");
+    login && JSON.parse(login) ? setUser(true) : setUser(false);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("isLogin", isLogin);
-  }, [isLogin]);
+    localStorage.setItem("user", user);
+  }, [user]);
 
   return (
     <Router>
@@ -27,14 +26,13 @@ function App() {
           element={
             <Login
               auth={(u) => {
-                setUser(u);
-                setIsLogin(true);
+                setUser(true);
               }}
-              isLogin={isLogin}
+              user={user}
             />
           }
         />
-        {isLogin && (
+        {user && (
           <>
             <Route
               path="/dashboard"
@@ -42,7 +40,7 @@ function App() {
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={1}
                 />
@@ -52,10 +50,9 @@ function App() {
               path="/users"
               element={
                 <Dashboard
-                  user={user}
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={2}
                 />
@@ -67,7 +64,7 @@ function App() {
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={6}
                 />
@@ -79,7 +76,7 @@ function App() {
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={3}
                 />
@@ -91,7 +88,7 @@ function App() {
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={4}
                 />
@@ -103,7 +100,7 @@ function App() {
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={5}
                 />
@@ -115,7 +112,7 @@ function App() {
                 <Dashboard
                   logout={() => {
                     localStorage.clear();
-                    setIsLogin(false);
+                    setUser(false);
                   }}
                   option={7}
                 />

@@ -24,8 +24,8 @@ const Login = (props) => {
   };
 
   useEffect(()=>{
-    if(props.isLogin) navigate(`/dashboard`);
-  },[props.isLogin])
+    if(props.user) navigate(`/dashboard`);
+  },[props.user])
   
   return (
     <div id="container">
