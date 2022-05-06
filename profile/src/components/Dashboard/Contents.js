@@ -3,6 +3,8 @@ import Edit from "../Edit/Edit";
 import TodoList from "../TodoList/TodoList";
 import CreateUser from "../Users/CreateUser";
 import ListUsers from "../Users/ListUsers";
+import UserDetails from "../Users/UserDetails";
+import UserTodo from "../Users/UserTodo";
 import ViewProfile from "../ViewProfile/ViewProfile";
 
 const Contents = (props) => {
@@ -12,7 +14,7 @@ const Contents = (props) => {
     },
     [props.onOptionChange]
   );
-  
+
   return (
     <>
       {props.option == 1 ? (
@@ -28,6 +30,16 @@ const Contents = (props) => {
         <Edit option={props.option} onOptionChange={handleOptionChange} />
       ) : props.option == 5 ? (
         <CreateUser option={props.option} onOptionChange={handleOptionChange} />
+      ) : props.option == 6 ? (
+        <UserDetails
+          option={props.option}
+          onOptionChange={handleOptionChange}
+        />
+      ) : props.option == 7 ? (
+        <UserTodo
+          option={props.option}
+          onOptionChange={handleOptionChange}
+        />
       ) : (
         <></>
       )}
