@@ -3,6 +3,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import React, { useEffect, useState } from "react";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -113,6 +114,7 @@ function App() {
             />
           </>
         )}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

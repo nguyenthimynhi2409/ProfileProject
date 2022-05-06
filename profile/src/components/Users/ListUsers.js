@@ -13,6 +13,10 @@ const ListUsers = () => {
 
   // get id user
   const id = JSON.parse(localStorage.getItem("user"));
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
   var user;
 
   useEffect(() => {

@@ -9,6 +9,11 @@ const ViewProfile = () => {
 
   // get id user
   const id = JSON.parse(localStorage.getItem("user"));
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
+  
   const [user, setUser] = useState([]);
 
   useEffect(() => {
