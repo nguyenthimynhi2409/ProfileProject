@@ -17,14 +17,23 @@ function App() {
   useEffect(() => {
     localStorage.setItem("isLogin", isLogin);
   }, [isLogin]);
-  console.log(user);
+
   return (
     <Router>
       <Routes>
         <Route path="/register" element={<Register />} />
-        {!isLogin && (
-          <Route path="/" element={<Login auth={() => setIsLogin(true)} />} />
-        )}
+        <Route
+          path="/"
+          element={
+            <Login
+              auth={(u) => {
+                setUser(u);
+                setIsLogin(true);
+              }}
+              isLogin={isLogin}
+            />
+          }
+        />
         {isLogin && (
           <>
             <Route
