@@ -113,6 +113,7 @@ const Register = () => {
         phone_number: phone,
         address: address,
         role: role,
+        todo: []
       };
       register(account)
         .then(() => navigate("/"))

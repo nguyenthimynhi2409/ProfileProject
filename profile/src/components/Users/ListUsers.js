@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllAccount } from "../../api/api";
 import "./ListUsers.css";
+import { deleteUser } from "../../api/api";
 
 const ListUsers = (props) => {
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const { Column, ColumnGroup } = Table;
-  const user = JSON.parse(localStorage.getItem("user"));
-  
+ 
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -17,8 +17,13 @@ const ListUsers = (props) => {
     const response = await getAllAccount();
     setListUser(response.data);
   };
-  var id;
-  console.log(user);
+  
+  const onDeleteUser = (id) => {
+    deleteUser(id).then(()=>{
+      window.location.reload();
+    });
+
+  }
 
   return (
     <>
@@ -29,22 +34,23 @@ const ListUsers = (props) => {
             <Button>Search</Button>
           </div>
           <div>
-            <Button onClick={() => {
-              props.onOptionChange(5);
-              navigate(`/user/new`);
-            }}>Create Account</Button>
+            <Button
+              onClick={() => {
+                props.onOptionChange(5);
+                navigate(`/user/new`);
+              }}
+            >
+              Create Account
+            </Button>
           </div>
         </Form>
         <Table className="table-list" dataSource={listUser}>
-          <Column title="Id" dataIndex="id" key="id" />
-          <ColumnGroup title="Name">
-            <Column
-              title="First Name"
-              dataIndex="first_name"
-              key="first_name"
-            />
-            <Column title="Last Name" dataIndex="last_name" key="last_name" />
-          </ColumnGroup>
+          <Column title="Id" dataIndex="id" key="id"/>
+          {/* <ColumnGroup title="Name"> */}
+         
+          <Column title="First Name" dataIndex="first_name" key="first_name" />
+          <Column title="Last Name" dataIndex="last_name" key="last_name" />
+          {/* </ColumnGroup> */}
           <Column title="Age" dataIndex="age" key="age" />
           <Column title="Gender" dataIndex="gender" key="gender" />
           <Column title="Address" dataIndex="address" key="address" />
@@ -57,19 +63,27 @@ const ListUsers = (props) => {
           <Column
             title="Action"
             key="action"
-            render={() => (
+            render={(record) => (
               <Space>
-                <Button type="primary">Edit</Button>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    props.onOptionChange(6);
+                    navigate(`/user/${record.id}`);
+                  }}
+                >
+                  Edit
+                </Button>
                 <Button
                   type="dashed"
                   onClick={() => {
-                    props.onOptionChange(1);
-                    navigate(`/dashboard`);
+                    props.onOptionChange(7);
+                    navigate(`/user/todo/${record.id}`);
                   }}
                 >
-                  Todo List
+                  TodoList
                 </Button>
-                <Button type="danger">Delete</Button>
+                <Button type="danger" onClick={() => onDeleteUser(record.id)}>Delete</Button>
               </Space>
             )}
           />

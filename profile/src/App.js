@@ -3,7 +3,6 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import React, { useEffect, useState } from "react";
-import UserDetails from "./components/Users/UserDetails";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,9 +31,8 @@ function App() {
               element={
                 <Dashboard
                   logout={() => {
-                    setIsLogin(false);
-                    setUser(null);
                     localStorage.clear();
+                    setIsLogin(false);
                   }}
                 />
               }
@@ -45,20 +43,30 @@ function App() {
                 <Dashboard
                   user={user}
                   logout={() => {
-                    setUser(null);
                     localStorage.clear();
+                    setIsLogin(false);
                   }}
                 />
               }
             />
-            <Route path="/user/:id" element={<UserDetails />} />
+            <Route
+              path="/user/:id"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setIsLogin(false);
+                  }}
+                />
+              }
+            />
             <Route
               path="/account"
               element={
                 <Dashboard
                   logout={() => {
-                    setUser(null);
                     localStorage.clear();
+                    setIsLogin(false);
                   }}
                 />
               }
@@ -68,8 +76,8 @@ function App() {
               element={
                 <Dashboard
                   logout={() => {
-                    setUser(null);
                     localStorage.clear();
+                    setIsLogin(false);
                   }}
                 />
               }
@@ -79,8 +87,19 @@ function App() {
               element={
                 <Dashboard
                   logout={() => {
-                    setUser(null);
                     localStorage.clear();
+                    setIsLogin(false);
+                  }}
+                />
+              }
+            />
+            <Route
+              path="/user/todo/:id"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setIsLogin(false);
                   }}
                 />
               }
