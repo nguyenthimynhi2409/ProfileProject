@@ -77,14 +77,6 @@ export const deleteUser = async (id) => {
   }
 }
 
-export const searchUserByName = async (keyword) => {
-  try {
-    return await axios.get(`https://profile-json-server.herokuapp.com/users?keyword=${keyword}`);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export const getAllAccount = async () => {
   return await axios.get(`https://profile-json-server.herokuapp.com/users`);
 };

@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllAccount } from "../../api/api";
 import "./ListUsers.css";
-import { deleteUser, searchUserByName } from "../../api/api";
+import { deleteUser } from "../../api/api";
 
 const ListUsers = (props) => {
   const navigate = useNavigate();
   const [listUser, setListUser] = useState([]);
   const [users, setUsers] = useState([]);
   const { Column, ColumnGroup } = Table;
-  
+  const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -26,10 +26,12 @@ const ListUsers = (props) => {
     });
   };
 
-  const onSearchUser = async(value) => {
+  const onSearchUser = async (value) => {
     const keyword = value.keyword.toLowerCase();
-    if(keyword == "") setUsers(listUser);
-    const data = listUser.filter(user => user.first_name.toLowerCase().includes(keyword));
+    if (keyword == "") setUsers(listUser);
+    const data = listUser.filter((user) =>
+      user.first_name.toLowerCase().includes(keyword)
+    );
     setUsers(data);
   };
 
@@ -83,6 +85,7 @@ const ListUsers = (props) => {
                     props.onOptionChange(6);
                     navigate(`/user/${record.id}`);
                   }}
+                  disabled={user && user.role !== "manager"}
                 >
                   Edit
                 </Button>
@@ -95,7 +98,11 @@ const ListUsers = (props) => {
                 >
                   TodoList
                 </Button>
-                <Button type="danger" onClick={() => onDeleteUser(record.id)}>
+                <Button
+                  type="danger"
+                  onClick={() => onDeleteUser(record.id)}
+                  disabled={user && user.role !== "manager"}
+                >
                   Delete
                 </Button>
               </Space>
