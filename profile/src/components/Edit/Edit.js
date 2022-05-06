@@ -28,7 +28,7 @@ const Edit = (props) => {
   // const { id } = useParams();
 
   // get id user
-  const id = JSON.parse(localStorage.getItem("user")).id;
+  const id = JSON.parse(localStorage.getItem("user"));
   
   useEffect(() => {
     getInforUser();
