@@ -6,14 +6,22 @@ body {
     background-color: #fcfcfc;
     color: #1f1f1f;
 }
-
+li{
+    list-style: none;
+    width: 279px;
+    display: flex;
+    position: relative;
+    left: 326px;
+    width: 1018px;
+    top: 7px;
+}
 .header-container {
     background-color: #678c89;
     color: #fff;
     padding: 10px 15px;
     position: relative;
     left: 360px;
-    width: 40%;
+    width: 57.3%;
     height: 70px;
 }
 
@@ -23,7 +31,7 @@ body {
     margin: 0px;
 }
 .todo-container {
-    display:flex;
+    /*display:flex;*/
     width: 100%;
     /*max-width: 600px;*/
     /*border: 1px solid #678c89;*/
@@ -60,9 +68,11 @@ body {
 }
 
 .form-container {
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
+    width: 77%;
+    position: relative;
+    left: 359px;
+    top: 3px;
+    height: 34px;
 }
 .input-text {
     flex: 8;
@@ -73,7 +83,7 @@ body {
     color: #fff;
     outline: none;
     font-weight: 400;
-    width: 80%;
+    width: 63%;
 }
 
 .input-text::placeholder {
@@ -103,5 +113,9 @@ body {
     width: 80%;
     height: 18px;
     display: inline-block;
+}
+.input-item{
+    width: 23px;
+    position: relative;top: 7px;
 }
 

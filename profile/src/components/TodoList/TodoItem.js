@@ -6,16 +6,16 @@ class TodoItem extends React.Component {
 		return (
 			<>
 				{this.props.todo.map( note => (
-					<li className="todo-item" key={note}>
-						<input
+					<li className="todo-item" key={note.todoId}>
+						<input className="input-item"
 							type="checkbox"
 							checked={note.completed}
-							onChange={() => this.props.handleChange(note.id)}
+							onChange={() => this.props.handleChange(note.todoId)}
 						/>
-						<span className={note.completed ? "completed" : null}>
+						<span  className={note.completed ? "completed" : null}>
                     {note.title}
                 </span>
-						<button className="btn-style" onClick={() => this.props.deleteTodo(note.id)}> X </button>
+						<button className="btn-style" onClick={() => this.props.deleteTodo(note.todoId,this.props.id)}> X </button>
 					</li>
 				))}
 			</>

@@ -5,11 +5,11 @@ class Todos extends React.Component {
 	render() {
 		const {id,todo} = this.props.todos
 		return (
-			<div>
+			<div className="todos">
 				<ul>
 
 						<TodoItem
-							key={id}
+							id={id}
 							todo={todo}
 							handleChange={this.props.handleChange}
 							deleteTodo={this.props.deleteTodo}

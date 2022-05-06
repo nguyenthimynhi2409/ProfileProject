@@ -1,17 +1,18 @@
-import Contents from "../Dashboard/Contents";
 import TodoHeader from "./TodoHeader/TodoHeader";
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import axios  from "axios";
 import Todos from "./Todos";
-import AddTodo from "./AddTodo";
-import "../TodoList/TodoList.css";
-const TodoList = () => {
-    const data = JSON.parse(localStorage.getItem("user"))
 
-    const [state, setState] = useState({
-        todos:data
-    });
+import "../TodoList/TodoList.css";
+import AddTodo from "./AddTodo";
+
+const TodoList = () => {
+    const id_user = JSON.parse(localStorage.getItem("user"))
+
+    const [state,setState] = useState({
+
+    })
 
     const handleCheckboxChange = id => {
         setState({
@@ -21,24 +22,27 @@ const TodoList = () => {
                 }
                 return todo;
             })
+
         });
+
     };
-    const deleteTodo = id => {
-        axios.delete(`https://profile-json-server.herokuapp.com/users/${id}`)
+    const deleteTodo = (todoId,id) => {
+        axios.delete(`https://profile-json-server.herokuapp.com/users/${id}/todo/${todoId}`)
             .then(reponse => setState({
                 todos: [
-                    ...state.todos.filter(todo => {
-                        return todo.id !== id;
+                    ...state.todos.todo.filter(todo => {
+                        return todo.todoId !== todoId;
                     })
                 ]
             }))
     };
-    const addTodo = title => {
+    const addTodo = (title,id) => {
         const todoData = {
+            id:id,
             title: title,
             completed: false
         }
-        axios.post("https://profile-json-server.herokuapp.com/users", todoData)
+        axios.post(`https://profile-json-server.herokuapp.com/users/${id}/todo`, todoData)
             .then(response => {
                 console.log(response.data)
                 setState({
@@ -52,6 +56,7 @@ const TodoList = () => {
         <div className="todo-container">
             <TodoHeader/>
             <AddTodo addTodo={addTodo} />
+
             <Todos todos={state.todos}
                    handleChange={handleCheckboxChange}
                    deleteTodo={deleteTodo} />

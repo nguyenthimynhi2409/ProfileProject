@@ -113,6 +113,7 @@ const Register = () => {
         phone_number: phone,
         address: address,
         role: role,
+        todo: []
       };
       register(account)
         .then(() => navigate("/"))
@@ -185,7 +186,7 @@ const Register = () => {
         <input type="submit" value="Submit" />
       </form> */}
         <div className="form-register">
-          <Form {...layout} name="nest-messages" onFinish={handleSubmitForm}>
+          <Form {...layout} className="nest-messages" onFinish={handleSubmitForm}>
             {/* firstname */}
             <Form.Item
               className="name"

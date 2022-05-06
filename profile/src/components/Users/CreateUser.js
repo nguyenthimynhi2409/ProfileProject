@@ -1,11 +1,65 @@
 import { useNavigate } from "react-router-dom";
+import {
+  validateAge,
+  validateEmail,
+  validateGender,
+  validatePassword,
+  validatePhone,
+} from "../Register/validation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { register } from "../../api/api";
 
 const CreateUser = (props) => {
   const navigate = useNavigate();
 
-  const create = () => {
-    props.onOptionchange(2);
-    navigate(`/users`);
+  const create = async (e) => {
+    e.preventDefault();
+    const first_name = e.target.first_name.value;
+    const last_name = e.target.last_name.value;
+    const email = e.target.email.value;
+    const age = e.target.age.value;
+    const gender = e.target.gender.value;
+    const password = e.target.password.value;
+    const confirm_password = e.target.confirm_password.value;
+    const phone = e.target.phone_number.value;
+    const role = e.target.role.value;
+    let avatar = "";
+    const address = "";
+    if (gender == "Male")
+      avatar =
+        "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
+    if (gender == "Female")
+      avatar =
+        "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
+
+    if (
+      validatePassword(password, confirm_password) &&
+      validateAge(age) &&
+      validateGender(gender) &&
+      (await validateEmail(email)) &&
+      validatePhone(phone)
+    ) {
+      let account = {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        age: age,
+        gender: gender,
+        password: password,
+        avatar: avatar,
+        phone_number: phone,
+        address: address,
+        role: role,
+        todo: [],
+      };
+      register(account)
+        .then(() => {
+          props.onOptionchange(2);
+          navigate(`/users`);
+        })
+        .catch(() => toast("Server die"));
+    }
   };
 
   return (
@@ -72,7 +126,6 @@ const CreateUser = (props) => {
                   <div className="input-group">
                     <label className="label">Email</label>
                     <input
-                      readOnly
                       className="input--style-4"
                       type="email"
                       name="email"
@@ -115,18 +168,33 @@ const CreateUser = (props) => {
                   <div className="select-dropdown"></div>
                 </div>
               </div>
+              <div className="row row-space">
+                <div className="col-6">
+                  <div className="input-group">
+                    <label className="label">Password</label>
+                    <input
+                      required
+                      className="input--style-4"
+                      type="password"
+                      name="password"
+                    />
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div class="input-group">
+                    <label className="label">Confirm Password</label>
+                    <input
+                      required
+                      className="input--style-4"
+                      type="password"
+                      name="confirm_password"
+                    />
+                  </div>
+                </div>
+              </div>
               <div className="p-t-15">
                 <button className="btn-edit" type="submit">
-                  Update
-                </button>
-                <button
-                  className="btn-edit cancel"
-                  onClick={() => {
-                    props.handleOptionChange(3);
-                    navigate("/account");
-                  }}
-                >
-                  Cancel
+                  Create
                 </button>
               </div>
             </form>

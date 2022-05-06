@@ -25,9 +25,15 @@ const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
   // const { SubMenu } = Menu;
   const navigate = useNavigate();
+  useEffect(() => {
+    const o = localStorage.getItem("option");
+    o && JSON.parse(o) ? setOption(options) : setOption(1);
+  }, []);
+
   const options = JSON.parse(localStorage.getItem("option"));
 
   // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; option5 == create user
+  // option 6 == user details ; option7 == todolist of user
   const [option, setOption] = useState(options);
 
   // get data user
@@ -36,7 +42,6 @@ const Dashboard = ({ logout }) => {
   useEffect(() => {
     localStorage.setItem("option", option);
   }, [option]);
-
 
   let switchText = "switchText";
   let switcher = "";
@@ -193,7 +198,7 @@ const Dashboard = ({ logout }) => {
                   className="logout"
                   onClick={() => {
                     logout();
-                    navigate("/");
+                    navigate(`/`);
                   }}
                 >
                   <span>Logout</span>
