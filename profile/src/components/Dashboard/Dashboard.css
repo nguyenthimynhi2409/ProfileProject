@@ -1,6 +1,5 @@
 .layout {
-  height: 100vh;
-
+  min-height: 100vh;
 }
 .trigger {
   padding: 0 20px;
@@ -46,6 +45,14 @@ ul {
   text-align: center;
   font-size: 16px;
   padding-left: 10px;
+}
+
+.right-side {
+  width: 100%;
+}
+
+.site-layout{
+  min-height: calc(100vh - 70px);
 }
 
 .site-layout .site-layout-background {

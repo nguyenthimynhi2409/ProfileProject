@@ -182,63 +182,64 @@ const Dashboard = ({ logout }) => {
           </div>
         </div>
       </Sider>
-
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {collapsed ? (
-            <MenuUnfoldOutlined className="trigger" onClick={toggle} />
-          ) : (
-            <MenuFoldOutlined className="trigger" onClick={toggle} />
-          )}
-          <div className="account">
-            <h2>
-              Hi, {user && user.first_name} {user && user.last_name}
-            </h2>
-            <div className="ava">
-              <div className="ava-img">
-                <img
-                  // onClick={() => navigate(`/view/${id}`)}
-                  onClick={() => {
-                    setOption(3);
-                    navigate(`/account`, { option: 4 });
-                  }}
-                  src={user && user.avatar}
-                />
-                <button
-                  className="logout"
-                  onClick={() => {
-                    logout();
-                    navigate(`/`);
-                  }}
-                >
-                  <span>Logout</span>
-                </button>
+      <div className="right-side">
+        <Layout className="site-layout">
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            {collapsed ? (
+              <MenuUnfoldOutlined className="trigger" onClick={toggle} />
+            ) : (
+              <MenuFoldOutlined className="trigger" onClick={toggle} />
+            )}
+            <div className="account">
+              <h2>
+                Hi, {user && user.first_name} {user && user.last_name}
+              </h2>
+              <div className="ava">
+                <div className="ava-img">
+                  <img
+                    // onClick={() => navigate(`/view/${id}`)}
+                    onClick={() => {
+                      setOption(3);
+                      navigate(`/account`, { option: 4 });
+                    }}
+                    src={user && user.avatar}
+                  />
+                  <button
+                    className="logout"
+                    onClick={() => {
+                      logout();
+                      navigate(`/`);
+                    }}
+                  >
+                    <span>Logout</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Header>
-        {/* <TodoList /> */}
+          </Header>
+          {/* <TodoList /> */}
 
-        <Content
-          className="site-layout-background"
-          style={{
-            // margin: "24px 16px",
-            padding: "20px",
-            backgroundColor: "#FAFAFA",
-            minHeight: 280,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {/* <Contents option={option} /> */}
-          <Contents option={option} onOptionChange={setOption} />
-        </Content>
+          <Content
+            className="site-layout-background"
+            style={{
+              // margin: "24px 16px",
+              padding: "20px",
+              backgroundColor: "#FAFAFA",
+              minHeight: 280,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {/* <Contents option={option} /> */}
+            <Contents option={option} onOptionChange={setOption} />
+          </Content>
+        </Layout>
         <Footer className="ft">
           <div className="copyright">
             <p>Copyright &copy; 2022</p>
           </div>
         </Footer>
-      </Layout>
+      </div>
     </Layout>
   );
 };
