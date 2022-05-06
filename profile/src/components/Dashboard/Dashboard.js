@@ -18,20 +18,26 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
-import "../TodoList/TodoHeader/TodoHeader.css"
+import "../TodoList/TodoHeader/TodoHeader.css";
 import TodoList from "../TodoList/TodoList";
 import { Footer } from "antd/lib/layout/layout";
 
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
-  const { SubMenu } = Menu;
+  // const { SubMenu } = Menu;
   const navigate = useNavigate();
+  const options = JSON.parse(localStorage.getItem("option"));
 
-  // option 1 == todoList ; option 2 == list users; option 3 == view account
-  const [option, setOption] = useState(1);
+  // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; option5 == create user
+  const [option, setOption] = useState(options);
 
   // get data user
   const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    localStorage.setItem("option", option);
+  }, [option]);
+
 
   let switchText = "switchText";
   let switcher = "";
@@ -67,7 +73,7 @@ const Dashboard = ({ logout }) => {
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
-
+  console.log(option);
   return (
     <Layout className="layout">
       <Sider collapsed={collapsed} theme={theme}>
@@ -87,7 +93,11 @@ const Dashboard = ({ logout }) => {
               <span>TodoList</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => setOption(2)} disabled={user && user.role === "user"}>
+          <Menu.Item
+            key="2"
+            onClick={() => setOption(2)}
+            disabled={user && user.role === "user"}
+          >
             <Link to="/users" style={{ textDecoration: "none" }}>
               <UserOutlined />
               <span>Users</span>
@@ -176,7 +186,7 @@ const Dashboard = ({ logout }) => {
                   // onClick={() => navigate(`/view/${id}`)}
                   onClick={() => {
                     setOption(3);
-                    navigate(`/account`);
+                    navigate(`/account`, { option: 4 });
                   }}
                   src={user && user.avatar}
                 />
@@ -193,17 +203,21 @@ const Dashboard = ({ logout }) => {
             </div>
           </div>
         </Header>
-        <TodoList/>
+        {/* <TodoList /> */}
 
         <Content
           className="site-layout-background"
           style={{
-            margin: "24px 16px",
-            padding: 24,
+            // margin: "24px 16px",
+            padding: "20px",
+            backgroundColor: "#FAFAFA",
             minHeight: 280,
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          <Contents option={option} />
+          {/* <Contents option={option} /> */}
+          <Contents option={option} onOptionChange={setOption} />
         </Content>
         <Footer className="ft">
           <div className="copyright">

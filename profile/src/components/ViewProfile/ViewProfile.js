@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
-const ViewProfile = () => {
+const ViewProfile = (props) => {
   const navigate = useNavigate();
   // const { id } = useParams();
   // const [user, setUser] = useState([]);
@@ -16,9 +16,8 @@ const ViewProfile = () => {
   //   setUser(response.data);
   // };
 
-    // get data user
-    const user = JSON.parse(localStorage.getItem("user"));
-
+  // get data user
+  const user = JSON.parse(localStorage.getItem("user"));
 
   if (user.address === "") {
     user.address = "-";
@@ -58,7 +57,14 @@ const ViewProfile = () => {
         </main>
         <div className="btn-edit">
           {/* <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button> */}
-          <button onClick={() => navigate(`/account/update`)}>Edit</button>
+          <button
+            onClick={() => {
+              props.onOptionChange(4);
+              navigate(`/account/update`);
+            }}
+          >
+            Edit
+          </button>
         </div>
       </div>
     </>
