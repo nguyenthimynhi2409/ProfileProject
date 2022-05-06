@@ -25,7 +25,7 @@ const Dashboard = (props) => {
   const [option, setOption] = useState(1);
 
   // get id user
-  const id = JSON.parse(localStorage.getItem("user"));
+  const id = JSON.parse(localStorage.getItem("id"));
   if (id == undefined) {
     localStorage.clear();
     navigate(`/`);

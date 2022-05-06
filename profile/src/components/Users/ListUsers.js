@@ -10,14 +10,13 @@ const ListUsers = () => {
   const [listUser, setListUser] = useState([]);
   const [users, setUsers] = useState([]);
   const { Column, ColumnGroup } = Table;
-
+  const [user, setUser] = useState([]);
   // get id user
-  const id = JSON.parse(localStorage.getItem("user"));
+  const id = JSON.parse(localStorage.getItem("id"));
   if (id == undefined) {
     localStorage.clear();
     navigate(`/`);
   }
-  var user;
 
   useEffect(() => {
     getAllUsers();
@@ -26,7 +25,7 @@ const ListUsers = () => {
 
   const getInforUser = async () => {
     const response = await getUserById(id);
-    user = response.data;
+    setUser(response.data);
   };
 
   const getAllUsers = async () => {
