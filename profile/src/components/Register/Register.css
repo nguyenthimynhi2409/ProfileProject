@@ -1,3 +1,7 @@
+.register {
+  min-height: calc(90vh - 102.6px);;
+}
+
 .register h1 {
   padding: 20px 0;
   text-align: center;

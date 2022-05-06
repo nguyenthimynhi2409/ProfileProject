@@ -2,42 +2,37 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Edit from "./components/Edit/Edit";
-import ViewProfile from "./components/ViewProfile/ViewProfile";
 import React, { useEffect, useState } from "react";
 import UserDetails from "./components/Users/UserDetails";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
-    const u = localStorage.getItem("user");
-    u && JSON.parse(u) ? setUser(user) : setUser(null);
+    const login = localStorage.getItem("isLogin");
+    login && JSON.parse(login) ? setIsLogin(true) : setIsLogin(false);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
-  
+    localStorage.setItem("isLogin", isLogin);
+  }, [isLogin]);
   console.log(user);
   return (
     <Router>
       <Routes>
         <Route path="/register" element={<Register />} />
-        {user == undefined && (
-          <Route
-            path="/"
-            element={<Login auth={(userData) => setUser(userData)} />}
-          />
+        {!isLogin && (
+          <Route path="/" element={<Login auth={() => setIsLogin(true)} />} />
         )}
-        {user && (
+        {isLogin && (
           <>
             <Route
               path="/dashboard"
               element={
                 <Dashboard
                   logout={() => {
+                    setIsLogin(false);
                     setUser(null);
                     localStorage.clear();
                   }}
@@ -48,7 +43,19 @@ function App() {
               path="/users"
               element={
                 <Dashboard
-                  user = {user}
+                  user={user}
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
+            />
+            <Route path="/user/:id" element={<UserDetails />} />
+            <Route
+              path="/account"
+              element={
+                <Dashboard
                   logout={() => {
                     setUser(null);
                     localStorage.clear();
@@ -57,11 +64,27 @@ function App() {
               }
             />
             <Route
-              path="/users/:id"
-              element={<UserDetails />}
+              path="/account/update"
+              element={
+                <Dashboard
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
             />
-            <Route path="/account/:id" element={<ViewProfile />} />
-            <Route path="/account/update" element={<Edit />} />
+            <Route
+              path="/user/new"
+              element={
+                <Dashboard
+                  logout={() => {
+                    setUser(null);
+                    localStorage.clear();
+                  }}
+                />
+              }
+            />
           </>
         )}
       </Routes>

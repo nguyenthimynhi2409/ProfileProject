@@ -14,42 +14,36 @@ import {
   RadarChartOutlined,
 } from "@ant-design/icons";
 import "./Dashboard.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { getUserById } from "../../api/api";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
-import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
-import "../TodoList/TodoHeader/TodoHeader.css"
+import "../TodoList/TodoHeader/TodoHeader.css";
 import TodoList from "../TodoList/TodoList";
 import { Footer } from "antd/lib/layout/layout";
 
 const Dashboard = ({ logout }) => {
   const { Header, Sider, Content } = Layout;
-  const { SubMenu } = Menu;
+  // const { SubMenu } = Menu;
   const navigate = useNavigate();
-  // const [user, setUser] = useState({});
+  const options = JSON.parse(localStorage.getItem("option"));
 
-  // option 1 == todoList ; option 2 == list users
-  const [option, setOption] = useState(1);
+  // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; option5 == create user
+  const [option, setOption] = useState(options);
 
   // get data user
   const user = JSON.parse(localStorage.getItem("user"));
   console.log(user + "1232");
 
+  useEffect(() => {
+    localStorage.setItem("option", option);
+  }, [option]);
+
+
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
-  let charts = "";
-
-  // useEffect(async () => {
-  //   try {
-  //     const { data } = await getUserById(user.id);
-  //   } catch (err) {
-  //     toast("server die");
-  //   }
-  // }, []);
+  // let charts = "";
 
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -71,16 +65,16 @@ const Dashboard = ({ logout }) => {
 
   if (theme == "dark") {
     switchText += " dark";
-    charts = "charts dark";
+    // charts = "charts dark";
   } else {
     switchText -= " dark";
-    charts = "light charts";
+    // charts = "light charts";
   }
-  console.log(charts);
+
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
-
+  console.log(option);
   return (
     <Layout className="layout">
       <Sider collapsed={collapsed} theme={theme}>
@@ -100,13 +94,17 @@ const Dashboard = ({ logout }) => {
               <span>TodoList</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => setOption(2)} disabled={user && user.role === "user"}>
+          <Menu.Item
+            key="2"
+            onClick={() => setOption(2)}
+            disabled={user && user.role === "user"}
+          >
             <Link to="/users" style={{ textDecoration: "none" }}>
               <UserOutlined />
               <span>Users</span>
             </Link>
           </Menu.Item>
-          <SubMenu
+          {/* <SubMenu
             key="sub1"
             mode="inline"
             theme={theme}
@@ -157,7 +155,7 @@ const Dashboard = ({ logout }) => {
                 </Link>
               </Menu.Item>
             </SubMenu>
-          </SubMenu>
+          </SubMenu> */}
         </Menu>
         <div className="switch-theme">
           <span className={switchText}>Switch theme</span>
@@ -187,7 +185,10 @@ const Dashboard = ({ logout }) => {
               <div className="ava-img">
                 <img
                   // onClick={() => navigate(`/view/${id}`)}
-                  onClick={() => navigate(`/account`)}
+                  onClick={() => {
+                    setOption(3);
+                    navigate(`/account`, { option: 4 });
+                  }}
                   src={user && user.avatar}
                 />
                 <button
@@ -203,17 +204,21 @@ const Dashboard = ({ logout }) => {
             </div>
           </div>
         </Header>
-        <TodoList/>
+        {/* <TodoList /> */}
 
         <Content
           className="site-layout-background"
           style={{
-            margin: "24px 16px",
-            padding: 24,
+            // margin: "24px 16px",
+            padding: "20px",
+            backgroundColor: "#FAFAFA",
             minHeight: 280,
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          <Contents option={option} />
+          {/* <Contents option={option} /> */}
+          <Contents option={option} onOptionChange={setOption} />
         </Content>
         <Footer className="ft">
           <div className="copyright">

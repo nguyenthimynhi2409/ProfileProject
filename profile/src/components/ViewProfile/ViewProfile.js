@@ -2,11 +2,9 @@ import "./ViewProfile.css";
 import { getUserById } from "../../api/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../Layout/Footer/Footer";
 import "bootstrap/dist/css/bootstrap.css";
-import Header from "../Layout/Header/Header";
 
-const ViewProfile = () => {
+const ViewProfile = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [user, setUser] = useState([]);
@@ -18,9 +16,8 @@ const ViewProfile = () => {
     setUser(response.data);
   };
 
-    // get data user
-    // const user = JSON.parse(localStorage.getItem("user"));
-
+  // get data user
+  // const user = JSON.parse(localStorage.getItem("user"));
 
   if (user.address === "") {
     user.address = "-";
@@ -30,11 +27,6 @@ const ViewProfile = () => {
 
   return (
     <>
-      <Header user={user} />
-      <div className="return">
-      {/* <button onClick={() => navigate(`/dashboard/${id}`)}>Return</button> */}
-      <button onClick={() => navigate(`/dashboard`)}>Return</button>
-      </div>
       <div className="profile">
         <figure>
           <img src={user.avatar} alt="" />
@@ -65,10 +57,16 @@ const ViewProfile = () => {
         </main>
         <div className="btn-edit">
           {/* <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button> */}
-          <button onClick={() => navigate(`/account/update`)}>Edit</button>
+          <button
+            onClick={() => {
+              props.onOptionChange(4);
+              navigate(`/account/update`);
+            }}
+          >
+            Edit
+          </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

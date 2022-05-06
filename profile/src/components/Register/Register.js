@@ -19,6 +19,7 @@ import "antd/dist/antd.css";
 import { Footer } from "antd/lib/layout/layout";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 const Register = () => {
   toast.configure();
@@ -84,9 +85,9 @@ const Register = () => {
     const password = value.password;
     const confirm_password = value.confirm_password;
     const phone = value.phone_number;
+    const role = "user";
     let avatar = "";
     const address = "";
-    console.log(validatePhone(phone));
     if (gender == "Male")
       avatar =
         "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
@@ -111,6 +112,7 @@ const Register = () => {
         avatar: avatar,
         phone_number: phone,
         address: address,
+        role: role,
       };
       register(account)
         .then(() => navigate("/"))
@@ -119,9 +121,10 @@ const Register = () => {
   };
   const { Option } = Select;
   return (
-    <div className="register">
-      <h1>Register</h1>
-      {/* <form className="form" onSubmit={handleSubmitForm}>
+    <div>
+      <div className="register">
+        <h1>Register</h1>
+        {/* <form className="form" onSubmit={handleSubmitForm}>
         <div className="name-container">
           <label>
             First Name
@@ -181,114 +184,122 @@ const Register = () => {
         </label>
         <input type="submit" value="Submit" />
       </form> */}
-      <div className="form-register">
-        <Form {...layout} name="nest-messages" onFinish={handleSubmitForm}>
-          {/* firstname */}
-          <Form.Item
-            className="name"
-            name={"first_name"}
-            label="First Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* last name */}
-          <Form.Item
-            className="name"
-            name={"last_name"}
-            label="Last Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* email */}
-          <Form.Item
-            name={"email"}
-            label="Email"
-            rules={[
-              {
-                type: "email",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* select gender */}
-          <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-            <Select
-              placeholder="Select gender"
-              // onChange={this.onGenderChange}
-              allowClear
+        <div className="form-register">
+          <Form {...layout} name="nest-messages" onFinish={handleSubmitForm}>
+            {/* firstname */}
+            <Form.Item
+              className="name"
+              name={"first_name"}
+              label="First Name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
             >
-              <Option value="Male">Male</Option>
-              <Option value="Female">Female</Option>
-            </Select>
-          </Form.Item>
-          {/* age */}
-          <Form.Item
-            name={"age"}
-            label="Age"
-            rules={[
-              {
-                type: "number",
-                min: 1,
-                max: 150,
-              },
-            ]}
-          >
-            <InputNumber />
-          </Form.Item>
-          {/* number */}
-          <Form.Item
-            name={"phone_number"}
-            label="Phone number"
-            rules={[
-              { required: true, message: "Please input your phone number!" },
-            ]}
-          >
-            <Input maxLength={12} minLength={9} />
-          </Form.Item>
-          {/* password */}
-          <Form.Item
-            name={"password"}
-            label="Password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password />
-          </Form.Item>
-          {/* confirm password */}
-          <Form.Item
-            name={"confirm_password"}
-            label="Confirm Password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your confirm password!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          {/* submit */}
-          <Form.Item
-            className="submit"
-            wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+              <Input />
+            </Form.Item>
+            {/* last name */}
+            <Form.Item
+              className="name"
+              name={"last_name"}
+              label="Last Name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            {/* email */}
+            <Form.Item
+              name={"email"}
+              label="Email"
+              rules={[
+                {
+                  type: "email",
+                  required: true,
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            {/* select gender */}
+            <Form.Item
+              name="gender"
+              label="Gender"
+              rules={[{ required: true }]}
+            >
+              <Select
+                placeholder="Select gender"
+                // onChange={this.onGenderChange}
+                allowClear
+              >
+                <Option value="Male">Male</Option>
+                <Option value="Female">Female</Option>
+              </Select>
+            </Form.Item>
+            {/* age */}
+            <Form.Item
+              name={"age"}
+              label="Age"
+              rules={[
+                {
+                  type: "number",
+                  min: 1,
+                  max: 150,
+                },
+              ]}
+              // value={Number(this.value)<1? 1 : this.value}
+            >
+              <InputNumber />
+            </Form.Item>
+            {/* number */}
+            <Form.Item
+              name={"phone_number"}
+              label="Phone number"
+              rules={[
+                { required: true, message: "Please input your phone number!" },
+              ]}
+            >
+              <Input maxLength={12} minLength={9} />
+            </Form.Item>
+            {/* password */}
+            <Form.Item
+              name={"password"}
+              label="Password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+            {/* confirm password */}
+            <Form.Item
+              name={"confirm_password"}
+              label="Confirm Password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your confirm password!",
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+            {/* submit */}
+            <Form.Item
+              className="submit"
+              wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
+            >
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
-
       <Footer>
         <div className="copyright">
           <div className="media">
