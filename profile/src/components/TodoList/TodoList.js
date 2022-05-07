@@ -1,87 +1,65 @@
 import TodoHeader from "./TodoHeader/TodoHeader";
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import axios  from "axios";
-import Todos from "./Todos";
-
+import React, { useEffect, useState } from "react";
 import "../TodoList/TodoList.css";
 import AddTodo from "./AddTodo";
+import { getTodoById, postTodo, updateTodo, deleteTodo, getTodoByIdUser } from "../../api/api";
+import TodoItem from "./TodoItem";
 
 const TodoList = () => {
-    const id_user = JSON.parse(localStorage.getItem("user"))
+  const id_user = JSON.parse(localStorage.getItem("id"));
 
-    const [state,setState] = useState({
-        todos:[]
-    })
+  const [todos, setTodos] = useState();
 
-    useEffect(() => {
+  useEffect(() => {
+    getTodos();
+  }, []);
 
-        // tạo GET request để lấy danh sách todos
-        axios.get(`https://profile-json-server.herokuapp.com/todos`)
-            .then(response => {
-                response.data.map( current_user =>{
-                    if (current_user.id === 2){
-                        setState({todos: current_user})
-                    }
-                })
-            });
-        // axios.get(`https://server1todo.herokuapp.com/todos/`)
-        //     .then(response => setState({ todos: response.data }));
-    }, []);
-
-
-
-    const handleCheckboxChange = id => {
-        setState({
-            todos: state.todos.map(todo => {
-                if (todo.id === id) {
-                    todo.completed = !todo.completed;
-                }
-                return todo;
-            })
-
-        });
-
+  const getTodos = async () => {
+    const data = await getTodoByIdUser(id_user);
+    setTodos(data);
+  };
+  const handleCheckboxChange = async (id) => {
+    const todo = await getTodoById(id);
+    const completed = todo.completed;
+    const user = todo.user;
+    const title = todo.title;
+    const data = {
+      user: user,
+      title: title,
+      completed: !completed,
     };
-    const deleteTodo = id => {
-        axios.delete(`https://profile-json-server.herokuapp.com/todos/$id`)
-            .then(reponse => setState({
-                todos: [
-                    ...state.todos.filter(todo => {
-                        return todo.id !== id;
-                    })
-                ]
-            }))
+    await updateTodo(id, data);
+    getTodos();
+  };
+
+  const deleteTodos = async (id) => {
+    await deleteTodo(id);
+    getTodos();
+  };
+  const addTodo = async (title) => {
+    const todoData = {
+      user: id_user,
+      title: title,
+      completed: false,
     };
-    const addTodo = title => {
-        const todoData = {
-            use:id_user,
-            title: title,
-            completed: false
-        }
-        axios.post("https://server1todo.herokuapp.com/todos", todoData)
-            .then(response => {
-                console.log(response.data)
-                setState({
-                    todos: [...state.todos, response.data]
-                })
-            });
-    };
-    console.log(state.todos)
-    return (
-
-        <div className="todo-container">
-            <TodoHeader/>
-            <AddTodo addTodo={addTodo} />
-
-            <Todos todos={state.todos}
-                   handleChange={handleCheckboxChange}
-                   deleteTodo={deleteTodo} />
-
-
-        </div>
-
-    );
-}
+    await postTodo(todoData);
+    getTodos();
+  };
+  return (
+    <div className="todo-container">
+      <TodoHeader />
+      <AddTodo addTodo={addTodo} />
+      {todos &&
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            handleChange={handleCheckboxChange}
+            deleteTodo={deleteTodos}
+          />
+        ))}
+    </div>
+  );
+};
 
 export default TodoList;
