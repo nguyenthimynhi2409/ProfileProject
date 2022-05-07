@@ -20,7 +20,8 @@ const Dashboard = (props) => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
-  // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; option5 == create user
+  // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; 
+  // option5 == create user ; option 6 == userDetails ; option 7 == userTodo
   const [option, setOption] = useState(1);
 
   // get id user
