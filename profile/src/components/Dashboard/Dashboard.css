@@ -132,8 +132,12 @@ ul {
   justify-content: center;
 }
 
-a {
+.menu-sidebar  a {
   display: flex;
+}
+
+.anticon-user, .anticon-unordered-list {
+  display: none;
 }
 
 .switch-theme {
