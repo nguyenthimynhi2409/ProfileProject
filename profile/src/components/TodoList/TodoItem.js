@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
-const TodoItem = () => {
-  const { completed, todoId, title } = this.props.todos;
-  console.log("dsada", completed);
+const TodoItem = (props) => {
+  const { completed, id, title } = props.todo;
   return (
     <li className="todo-item">
-      <input
-        type="checkbox"
-        checked={completed}
-        onChange={() => this.props.handleChange(id)}
-      />
-      <span className={completed ? "completed" : null}>{title}</span>
-      <button className="btn-style" onClick={() => this.props.deleteTodo(id)}>
+      <div className="todo">
+        <span className={completed ? "completed" : null}>{title}</span>
+        <input
+          type="checkbox"
+          checked={completed}
+          onChange={() => props.handleChange(id)}
+        />
+      </div>
+      <button className="btn-style" onClick={() => props.deleteTodo(id)}>
         {" "}
         X{" "}
       </button>

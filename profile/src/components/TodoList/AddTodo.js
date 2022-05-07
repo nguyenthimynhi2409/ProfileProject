@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import React from "react";
 import PropTypes from "prop-types";
 
-const AddTodo = () => {
+const AddTodo = (props) => {
   const [title, setTitle] = useState("");
 
   const onInputChange = (e) => {
