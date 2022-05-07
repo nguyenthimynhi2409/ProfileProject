@@ -112,7 +112,7 @@ export const postTodo = async (data) => {
         "Content-Type": "application/json",
       },
     };
-    await axios.post(
+    return await axios.post(
       `https://profile-json-server.herokuapp.com/todos`,
       data,
       config
@@ -147,7 +147,7 @@ export const updateTodo = async (id, data) => {
         "Content-Type": "application/json",
       },
     };
-    await axios.put(
+    return await axios.put(
       `https://profile-json-server.herokuapp.com/todos/${id}`,
       data,
       config
@@ -159,7 +159,7 @@ export const updateTodo = async (id, data) => {
 
 export const deleteTodo = async (id) => {
   try {
-    await axios.delete(`https://profile-json-server.herokuapp.com/todos/${id}`);
+    return await axios.delete(`https://profile-json-server.herokuapp.com/todos/${id}`);
   } catch (error) {
     console.log(error);
   }
