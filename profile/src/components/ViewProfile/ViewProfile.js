@@ -25,10 +25,6 @@ const ViewProfile = () => {
     setUser(response.data);
   };
 
-  if (user.address === "") {
-    user.address = "-";
-  }
-
   if (user.address === "") user.address = "-";
 
   return (
