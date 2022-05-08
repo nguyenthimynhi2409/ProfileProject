@@ -52,16 +52,16 @@ const CreateUser = () => {
         address: address,
         role: role,
       };
-      register(account)
-        .then(() => {
-          navigate(`/users`);
-        })
-        .catch(() => toast("Server die"));
+      try {
+        await register(account);
+        navigate(`/users`);
+      } catch (err) {
+        toast("Server die");
+      }
     }
   };
 
   return (
-
     <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
       <div className="wrapper wrapper--w680">
         <div className="card card-4">

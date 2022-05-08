@@ -98,7 +98,6 @@ export const getAllTodo = async () => {
     const { data } = await axios.get(
       `https://profile-json-server.herokuapp.com/todos`
     );
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -112,11 +111,12 @@ export const postTodo = async (data) => {
         "Content-Type": "application/json",
       },
     };
-    return await axios.post(
+    const res= await axios.post(
       `https://profile-json-server.herokuapp.com/todos`,
       data,
       config
     );
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -173,7 +173,6 @@ export const getTodoByIdUser = async(idUser) => {
     todos.map((todo) => {
       if(todo.user == idUser) result.push(todo);
     })
-    console.log(result);
     return result;
   } catch (error) {
     console.log(error);
