@@ -8,7 +8,7 @@ import TodoItem from "../TodoList/TodoItem";
 const UserTodo = (props) => {
   const { id } = useParams();
 
-  const [todos, setTodos] = useState();
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
     getTodos();
@@ -18,33 +18,32 @@ const UserTodo = (props) => {
     const data = await getTodoByIdUser(id);
     setTodos(data);
   };
+
   const handleCheckboxChange = async (id) => {
-    const todo = await getTodoById(id);
-    const completed = todo.completed;
-    const user = todo.user;
-    const title = todo.title;
-    const data = {
-      user: user,
-      title: title,
-      completed: !completed,
-    };
-    await updateTodo(id, data);
-    getTodos();
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id == id) todo.completed = !todo.completed;
+        return todo;
+      })
+    );
+    await updateTodo(id, todos);
   };
 
   const deleteTodos = async (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
     await deleteTodo(id);
-    getTodos();
   };
+
   const addTodo = async (title) => {
     const todoData = {
       user: id,
       title: title,
       completed: false,
     };
-    await postTodo(todoData);
-    getTodos();
+    const res = await postTodo(todoData);
+    setTodos([...todos, { ...res }]);
   };
+
   return (
     <div className="todo-container">
       <TodoHeader />

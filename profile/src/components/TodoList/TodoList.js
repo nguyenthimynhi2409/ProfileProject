@@ -14,7 +14,6 @@ const TodoList = () => {
   const id_user = JSON.parse(localStorage.getItem("id"));
 
   const [todos, setTodos] = useState([]);
-  var todoList = todos;
 
   useEffect(() => {
     getTodos();

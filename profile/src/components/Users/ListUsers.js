@@ -1,7 +1,7 @@
 import { Table, Space, Button, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllAccount, getUserById } from "../../api/api";
+import { deleteTodo, getAllAccount, getUserById } from "../../api/api";
 import "./ListUsers.css";
 import { deleteUser } from "../../api/api";
 
@@ -10,7 +10,7 @@ const ListUsers = () => {
   const [listUser, setListUser] = useState([]);
   const [users, setUsers] = useState([]);
   const { Column, ColumnGroup } = Table;
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState();
   // get id user
   const id = JSON.parse(localStorage.getItem("id"));
   if (id == undefined) {
@@ -22,12 +22,11 @@ const ListUsers = () => {
     getAllUsers();
     getInforUser();
   }, []);
-
+  
   const getInforUser = async () => {
     const response = await getUserById(id);
     setUser(response.data);
   };
-
   const getAllUsers = async () => {
     const response = await getAllAccount();
     setListUser(response.data);
@@ -35,9 +34,9 @@ const ListUsers = () => {
   };
 
   const onDeleteUser = (id) => {
-    deleteUser(id).then(() => {
-      window.location.reload();
-    });
+    setListUser(listUser.filter((u) => u.id !== id));
+    deleteUser(id);
+    deleteTodo(id);
   };
 
   const onSearchUser = async (value) => {
