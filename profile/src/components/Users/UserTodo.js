@@ -27,6 +27,7 @@ const UserTodo = (props) => {
       })
     );
     await updateTodo(id, todos);
+
   };
 
   const deleteTodos = async (id) => {
