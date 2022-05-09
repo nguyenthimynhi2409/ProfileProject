@@ -9,6 +9,7 @@ import {
   requireValue,
   requireUncontainNumber,
 } from "./Validation";
+import { Button } from "antd";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Edit = () => {
     localStorage.clear();
     navigate(`/`);
   }
-  
+
   useEffect(() => {
     getInforUser();
   }, []);
@@ -59,7 +60,7 @@ const Edit = () => {
           <div className="card card-4">
             <div className="card-body">
               <h2 className="title">My Account</h2>
-              <form onSubmit={edit}>
+              <form >
                 <div className="row row-space">
                   <div className="col-6">
                     <div className="input-group">
@@ -183,16 +184,25 @@ const Edit = () => {
                   </div>
                 </div>
                 <div className="p-t-15">
-                  <button className="btn-edit" type="submit">
+                  {/* <button className="btn-edit" type="submit">
                     Update
-                  </button>
-                  <button
-                    className="btn-edit cancel"
+                  </button> */}
+                  <Button
+                    className="btn-edit"
+                    type="primary"
+                    onClick={edit}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    className="btn-edit"
+                    type="danger"
                     onClick={() => {
-                      navigate("/account");}}
+                      navigate("/account");
+                    }}
                   >
                     Cancel
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { editUser, getUserById } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "antd";
 
 const UserDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
- 
+
   const [user, setUser] = useState([]);
   useEffect(() => {
     getUsers();
@@ -48,7 +49,7 @@ const UserDetails = () => {
         <div className="card card-4">
           <div className="card-body">
             <h2 className="title">Edit user</h2>
-            <form onSubmit={update}>
+            <form >
               <div className="row row-space">
                 <div className="col-6">
                   <div className="input-group">
@@ -170,9 +171,25 @@ const UserDetails = () => {
                 </div>
               </div>
               <div className="p-t-15">
-                <button className="btn-edit" type="submit">
+                {/* <button classclassName="p-t-15"Name="btn-edit" type="submit">
                   Update
-                </button>
+                </button> */}
+                <Button
+                  className="btn-edit"
+                  type="primary"
+                  onClick={update}
+                >
+                  Update
+                </Button>
+                <Button
+                    className="btn-edit"
+                    type="danger"
+                    onClick={() => {
+                      navigate("/users");
+                    }}
+                  >
+                    Cancel
+                  </Button>
               </div>
             </form>
           </div>
