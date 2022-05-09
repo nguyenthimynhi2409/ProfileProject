@@ -68,7 +68,7 @@ const CreateUser = () => {
         <div className="card card-4">
           <div className="card-body">
             <h2 className="title">Create user</h2>
-            <form>
+            <form onSubmit={create}>
               <div className="row row-space">
                 <div className="col-6">
                   <div className="input-group">
@@ -206,7 +206,7 @@ const CreateUser = () => {
                 <Button
                   className="btn-edit"
                   type="primary"
-                  onClick={create}
+                  htmlType="submit"
                 >
                   Create
                 </Button>
