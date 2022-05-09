@@ -1,17 +1,12 @@
-import TodoHeader from "./TodoHeader/TodoHeader";
 import React, { useEffect, useState } from "react";
-import "../TodoList/TodoList.css";
-import AddTodo from "./AddTodo";
-import {
-  postTodo,
-  updateTodo,
-  deleteTodo,
-  getTodoByIdUser,
-} from "../../api/api";
-import TodoItem from "./TodoItem";
+import { useParams } from "react-router-dom";
+import { deleteTodo, getTodoById, getTodoByIdUser, postTodo, updateTodo } from "../../api/api";
+import AddTodo from "../TodoList/AddTodo";
+import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
+import TodoItem from "../TodoList/TodoItem";
 
-const TodoList = () => {
-  const id_user = JSON.parse(localStorage.getItem("id"));
+const UserTodo = (props) => {
+  const { id } = useParams();
 
   const [todos, setTodos] = useState([]);
 
@@ -20,7 +15,7 @@ const TodoList = () => {
   }, []);
 
   const getTodos = async () => {
-    const data = await getTodoByIdUser(id_user);
+    const data = await getTodoByIdUser(id);
     setTodos(data);
   };
 
@@ -41,7 +36,7 @@ const TodoList = () => {
 
   const addTodo = async (title) => {
     const todoData = {
-      user: id_user,
+      user: id,
       title: title,
       completed: false,
     };
@@ -66,4 +61,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default UserTodo;

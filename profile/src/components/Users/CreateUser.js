@@ -1,45 +1,64 @@
-import { useEffect, useState } from "react";
-import { editUser, getUserById } from "../../api/api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  validateAge,
+  validateEmail,
+  validateGender,
+  validatePassword,
+  validatePhone,
+} from "../Register/validation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { register } from "../../api/api";
 
-const UserDetails = () => {
+const CreateUser = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
- 
-  const [user, setUser] = useState([]);
-  useEffect(() => {
-    getUsers();
-  }, []);
 
-  const getUsers = async () => {
-    const response = await getUserById(id);
-    setUser(response.data);
-  };
-
-  if (user.address === "") {
-    user.address = "-";
-  }
-
-  if (user.address === "") user.address = "-";
-
-  const onValueChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  const gender = user.gender;
-  if (gender === "Male") {
-    user.avatar =
-      "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
-  }
-  if (gender === "Female") {
-    user.avatar =
-      "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
-  }
-  const update = async (e) => {
+  const create = async (e) => {
     e.preventDefault();
-    editUser(id, user).then(() => {
-      navigate(`/users`);
-    });
+    const first_name = e.target.first_name.value;
+    const last_name = e.target.last_name.value;
+    const email = e.target.email.value;
+    const age = e.target.age.value;
+    const gender = e.target.gender.value;
+    const password = e.target.password.value;
+    const confirm_password = e.target.confirm_password.value;
+    const phone = e.target.phone_number.value;
+    const role = e.target.role.value;
+    let avatar = "";
+    const address = "";
+    if (gender == "Male")
+      avatar =
+        "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
+    if (gender == "Female")
+      avatar =
+        "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
+
+    if (
+      validatePassword(password, confirm_password) &&
+      validateAge(age) &&
+      validateGender(gender) &&
+      (await validateEmail(email)) &&
+      validatePhone(phone)
+    ) {
+      let account = {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        age: age,
+        gender: gender,
+        password: password,
+        avatar: avatar,
+        phone_number: phone,
+        address: address,
+        role: role,
+      };
+      try {
+        await register(account);
+        navigate(`/users`);
+      } catch (err) {
+        toast("Server die");
+      }
+    }
   };
 
   return (
@@ -47,8 +66,8 @@ const UserDetails = () => {
       <div className="wrapper wrapper--w680">
         <div className="card card-4">
           <div className="card-body">
-            <h2 className="title">Edit user</h2>
-            <form onSubmit={update}>
+            <h2 className="title">Create user</h2>
+            <form onSubmit={create}>
               <div className="row row-space">
                 <div className="col-6">
                   <div className="input-group">
@@ -58,8 +77,6 @@ const UserDetails = () => {
                       className="input--style-4"
                       type="text"
                       name="first_name"
-                      value={user.first_name}
-                      onChange={(e) => onValueChange(e)}
                     />
                   </div>
                 </div>
@@ -71,8 +88,6 @@ const UserDetails = () => {
                       className="input--style-4"
                       type="text"
                       name="last_name"
-                      value={user.last_name}
-                      onChange={(e) => onValueChange(e)}
                     />
                   </div>
                 </div>
@@ -88,8 +103,6 @@ const UserDetails = () => {
                       max={90}
                       min={1}
                       name="age"
-                      value={user.age}
-                      onChange={(e) => onValueChange(e)}
                     />
                   </div>
                 </div>
@@ -102,8 +115,6 @@ const UserDetails = () => {
                       className="input--style-4"
                       type="text"
                       name="address"
-                      value={user.address}
-                      onChange={(e) => onValueChange(e)}
                     />
                   </div>
                 </div>
@@ -117,8 +128,6 @@ const UserDetails = () => {
                       type="email"
                       name="email"
                       required
-                      value={user.email}
-                      onChange={(e) => onValueChange(e)}
                     />
                   </div>
                 </div>
@@ -132,8 +141,6 @@ const UserDetails = () => {
                       maxLength={12}
                       minLength={9}
                       name="phone_number"
-                      value={user.phone_number}
-                      onChange={(e) => onValueChange(e)}
                     />
                   </div>
                 </div>
@@ -141,11 +148,7 @@ const UserDetails = () => {
               <div className="input-group">
                 <label className="label">Gender</label>
                 <div className="select">
-                  <select
-                    name="gender"
-                    value={user.gender}
-                    onChange={(e) => onValueChange(e)}
-                  >
+                  <select name="gender">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
@@ -153,13 +156,7 @@ const UserDetails = () => {
                 </div>
               </div>
               <div className="input-group">
-                <label
-                  className="label"
-                  value={user.role}
-                  onChange={(e) => onValueChange(e)}
-                >
-                  Role
-                </label>
+                <label className="label">Role</label>
                 <div className="select">
                   <select name="role">
                     <option value="user">User</option>
@@ -169,9 +166,33 @@ const UserDetails = () => {
                   <div className="select-dropdown"></div>
                 </div>
               </div>
+              <div className="row row-space">
+                <div className="col-6">
+                  <div className="input-group">
+                    <label className="label">Password</label>
+                    <input
+                      required
+                      className="input--style-4"
+                      type="password"
+                      name="password"
+                    />
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div class="input-group">
+                    <label className="label">Confirm Password</label>
+                    <input
+                      required
+                      className="input--style-4"
+                      type="password"
+                      name="confirm_password"
+                    />
+                  </div>
+                </div>
+              </div>
               <div className="p-t-15">
                 <button className="btn-edit" type="submit">
-                  Update
+                  Create
                 </button>
               </div>
             </form>
@@ -182,4 +203,4 @@ const UserDetails = () => {
   );
 };
 
-export default UserDetails;
+export default CreateUser;

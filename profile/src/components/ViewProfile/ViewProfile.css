@@ -52,6 +52,7 @@
 .profile header h1 small {
   display: block;
   clear: both;
+  padding-top: 10px;
   font-size: 18px;
   opacity: 0.6;
 }

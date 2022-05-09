@@ -1,10 +1,8 @@
 import "./Edit.css";
 import React from "react";
 import { editUser, getUserById } from "../../api/api";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import {
   numberValidator,
   emailValidator,
@@ -15,10 +13,14 @@ import {
 const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
-  // const [first_name, last_name, email, age, gender, phone_number, avatar] = user;
-  // console.log(auth);
-  const { id } = useParams();
 
+  // get id user
+  const id = JSON.parse(localStorage.getItem("id"));
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
+  
   useEffect(() => {
     getInforUser();
   }, []);
@@ -29,13 +31,9 @@ const Edit = () => {
   };
 
   const onValueChange = (e) => {
-    //  console.log(e);
-    // console.log(e.target.value);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  // console.log(user);
   const gender = user.gender;
-  // console.log(gender);
   if (gender === "Male") {
     user.avatar =
       "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
@@ -44,23 +42,23 @@ const Edit = () => {
     user.avatar =
       "https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
   }
+
   const edit = (e) => {
     e.preventDefault();
     if (requireValue(user.address)) {
     }
-    editUser(id, user).then(() => {
-      navigate(`/view/${id}`);
+    editUser(user.id, user).then(() => {
+      navigate(`/account`);
     });
   };
 
   return (
     <>
-      <Header user={user} />
       <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div className="wrapper wrapper--w680">
           <div className="card card-4">
             <div className="card-body">
-              <h2 className="title">Update User Form</h2>
+              <h2 className="title">My Account</h2>
               <form onSubmit={edit}>
                 <div className="row row-space">
                   <div className="col-6">
@@ -98,25 +96,7 @@ const Edit = () => {
                   </div>
                 </div>
                 <div className="row row-space">
-                  {/* <div className="col-6">
-                    <div className="input-group">
-                      <label className="label">Age</label>
-                      <div className="input-group-icon">
-                        <input
-                          required
-                          className="input--style-4"
-                          type="text"
-                          name="age"
-                          value={user.age}
-                          onChange={(e) => onValueChange(e)}
-                        />
-                        <span className="text-danger">
-                          {requireValue(user.age)} {numberValidator(user.age)}
-                        </span>
-                      </div>
-                    </div>
-                  </div> */}
-                   <div className="col-6">
+                  <div className="col-6">
                     <div className="input-group">
                       <label className="label">Age</label>
                       <input
@@ -124,7 +104,7 @@ const Edit = () => {
                         className="input--style-4"
                         type="number"
                         max={90}
-                        min= {1}
+                        min={1}
                         name="age"
                         value={user.age}
                         onChange={(e) => onValueChange(e)}
@@ -134,7 +114,7 @@ const Edit = () => {
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="col-6">
                     <div className="input-group">
                       <label className="label">Address</label>
@@ -206,14 +186,19 @@ const Edit = () => {
                   <button className="btn-edit" type="submit">
                     Update
                   </button>
-                  <button className="btn-edit cancel" onClick={() => navigate(-1)}>Cancel</button>
+                  <button
+                    className="btn-edit cancel"
+                    onClick={() => {
+                      navigate("/account");}}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

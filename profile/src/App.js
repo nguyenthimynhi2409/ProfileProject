@@ -2,17 +2,15 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Edit from "./components/Edit/Edit";
-import ViewProfile from "./components/ViewProfile/ViewProfile";
 import React, { useEffect, useState } from "react";
-import UserDetails from "./components/Users/UserDetails";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const u = localStorage.getItem("user");
-    u && JSON.parse(u) ? setUser(true) : setUser(false);
+    const login = localStorage.getItem("user");
+    login && JSON.parse(login) ? setUser(true) : setUser(false);
   }, []);
 
   useEffect(() => {
@@ -23,29 +21,106 @@ function App() {
     <Router>
       <Routes>
         <Route path="/register" element={<Register />} />
-        {!user && (
-          <Route path="/" element={<Login auth={() => setUser(true)} />} />
-        )}
+        <Route
+          path="/"
+          element={
+            <Login
+              auth={(u) => {
+                setUser(true);
+              }}
+              user={user}
+            />
+          }
+        />
         {user && (
           <>
             <Route
-              path="/dashboard/:id"
+              path="/dashboard"
               element={
                 <Dashboard
                   logout={() => {
-                    setUser(false);
                     localStorage.clear();
+                    setUser(false);
                   }}
+                  option={1}
                 />
               }
             />
-            <Route path="/todolist" element={<Dashboard />} />
-            <Route path="/users" element={<Dashboard />} />
-            <Route path="/users/:id" element={<UserDetails />} />
-            <Route path="/view/:id" element={<ViewProfile />} />
-            <Route path="/edit/:id" element={<Edit />} />
+            <Route
+              path="/users"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setUser(false);
+                  }}
+                  option={2}
+                />
+              }
+            />
+            <Route
+              path="/user/:id"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setUser(false);
+                  }}
+                  option={6}
+                />
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setUser(false);
+                  }}
+                  option={3}
+                />
+              }
+            />
+            <Route
+              path="/account/update"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setUser(false);
+                  }}
+                  option={4}
+                />
+              }
+            />
+            <Route
+              path="/user/new"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setUser(false);
+                  }}
+                  option={5}
+                />
+              }
+            />
+            <Route
+              path="/todo/:id"
+              element={
+                <Dashboard
+                  logout={() => {
+                    localStorage.clear();
+                    setUser(false);
+                  }}
+                  option={7}
+                />
+              }
+            />
           </>
         )}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
