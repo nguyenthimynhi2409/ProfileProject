@@ -5,7 +5,7 @@ import AddTodo from "../TodoList/AddTodo";
 import TodoHeader from "../TodoList/TodoHeader/TodoHeader";
 import TodoItem from "../TodoList/TodoItem";
 
-const UserTodo = (props) => {
+const UserTodo = () => {
   const { id } = useParams();
 
   const [todos, setTodos] = useState([]);
