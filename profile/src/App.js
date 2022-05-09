@@ -7,7 +7,7 @@ import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const [user, setUser] = useState(false);
-  const [role, setRole] = useState();
+  const [role, setRole] = useState("");
   useEffect(() => {
     const login = localStorage.getItem("user");
     login && JSON.parse(login) ? setUser(true) : setUser(false);
@@ -15,10 +15,9 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("user", user);
-  }, [user]);
-  useEffect(() => {
     setRole(localStorage.setItem("role", role));
-  }, [role]);
+  }, [user,role]);
+
   console.log(role);
   return (
     <Router>

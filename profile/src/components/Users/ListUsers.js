@@ -111,7 +111,7 @@ const ListUsers = () => {
                   title="Are you sure？"
                   okText="Yes"
                   cancelText="No"
-                  onConfirm={onDeleteUser}
+                  onConfirm={() => onDeleteUser(record.id)}
                 >
                   <Button
                     className={
