@@ -25,6 +25,7 @@ const TodoList = () => {
   };
 
   const handleCheckboxChange = async (id) => {
+    let res;
     setTodos(
       todos.map((todo) => {
         if (todo.id == id) todo.completed = !todo.completed;
