@@ -88,12 +88,12 @@ const ListUsers = () => {
             key="action"
             render={(record) => (
               <Space>
-                <Button
+                <Button className={user && user.role !== "manager" ? 'btn-display' : ''}
                   type="primary"
                   onClick={() => {
                     navigate(`/user/${record.id}`);
                   }}
-                  disabled={user && user.role !== "manager"}
+                  // disabled={user && user.role !== "manager"}
                 >
                   Edit
                 </Button>
@@ -105,10 +105,10 @@ const ListUsers = () => {
                 >
                   TodoList
                 </Button>
-                <Button
+                <Button className={user && user.role !== "manager" ? 'btn-display' : ''}
                   type="danger"
                   onClick={() => onDeleteUser(record.id)}
-                  disabled={user && user.role !== "manager"}
+                  // disabled={user && user.role !== "manager"}
                 >
                   Delete
                 </Button>

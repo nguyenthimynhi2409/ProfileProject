@@ -16,3 +16,6 @@
 .table-list {
     width: 100%;
 }
+.btn-display {
+    display: none;
+}
