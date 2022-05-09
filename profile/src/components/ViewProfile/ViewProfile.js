@@ -1,27 +1,29 @@
 import "./ViewProfile.css";
 import { getUserById } from "../../api/api";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
-const ViewProfile = (props) => {
+const ViewProfile = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+
+  // get id user
+  const id = JSON.parse(localStorage.getItem("id"));
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
+  
   const [user, setUser] = useState([]);
+
   useEffect(() => {
-    getUsers();
+    getUser();
   }, []);
-  const getUsers = async () => {
+
+  const getUser = async () => {
     const response = await getUserById(id);
     setUser(response.data);
   };
-
-  // get data user
-  // const user = JSON.parse(localStorage.getItem("user"));
-
-  if (user.address === "") {
-    user.address = "-";
-  }
 
   if (user.address === "") user.address = "-";
 
@@ -56,10 +58,8 @@ const ViewProfile = (props) => {
           </dl>
         </main>
         <div className="btn-edit">
-          {/* <button onClick={() => navigate(`/edit/${user.id}`)}>Edit</button> */}
           <button
             onClick={() => {
-              props.onOptionChange(4);
               navigate(`/account/update`);
             }}
           >

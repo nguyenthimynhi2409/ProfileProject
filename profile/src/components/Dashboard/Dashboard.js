@@ -6,44 +6,43 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   UnorderedListOutlined,
-  BarChartOutlined,
-  LineChartOutlined,
-  AreaChartOutlined,
-  DotChartOutlined,
-  PieChartOutlined,
-  RadarChartOutlined,
 } from "@ant-design/icons";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Contents from "./Contents";
 import { Link } from "react-router-dom";
-import "../TodoList/TodoHeader/TodoHeader.css";
-import TodoList from "../TodoList/TodoList";
 import { Footer } from "antd/lib/layout/layout";
+import { getUserById } from "../../api/api";
 
-const Dashboard = ({ logout }) => {
+const Dashboard = (props) => {
   const { Header, Sider, Content } = Layout;
-  // const { SubMenu } = Menu;
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const options = JSON.parse(localStorage.getItem("option"));
 
-  // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; option5 == create user
-  const [option, setOption] = useState(options);
+  // option 1 == todoList ; option 2 == list users; option 3 == view account; option4 == edit account; 
+  // option5 == create user ; option 6 == userDetails ; option 7 == userTodo
+  const [option, setOption] = useState(1);
 
-  // get data user
-  const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user + "1232");
-
+  // get id user
+  const id = JSON.parse(localStorage.getItem("id"));
+  if (id == undefined) {
+    localStorage.clear();
+    navigate(`/`);
+  }
   useEffect(() => {
-    localStorage.setItem("option", option);
-  }, [option]);
+    getInforUser();
+    setOption(props.option);
+  }, [props.option]);
 
+  const getInforUser = async () => {
+    const response = await getUserById(id);
+    setUser(response.data);
+  };
 
   let switchText = "switchText";
   let switcher = "";
   let dashboardName = "";
-  // let charts = "";
 
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -65,10 +64,8 @@ const Dashboard = ({ logout }) => {
 
   if (theme == "dark") {
     switchText += " dark";
-    // charts = "charts dark";
   } else {
     switchText -= " dark";
-    // charts = "light charts";
   }
 
   const changeTheme = (value) => {
@@ -104,58 +101,6 @@ const Dashboard = ({ logout }) => {
               <span>Users</span>
             </Link>
           </Menu.Item>
-          {/* <SubMenu
-            key="sub1"
-            mode="inline"
-            theme={theme}
-            title={
-              <Link to="" style={{ textDecoration: "none" }} className={charts}>
-                <div className={charts}>
-                  <BarChartOutlined />
-                  <span>Charts</span>
-                </div>
-              </Link>
-            }
-          >
-            <Menu.Item key="3">
-              <Link to="" style={{ textDecoration: "none" }}>
-                <LineChartOutlined />
-                <span>LineChart</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="4">
-              <Link to="" style={{ textDecoration: "none" }}>
-                <AreaChartOutlined />
-                <span>AreaChart</span>
-              </Link>
-            </Menu.Item>
-            <SubMenu
-              key="sub2"
-              mode="inline"
-              theme={theme}
-              title={
-                <Link to="" style={{ textDecoration: "none" }}>
-                  <div className={charts}>
-                    <DotChartOutlined />
-                    <span>HighCharts</span>
-                  </div>
-                </Link>
-              }
-            >
-              <Menu.Item key="5">
-                <Link to="" style={{ textDecoration: "none" }}>
-                  <PieChartOutlined />
-                  <span>PieChart</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="6">
-                <Link to="" style={{ textDecoration: "none" }}>
-                  <RadarChartOutlined />
-                  <span>RadarChart</span>
-                </Link>
-              </Menu.Item>
-            </SubMenu>
-          </SubMenu> */}
         </Menu>
         <div className="switch-theme">
           <span className={switchText}>Switch theme</span>
@@ -169,63 +114,60 @@ const Dashboard = ({ logout }) => {
           </div>
         </div>
       </Sider>
-
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {collapsed ? (
-            <MenuUnfoldOutlined className="trigger" onClick={toggle} />
-          ) : (
-            <MenuFoldOutlined className="trigger" onClick={toggle} />
-          )}
-          <div className="account">
-            <h2>
-              Hi, {user && user.first_name} {user && user.last_name}
-            </h2>
-            <div className="ava">
-              <div className="ava-img">
-                <img
-                  // onClick={() => navigate(`/view/${id}`)}
-                  onClick={() => {
-                    setOption(3);
-                    navigate(`/account`, { option: 4 });
-                  }}
-                  src={user && user.avatar}
-                />
-                <button
-                  className="logout"
-                  onClick={() => {
-                    logout();
-                    navigate("/");
-                  }}
-                >
-                  <span>Logout</span>
-                </button>
+      <div className="right-side">
+        <Layout className="site-layout">
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            {collapsed ? (
+              <MenuUnfoldOutlined className="trigger" onClick={toggle} />
+            ) : (
+              <MenuFoldOutlined className="trigger" onClick={toggle} />
+            )}
+            <div className="account">
+              <h2>
+                Hi, {user && user.first_name} {user && user.last_name}
+              </h2>
+              <div className="ava">
+                <div className="ava-img">
+                  <img
+                    onClick={() => {
+                      setOption(3);
+                      navigate(`/account`, { option: 4 });
+                    }}
+                    src={user && user.avatar}
+                  />
+                  <button
+                    className="logout"
+                    onClick={() => {
+                      props.logout();
+                      navigate(`/`);
+                    }}
+                  >
+                    <span>Logout</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Header>
-        {/* <TodoList /> */}
+          </Header>
 
-        <Content
-          className="site-layout-background"
-          style={{
-            // margin: "24px 16px",
-            padding: "20px",
-            backgroundColor: "#FAFAFA",
-            minHeight: 280,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {/* <Contents option={option} /> */}
-          <Contents option={option} onOptionChange={setOption} />
-        </Content>
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: "20px",
+              backgroundColor: "#FAFAFA",
+              minHeight: 280,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Contents option={option} />
+          </Content>
+        </Layout>
         <Footer className="ft">
           <div className="copyright">
             <p>Copyright &copy; 2022</p>
           </div>
         </Footer>
-      </Layout>
+      </div>
     </Layout>
   );
 };

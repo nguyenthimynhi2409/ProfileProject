@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
-import { login1, login } from "../../api/api";
-import Footer from "../Layout/Footer/Footer";
-import { Form, Button, Container } from "react-bootstrap";
+import { login } from "../../api/api";
+import { Form, Button } from "react-bootstrap";
 
-const Login = ({ auth }) => {
+const Login = (props) => {
   const navigate = useNavigate();
-
   const handleButton = async (e) => {
     e.preventDefault();
 
@@ -17,17 +15,18 @@ const Login = ({ auth }) => {
     const password = e.target.password.value;
 
     const user = await login(email, password);
-
-    // if (user) auth();
     if (user) {
-      auth(user);
+      props.auth(user);
       navigate(`/dashboard`);
     } else {
       toast("Please check your email or password");
     }
-    // navigate(`/view/${user.id}`);
   };
 
+  useEffect(()=>{
+    if(props.user) navigate(`/dashboard`);
+  },[props.user])
+  
   return (
     <div id="container">
       <Form id="login-container" onSubmit={handleButton}>

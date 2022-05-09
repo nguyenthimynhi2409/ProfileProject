@@ -1,16 +1,10 @@
-import React from  "react"
+import React from "react";
 
-class TodoHeader extends React.Component {
-	render() {
-		return (
-			<div className="todo-container">
-				<header className="todo-header">
-					<h1 className="todo-title">
-						TODO LIST
-					</h1>
-				</header>
-			</div>
-		);
-	}
-}
-export default TodoHeader
+const TodoHeader = () => {
+  return (
+    <header className="header-container">
+      <h1 className="header-title">Todo List</h1>
+    </header>
+  );
+};
+export default TodoHeader;
