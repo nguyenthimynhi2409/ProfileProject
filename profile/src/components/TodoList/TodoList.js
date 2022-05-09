@@ -28,7 +28,10 @@ const TodoList = () => {
     let res;
     setTodos(
       todos.map((todo) => {
-        if (todo.id == id) todo.completed = !todo.completed;
+        if (todo.id == id) {
+          todo.completed = !todo.completed;
+          res = todo;
+        }
         return todo;
       })
     );
