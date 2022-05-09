@@ -80,7 +80,7 @@ function App() {
             />
           </>
         )}
-        {user && role !== "user" && (
+        {user && (
           <>
             <Route
               path="/users"
@@ -111,7 +111,7 @@ function App() {
             />
           </>
         )}
-        {user && role == "manager" && (
+        {user && (
           <>
             <Route
               path="/user/:id"
