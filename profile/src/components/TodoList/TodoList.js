@@ -31,7 +31,12 @@ const TodoList = () => {
         return todo;
       })
     );
-    await updateTodo(id, todos);
+    const dataTodo = {
+      user: res.user,
+      title: res.title,
+      completed: res.completed
+    }
+    await updateTodo(id, dataTodo);
   };
 
   const deleteTodos = async (id) => {
