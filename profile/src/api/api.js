@@ -24,8 +24,10 @@ export const login = async (email, password) => {
   try {
     const data = await checkEmailExist(email);
     if (data.password == password) {
-      if (localStorage.getItem("id") === null)
+      if (localStorage.getItem("id") === null && localStorage.getItem("role") === null)
         localStorage.setItem("id", JSON.stringify(data.id));
+        console.log(data.role);
+        localStorage.setItem("role", JSON.stringify(data.role));
       return data;
     }
   } catch (err) {
