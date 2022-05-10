@@ -25,13 +25,22 @@ const TodoList = () => {
   };
 
   const handleCheckboxChange = async (id) => {
+    let res;
     setTodos(
       todos.map((todo) => {
-        if (todo.id == id) todo.completed = !todo.completed;
+        if (todo.id == id) {
+          todo.completed = !todo.completed;
+          res = todo;
+        }
         return todo;
       })
     );
-    await updateTodo(id, todos);
+    const dataTodo = {
+      user: res.user,
+      title: res.title,
+      completed: res.completed
+    }
+    await updateTodo(id, dataTodo);
   };
 
   const deleteTodos = async (id) => {
