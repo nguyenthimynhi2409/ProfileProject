@@ -24,8 +24,13 @@ export const login = async (email, password) => {
   try {
     const data = await checkEmailExist(email);
     if (data.password == password) {
-      if (localStorage.getItem("id") === null)
+      if (
+        localStorage.getItem("id") === null &&
+        localStorage.getItem("role") === null
+      )
         localStorage.setItem("id", JSON.stringify(data.id));
+      console.log(data.role);
+      localStorage.setItem("role", JSON.stringify(data.role));
       return data;
     }
   } catch (err) {
@@ -111,7 +116,7 @@ export const postTodo = async (data) => {
         "Content-Type": "application/json",
       },
     };
-    const res= await axios.post(
+    const res = await axios.post(
       `https://profile-json-server.herokuapp.com/todos`,
       data,
       config
@@ -159,23 +164,41 @@ export const updateTodo = async (id, data) => {
 
 export const deleteTodo = async (id) => {
   try {
-    return await axios.delete(`https://profile-json-server.herokuapp.com/todos/${id}`);
+    return await axios.delete(
+      `https://profile-json-server.herokuapp.com/todos/${id}`
+    );
   } catch (error) {
     console.log(error);
   }
 };
 
 // Get Todo by id user
-export const getTodoByIdUser = async(idUser) => {
+export const getTodoByIdUser = async (idUser) => {
   try {
     const result = [];
     const todos = await getAllTodo();
     todos.map((todo) => {
-      if(todo.user == idUser) result.push(todo);
-    })
+      if (todo.user == idUser) result.push(todo);
+    });
     return result;
   } catch (error) {
     console.log(error);
   }
-}
+};
 
+// Delete todos by id user
+export const deleteTodosByIdUser = async (idUser) => {
+  try {
+    const idTodos = [];
+    const todos = await getAllTodo();
+    todos.map(async (todo) => {
+      if (todo.user == idUser) idTodos.push(todo.id);
+    });
+    console.log(idTodos);
+    return await axios.delete(
+      `https://profile-json-server.herokuapp.com/todos/${idTodos}`
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

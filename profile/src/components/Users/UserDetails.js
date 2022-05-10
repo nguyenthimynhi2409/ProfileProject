@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const UserDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
- 
+
   const [user, setUser] = useState([]);
   useEffect(() => {
     getUsers();
@@ -37,6 +37,7 @@ const UserDetails = () => {
   }
   const update = async (e) => {
     e.preventDefault();
+    console.log(user.role);
     editUser(id, user).then(() => {
       navigate(`/users`);
     });
@@ -153,15 +154,11 @@ const UserDetails = () => {
                 </div>
               </div>
               <div className="input-group">
-                <label
-                  className="label"
-                  value={user.role}
-                  onChange={(e) => onValueChange(e)}
-                >
+                <label className="label" value={user.role}>
                   Role
                 </label>
                 <div className="select">
-                  <select name="role">
+                  <select name="role" onChange={(e) => onValueChange(e)}>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                     <option value="manager">Manager</option>

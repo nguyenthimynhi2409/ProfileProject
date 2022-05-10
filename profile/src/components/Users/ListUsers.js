@@ -1,7 +1,7 @@
-import { Table, Space, Button, Form, Input } from "antd";
+import { Table, Space, Button, Form, Input, Popconfirm } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteTodo, getAllAccount, getUserById } from "../../api/api";
+import { deleteTodo, deleteTodosByIdUser, getAllAccount, getUserById } from "../../api/api";
 import "./ListUsers.css";
 import { deleteUser } from "../../api/api";
 
@@ -22,7 +22,7 @@ const ListUsers = () => {
     getAllUsers();
     getInforUser();
   }, []);
-  
+
   const getInforUser = async () => {
     const response = await getUserById(id);
     setUser(response.data);
@@ -33,10 +33,10 @@ const ListUsers = () => {
     setUsers(response.data);
   };
 
-  const onDeleteUser = (id) => {
-    setListUser(listUser.filter((u) => u.id !== id));
-    deleteUser(id);
-    deleteTodo(id);
+  const onDeleteUser = async(id) => {
+    setUsers(users.filter((u) => u.id !== id));
+    await deleteUser(id);
+    await deleteTodosByIdUser(id);
   };
 
   const onSearchUser = async (value) => {
@@ -88,12 +88,15 @@ const ListUsers = () => {
             key="action"
             render={(record) => (
               <Space>
-                <Button className={user && user.role !== "manager" ? 'btn-display' : ''}
+                <Button
+                  className={
+                    user && user.role !== "manager" ? "btn-display" : ""
+                  }
                   type="primary"
                   onClick={() => {
                     navigate(`/user/${record.id}`);
                   }}
-                  // disabled={user && user.role !== "manager"}
+                  disabled={user && user.role == "user"}
                 >
                   Edit
                 </Button>
@@ -105,13 +108,21 @@ const ListUsers = () => {
                 >
                   TodoList
                 </Button>
-                <Button className={user && user.role !== "manager" ? 'btn-display' : ''}
-                  type="danger"
-                  onClick={() => onDeleteUser(record.id)}
-                  // disabled={user && user.role !== "manager"}
+                <Popconfirm
+                  title="Are you sure？"
+                  okText="Yes"
+                  cancelText="No"
+                  onConfirm={() => onDeleteUser(record.id)}
                 >
-                  Delete
-                </Button>
+                  <Button
+                    className={
+                      user && user.role !== "manager" ? "btn-display" : ""
+                    }
+                    type="danger"
+                  >
+                    <a>Delete</a>
+                  </Button>
+                </Popconfirm>
               </Space>
             )}
           />

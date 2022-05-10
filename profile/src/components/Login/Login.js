@@ -17,12 +17,14 @@ const Login = (props) => {
     const user = await login(email, password);
     if (user) {
       props.auth(user);
+      props.role(user.role);
+      console.log(user.role);
       navigate(`/dashboard`);
     } else {
       toast("Please check your email or password");
     }
   };
-
+  
   useEffect(()=>{
     if(props.user) navigate(`/dashboard`);
   },[props.user])
