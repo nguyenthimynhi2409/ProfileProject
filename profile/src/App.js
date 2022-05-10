@@ -15,10 +15,8 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("user", user);
-    setRole(localStorage.setItem("role", role));
-  }, [user,role]);
-
-  console.log(role);
+  }, [user]);
+console.log(role);
   return (
     <Router>
       <Routes>
@@ -79,7 +77,7 @@ function App() {
             />
           </>
         )}
-        {user && (
+        {user && role !== "user" && (
           <>
             <Route
               path="/users"
@@ -110,7 +108,7 @@ function App() {
             />
           </>
         )}
-        {user && (
+        {user && role == "manager" && (
           <>
             <Route
               path="/user/:id"
