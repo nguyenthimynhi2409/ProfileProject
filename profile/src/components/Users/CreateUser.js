@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { register } from "../../api/api";
+import { Button } from "antd";
 
 const CreateUser = () => {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ const CreateUser = () => {
                     <label className="label">First Name</label>
                     <input
                       required
+                      placeholder="Enter your first'name"
                       className="input--style-4"
                       type="text"
                       name="first_name"
@@ -85,6 +87,7 @@ const CreateUser = () => {
                     <label className="label">Last Name</label>
                     <input
                       required
+                      placeholder="Enter your last'name"
                       className="input--style-4"
                       type="text"
                       name="last_name"
@@ -98,6 +101,7 @@ const CreateUser = () => {
                     <label className="label">Age</label>
                     <input
                       required
+                      placeholder="Enter your age"
                       className="input--style-4"
                       type="number"
                       max={90}
@@ -112,6 +116,7 @@ const CreateUser = () => {
                     <label className="label">Address</label>
                     <input
                       required
+                      placeholder="Enter your address"
                       className="input--style-4"
                       type="text"
                       name="address"
@@ -125,6 +130,7 @@ const CreateUser = () => {
                     <label className="label">Email</label>
                     <input
                       className="input--style-4"
+                      placeholder="Enter your email"
                       type="email"
                       name="email"
                       required
@@ -136,6 +142,7 @@ const CreateUser = () => {
                     <label className="label">Phone Number</label>
                     <input
                       required
+                      placeholder="Enter your phone number"
                       className="input--style-4"
                       type="text"
                       maxLength={12}
@@ -173,6 +180,7 @@ const CreateUser = () => {
                     <input
                       required
                       className="input--style-4"
+                      placeholder="Enter your password"
                       type="password"
                       name="password"
                     />
@@ -183,6 +191,7 @@ const CreateUser = () => {
                     <label className="label">Confirm Password</label>
                     <input
                       required
+                      placeholder="Comfirm your password"
                       className="input--style-4"
                       type="password"
                       name="confirm_password"
@@ -191,9 +200,23 @@ const CreateUser = () => {
                 </div>
               </div>
               <div className="p-t-15">
-                <button className="btn-edit" type="submit">
+                {/* <button className="btn-edit" type="submit">
                   Create
-                </button>
+                </button> */}
+                <Button
+                  className="btn-edit"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Create
+                </Button>
+                <Button
+                  className="btn-edit"
+                  type="danger"
+                  onClick={() => navigate(`/users`)}
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </div>

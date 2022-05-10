@@ -3,6 +3,7 @@ import { getUserById } from "../../api/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import { Button } from "antd";
 
 const ViewProfile = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const ViewProfile = () => {
     setUser(response.data);
   };
 
-  if (user.address === "") user.address = "-";
+  // if (user.address === "") user.address = "-";
 
   return (
     <>
@@ -46,9 +47,9 @@ const ViewProfile = () => {
               {user.last_name} {user.first_name}
             </dd>
             <dt>Age</dt>
-            <dd>{user.age}</dd>
+              {user && user.age ?  <dd>{user.age}</dd> :  <dd>-</dd>}
             <dt>Address</dt>
-            <dd>{user.address}</dd>
+              {user && user.address ?  <dd>{user.address}</dd> :  <dd>-</dd>}
             <dt>Gender</dt>
             <dd>{user.gender}</dd>
             <dt>Email</dt>
@@ -57,14 +58,23 @@ const ViewProfile = () => {
             <dd>{user.phone_number}</dd>
           </dl>
         </main>
-        <div className="btn-edit">
-          <button
+        <div >
+          {/* <button className="btn-edit"
             onClick={() => {
               navigate(`/account/update`);
             }}
           >
             Edit
-          </button>
+          </button> */}
+          <Button 
+            className="btn-edit"
+            type="primary"
+            onClick={() => {
+              navigate(`/account/update`);
+            }}
+          >
+            Eidt
+          </Button>
         </div>
       </div>
     </>

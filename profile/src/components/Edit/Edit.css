@@ -101,7 +101,7 @@ h6 {
      #BUTTON
      ========================================================================== */
 
-.p-t-15 button {
+/* .p-t-15 button {
   line-height: 50px;
   background-color: #4caf50;
   height: 40px;
@@ -111,14 +111,14 @@ h6 {
   font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
   font-size: 18px;
   justify-content: center;
-}
+} */
 
-button:hover {
+/* button:hover {
   color: black;
   transition-duration: 0.4s;
   background-color: wheat;
   border: 1px green solid;
-}
+} */
 
 .wrapper {
   margin: 0 auto;
@@ -150,7 +150,7 @@ input {
 }
 
 .input--style-4 {
-  line-height: 50px;
+  line-height: 30px;
   background: #fafafa;
   box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
@@ -164,7 +164,6 @@ input {
   font-size: 16px;
   color: rgb(43, 33, 33);
   text-transform: capitalize;
-  display: block;
   margin-bottom: 5px;
 }
 
@@ -227,16 +226,19 @@ input {
 }
 
 .card-4 .card-body {
-  /* padding: 57px 65px;
-  padding-bottom: 65px; */
+  padding: 57px 65px;
+  padding-bottom: 65px;
 }
 
-.btn-edit {
+/* .btn-edit {
   margin: 0 50px;
-}
+} */
 
-.cancel {
+/* .cancel {
   background-color: #e6e1e1 !important;
+} */
+.btn-edit {
+  margin-right: 10px;
 }
 
 @media (max-width: 767px) {
