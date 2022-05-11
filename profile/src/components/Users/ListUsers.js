@@ -1,7 +1,7 @@
 import { Table, Space, Button, Form, Input, Popconfirm } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteTodo, getAllAccount, getUserById } from "../../api/api";
+import { deleteTodo, deleteTodosByIdUser, getAllAccount, getUserById } from "../../api/api";
 import "./ListUsers.css";
 import { deleteUser } from "../../api/api";
 
@@ -33,9 +33,10 @@ const ListUsers = () => {
     setUsers(response.data);
   };
 
-  const onDeleteUser = (id) => {
-    setListUser(listUser.filter((u) => u.id !== id));
-    deleteUser(id);
+  const onDeleteUser = async(id) => {
+    setUsers(users.filter((u) => u.id !== id));
+    await deleteUser(id);
+    await deleteTodosByIdUser(id);
   };
 
   const onSearchUser = async (value) => {
@@ -111,7 +112,7 @@ const ListUsers = () => {
                   title="Are you sure？"
                   okText="Yes"
                   cancelText="No"
-                  onConfirm={onDeleteUser}
+                  onConfirm={() => onDeleteUser(record.id)}
                 >
                   <Button
                     className={

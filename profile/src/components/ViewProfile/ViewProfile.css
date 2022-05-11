@@ -91,18 +91,9 @@ label {
   cursor: pointer;
 }
 .btn-edit {
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  background-color: #0072b6;
-  height: 30px;
-  width: 50px;
   margin-top: 30px;
 }
-.btn-edit button {
-  width: 100%;
-  background-color: unset;
-}
+
 @media screen and (max-width: 520px) {
   .profile {
     padding: 1em;
