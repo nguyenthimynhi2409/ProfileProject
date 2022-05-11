@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const AddTodo = (props) => {
-  const [title, setTitle] = useState(props.editTodo.todoEdit);
+  const [title, setTitle] = useState("");
 
   console.log(props.editTodo.todoEdit);
   const onInputChange = (e) => {
@@ -13,29 +13,10 @@ const AddTodo = (props) => {
     props.addTodo(title);
     setTitle("");
   };
-
+  console.log(props.option);
   return (
     <>
-      {props.editTodo.todoEdit ? (
-        <form className="form-container">
-          <input
-            type="text"
-            placeholder="Update Todo..."
-            className="input-text"
-            value={title? title : props.editTodo.todoEdit}
-            onChange={onInputChange}
-          />
-          <input
-            type="button"
-            value="UPDATE"
-            className="input-submit"
-            onClick={() => {
-              props.updateTodo(props.editTodo.id, title);
-              setTitle("");
-            }}
-          />
-        </form>
-      ) : (
+      {props.option == 1 ? (
         <form className="form-container">
           <input
             type="text"
@@ -49,6 +30,26 @@ const AddTodo = (props) => {
             value="ADD"
             onClick={addTodo}
             className="input-button"
+          />
+        </form>
+      ) : (
+        <form className="form-container">
+          <input
+            type="text"
+            placeholder="Update Todo..."
+            className="input-text"
+            value={title ? title : props.editTodo.todoEdit}
+            onChange={onInputChange}
+          />
+          <input
+            type="button"
+            value="UPDATE"
+            className="input-submit"
+            onClick={() => {
+              props.updateTodo(props.editTodo.id, title);
+              setTitle("");
+              props.setOption(1);
+            }}
           />
         </form>
       )}
