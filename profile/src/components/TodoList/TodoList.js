@@ -12,23 +12,24 @@ import TodoItem from "./TodoItem";
 
 const TodoList = () => {
   const id_user = JSON.parse(localStorage.getItem("id"));
-
+  let res;
   const [todos, setTodos] = useState([]);
-
+  const [todoEdit, setTodoEdit] = useState("");
   useEffect(() => {
     getTodos();
   }, []);
-
   const getTodos = async () => {
     const data = await getTodoByIdUser(id_user);
     setTodos(data);
   };
-
   const handleCheckboxChange = async (id) => {
     let res;
     setTodos(
       todos.map((todo) => {
-        if (todo.id == id) todo.completed = !todo.completed;
+        if (todo.id == id) {
+          todo.completed = !todo.completed;
+          res = todo;
+        }
         return todo;
       })
     );
@@ -39,6 +40,11 @@ const TodoList = () => {
     }
     await updateTodo(id, dataTodo);
   };
+  const getTitle = (title) => {
+    setTodoEdit({
+      todoEdit: title
+    })
+  }
 
   const deleteTodos = async (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -54,16 +60,21 @@ const TodoList = () => {
     const res = await postTodo(todoData);
     setTodos([...todos, { ...res }]);
   };
-
+  console.log(todos)
+  console.log(todoEdit)
   return (
     <div className="todo-container">
       <TodoHeader />
-      <AddTodo addTodo={addTodo} />
+
+          <AddTodo editTodo={todoEdit} addTodo={addTodo}/>
+
+
       {todos &&
         todos.map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
+            getTodoTitle={getTitle}
             handleChange={handleCheckboxChange}
             deleteTodo={deleteTodos}
           />

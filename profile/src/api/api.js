@@ -98,7 +98,7 @@ export const getAllAccount = async () => {
 export const getAllTodo = async () => {
   try {
     const { data } = await axios.get(
-      `https://profile-json-server.herokuapp.com/todos`
+      `https://profile-json-server.herokuapp.com/test`
     );
     return data;
   } catch (error) {
@@ -114,7 +114,7 @@ export const postTodo = async (data) => {
       },
     };
     const res= await axios.post(
-      `https://profile-json-server.herokuapp.com/todos`,
+      `https://profile-json-server.herokuapp.com/test`,
       data,
       config
     );
@@ -132,7 +132,7 @@ export const getTodoById = async (id, data) => {
       },
     };
     const todo = await axios.get(
-      `https://profile-json-server.herokuapp.com/todos/${id}`,
+      `https://profile-json-server.herokuapp.com/test/${id}`,
       data,
       config
     );
@@ -150,7 +150,7 @@ export const updateTodo = async (id, data) => {
       },
     };
     return await axios.put(
-      `https://profile-json-server.herokuapp.com/todos/${id}`,
+      `https://profile-json-server.herokuapp.com/test/${id}`,
       data,
       config
     );
@@ -161,7 +161,7 @@ export const updateTodo = async (id, data) => {
 
 export const deleteTodo = async (id) => {
   try {
-    return await axios.delete(`https://profile-json-server.herokuapp.com/todos/${id}`);
+    return await axios.delete(`https://profile-json-server.herokuapp.com/test/${id}`);
   } catch (error) {
     console.log(error);
   }
