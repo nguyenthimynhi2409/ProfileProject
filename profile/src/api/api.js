@@ -101,7 +101,7 @@ export const getAllAccount = async () => {
 export const getAllTodo = async () => {
   try {
     const { data } = await axios.get(
-      `https://profile-json-server.herokuapp.com/todos`
+      `https://profile-json-server.herokuapp.com/test`
     );
     return data;
   } catch (error) {
@@ -135,7 +135,7 @@ export const getTodoById = async (id, data) => {
       },
     };
     const todo = await axios.get(
-      `https://profile-json-server.herokuapp.com/todos/${id}`,
+      `https://profile-json-server.herokuapp.com/test/${id}`,
       data,
       config
     );
@@ -153,7 +153,7 @@ export const updateTodo = async (id, data) => {
       },
     };
     return await axios.put(
-      `https://profile-json-server.herokuapp.com/todos/${id}`,
+      `https://profile-json-server.herokuapp.com/test/${id}`,
       data,
       config
     );

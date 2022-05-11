@@ -1,27 +1,58 @@
 import React, { useState } from "react";
 
 const AddTodo = (props) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(props.editTodo.todoEdit);
 
+  console.log(props.editTodo.todoEdit);
   const onInputChange = (e) => {
     setTitle(e.target.value);
   };
+
   const addTodo = (e) => {
     e.preventDefault();
     props.addTodo(title);
     setTitle("");
   };
+
   return (
-    <form className="form-container" onSubmit={addTodo}>
-      <input
-        type="text"
-        placeholder="Add Todo..."
-        className="input-text"
-        value={title}
-        onChange={onInputChange}
-      />
-      <input type="submit" value="Submit" className="input-submit" />
-    </form>
+    <>
+      {props.editTodo.todoEdit ? (
+        <form className="form-container">
+          <input
+            type="text"
+            placeholder="Update Todo..."
+            className="input-text"
+            value={title? title : props.editTodo.todoEdit}
+            onChange={onInputChange}
+          />
+          <input
+            type="button"
+            value="UPDATE"
+            className="input-submit"
+            onClick={() => {
+              props.updateTodo(props.editTodo.id, title);
+              setTitle("");
+            }}
+          />
+        </form>
+      ) : (
+        <form className="form-container">
+          <input
+            type="text"
+            placeholder="Add Todo..."
+            className="input-text"
+            value={title}
+            onChange={onInputChange}
+          />
+          <input
+            type="button"
+            value="ADD"
+            onClick={addTodo}
+            className="input-button"
+          />
+        </form>
+      )}
+    </>
   );
 };
 
