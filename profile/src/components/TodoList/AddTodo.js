@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { updateTodo } from "../../api/api";
+import React, { useState } from "react";
 
 const AddTodo = (props) => {
   const [title, setTitle] = useState(props.editTodo.todoEdit);
@@ -17,13 +16,13 @@ const AddTodo = (props) => {
 
   return (
     <>
-      {props.editTodo.todoEdit && title !== "" ? (
+      {props.editTodo.todoEdit ? (
         <form className="form-container">
           <input
             type="text"
             placeholder="Update Todo..."
             className="input-text"
-            value={(title)? title: props.editTodo.todoEdit}
+            value={title? title : props.editTodo.todoEdit}
             onChange={onInputChange}
           />
           <input
