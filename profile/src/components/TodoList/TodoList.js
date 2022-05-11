@@ -12,9 +12,8 @@ import TodoItem from "./TodoItem";
 
 const TodoList = () => {
   const id_user = JSON.parse(localStorage.getItem("id"));
-  let res;
   const [todos, setTodos] = useState([]);
-  const [todoEdit, setTodoEdit] = useState("");
+  const [todoEdit, setTodoEdit] = useState({});
   useEffect(() => {
     getTodos();
   }, []);
@@ -36,15 +35,39 @@ const TodoList = () => {
     const dataTodo = {
       user: res.user,
       title: res.title,
-      completed: res.completed
-    }
+      completed: res.completed,
+    };
     await updateTodo(id, dataTodo);
   };
-  const getTitle = (title) => {
+
+  // Edit todo
+  const editTodo = async (id, title) => {
+    console.log(title);
+    let res;
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id == id) {
+          todo.title = title;
+          res = todo;
+        }
+        return todo;
+      })
+    );
+    const dataTodo = {
+      user: res.user,
+      title: res.title,
+      completed: res.completed,
+    };
+    console.log(title);
+    await updateTodo(id, dataTodo);
+  };
+  const getTitle = (id, title) => {
     setTodoEdit({
-      todoEdit: title
-    })
-  }
+      id: id,
+      todoEdit: title,
+    });
+   
+  };
 
   const deleteTodos = async (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -60,14 +83,13 @@ const TodoList = () => {
     const res = await postTodo(todoData);
     setTodos([...todos, { ...res }]);
   };
-  console.log(todos)
-  console.log(todoEdit)
+  console.log(todos);
+  console.log(todoEdit);
   return (
     <div className="todo-container">
       <TodoHeader />
-
-          <AddTodo editTodo={todoEdit} addTodo={addTodo}/>
-
+    
+      <AddTodo editTodo={todoEdit} addTodo={addTodo} updateTodo={editTodo}/>
 
       {todos &&
         todos.map((todo) => (
