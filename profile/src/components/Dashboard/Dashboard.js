@@ -77,7 +77,7 @@ const Dashboard = (props) => {
     <>
       {user == null ? (
         <Loading />
-      ) : (
+      ) : ( 
         <Layout className="layout">
           <Sider collapsed={collapsed} theme={theme}>
             <div className="logo">
