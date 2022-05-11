@@ -69,7 +69,12 @@
   height: 32px;
   color: #fff;
 }
-
+.input-button {
+  width: 133px;
+  background-color: #1890ff;
+  height: 32px;
+  color: #fff;
+}
 .todo-item {
   list-style: none;
   padding: 15px;
@@ -93,4 +98,7 @@
 
 .todo-item:last-child {
   padding-bottom: 30px;
+}
+.btn_edit{
+  display: inline-block;
 }

@@ -20,14 +20,22 @@ const UserTodo = (props) => {
   };
 
   const handleCheckboxChange = async (id) => {
+    let res;
     setTodos(
-      todos.map((todo) => {
-        if (todo.id == id) todo.completed = !todo.completed;
-        return todo;
-      })
+        todos.map((todo) => {
+          if (todo.id == id) {
+            todo.completed = !todo.completed;
+            res = todo;
+          }
+          return todo;
+        })
     );
-    await updateTodo(id, todos);
-
+    const dataTodo = {
+      user: res.user,
+      title: res.title,
+      completed: res.completed
+    }
+    await updateTodo(id, dataTodo);
   };
 
   const deleteTodos = async (id) => {
@@ -46,19 +54,19 @@ const UserTodo = (props) => {
   };
 
   return (
-    <div className="todo-container">
-      <TodoHeader />
-      <AddTodo addTodo={addTodo} />
-      {todos &&
-        todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            handleChange={handleCheckboxChange}
-            deleteTodo={deleteTodos}
-          />
-        ))}
-    </div>
+      <div className="todo-container">
+        <TodoHeader />
+        <AddTodo addTodo={addTodo} />
+        {todos &&
+            todos.map((todo) => (
+                <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    handleChange={handleCheckboxChange}
+                    deleteTodo={deleteTodos}
+                />
+            ))}
+      </div>
   );
 };
 

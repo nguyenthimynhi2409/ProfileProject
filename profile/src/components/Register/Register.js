@@ -184,6 +184,7 @@ const Register = () => {
                   type: "number",
                   min: 1,
                   max: 150,
+                  required: true
                 },
               ]}
             >
