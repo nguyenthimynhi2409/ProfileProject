@@ -14,6 +14,7 @@ const TodoList = () => {
   const id_user = JSON.parse(localStorage.getItem("id"));
   const [todos, setTodos] = useState([]);
   const [todoEdit, setTodoEdit] = useState({});
+  const [opt, setOtp] = useState(1);
   useEffect(() => {
     getTodos();
   }, []);
@@ -89,7 +90,7 @@ const TodoList = () => {
     <div className="todo-container">
       <TodoHeader />
     
-      <AddTodo editTodo={todoEdit} addTodo={addTodo} updateTodo={editTodo}/>
+      <AddTodo editTodo={todoEdit} addTodo={addTodo} updateTodo={editTodo} option={opt} setOption={(opt) => setOtp(opt)}/>
 
       {todos &&
         todos.map((todo) => (
@@ -99,6 +100,7 @@ const TodoList = () => {
             getTodoTitle={getTitle}
             handleChange={handleCheckboxChange}
             deleteTodo={deleteTodos}
+            option = {(opt) => setOtp(opt)}
           />
         ))}
     </div>

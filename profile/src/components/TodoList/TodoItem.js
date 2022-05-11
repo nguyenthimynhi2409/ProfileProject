@@ -1,8 +1,6 @@
 import React from "react";
-import { Button, Popconfirm } from "antd";
-import EditOutlined from "@ant-design/icons";
+import { Popconfirm } from "antd";
 import { AiFillEdit } from "react-icons/ai";
-import AddTodo from "./AddTodo";
 const TodoItem = (props) => {
   const { completed, id, title } = props.todo;
   return (
@@ -14,7 +12,11 @@ const TodoItem = (props) => {
       />
       <span className={completed ? "completed" : null}>{title}</span>
       <div className="btn_edit">
-        <AiFillEdit onClick={() => props.getTodoTitle(id, title)} />
+        <AiFillEdit onClick={() => {
+          props.getTodoTitle(id, title);
+          props.option(2);
+        } 
+        }/>
       </div>
       <Popconfirm
         title="Hãy Suy Nghĩ Kỹ Trước Khi Xoá"
