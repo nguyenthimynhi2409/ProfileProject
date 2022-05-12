@@ -17,131 +17,107 @@ function App() {
 		localStorage.setItem("user", user);
 	}, [user]);
 
-	return (
-		<Router>
+	return (<Router>
 			<Routes>
 				<Route path="/register" element={<Register/>}/>
 				<Route
 					path="/"
-					element={
-						<Login
-							auth={(u) => {
-								setUser(true);
-							}}
-							user={user}
-							role={(role) => setRole(role)}
-						/>
-					}
+					element={<Login
+						auth={(u) => {
+							setUser(true);
+						}}
+						user={user}
+						role={(role) => setRole(role)}
+					/>}
 				/>
-				{user && (
-					<>
+				{user && (<>
 						<Route
 							path="/dashboard"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={1}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={1}
+								role={role}
+							/>}
 						/>
 
 						<Route
 							path="/account"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={3}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={3}
+								role={role}
+							/>}
 						/>
 						<Route
 							path="/account/update"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={4}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={4}
+								role={role}
+							/>}
 						/>
-					</>
-				)}
-				{user && role !== "user" && (
-					<>
+					</>)}
+				{user && role !== "user" && (<>
 						<Route
 							path="/users"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={2}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={2}
+								role={role}
+							/>}
 						/>
 
 						<Route
 							path="/todo/:id"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={7}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={7}
+								role={role}
+							/>}
 						/>
-					</>
-				)}
-				{user && role == "manager" && (
-					<>
+					</>)}
+				{user && role == "manager" && (<>
 						<Route
 							path="/user/:id"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={6}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={6}
+								role={role}
+							/>}
 						/>
 						<Route
 							path="/user/new"
-							element={
-								<Dashboard
-									logout={() => {
-										localStorage.clear();
-										setUser(false);
-									}}
-									option={5}
-									role={role}
-								/>
-							}
+							element={<Dashboard
+								logout={() => {
+									localStorage.clear();
+									setUser(false);
+								}}
+								option={5}
+								role={role}
+							/>}
 						/>
-					</>
-				)}
+					</>)}
 				<Route path="*" element={<NotFound/>}/>
 			</Routes>
-		</Router>
-	);
+		</Router>);
 }
 
 export default App;

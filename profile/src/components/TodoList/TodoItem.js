@@ -9,7 +9,7 @@ const TodoItem = (props) => {
       ellipsis: true,
       title: "Title",
       dataIndex: "title",
-      key: "title",
+      key: "key",
     },
     {
       title: "Action",
