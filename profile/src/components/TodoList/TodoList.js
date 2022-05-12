@@ -67,7 +67,6 @@ const TodoList = () => {
       id: id,
       todoEdit: title,
     });
-   
   };
 
   const deleteTodos = async (id) => {
@@ -89,10 +88,16 @@ const TodoList = () => {
   return (
     <div className="todo-container">
       <TodoHeader />
-    
-      <AddTodo editTodo={todoEdit} addTodo={addTodo} updateTodo={editTodo} option={opt} setOption={(opt) => setOtp(opt)}/>
 
-      {todos &&
+      <AddTodo
+        editTodo={todoEdit}
+        addTodo={addTodo}
+        updateTodo={editTodo}
+        option={opt}
+        setOption={(opt) => setOtp(opt)}
+      />
+
+      {/* {todos &&
         todos.map((todo) => (
           <TodoItem
             key={todo.id}
@@ -102,7 +107,14 @@ const TodoList = () => {
             deleteTodo={deleteTodos}
             option = {(opt) => setOtp(opt)}
           />
-        ))}
+        ))} */}
+      <TodoItem
+        datasource={todos}
+        getTodoTitle={getTitle}
+        handleChange={handleCheckboxChange}
+        deleteTodo={deleteTodos}
+        option={(opt) => setOtp(opt)}
+      />
     </div>
   );
 };

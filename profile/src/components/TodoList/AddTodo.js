@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AddTodo = (props) => {
   const [title, setTitle] = useState("");
@@ -13,7 +13,11 @@ const AddTodo = (props) => {
     props.addTodo(title);
     setTitle("");
   };
-  console.log(props.option);
+  
+  useEffect(() => {
+    if (props.editTodo.todoEdit) setTitle(props.editTodo.todoEdit);
+  }, [props.editTodo.todoEdit]);
+
   return (
     <>
       {props.option == 1 ? (
@@ -38,7 +42,7 @@ const AddTodo = (props) => {
             type="text"
             placeholder="Update Todo..."
             className="input-text"
-            value={title ? title : props.editTodo.todoEdit}
+            value={title}
             onChange={onInputChange}
           />
           <input
