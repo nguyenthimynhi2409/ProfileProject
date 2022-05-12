@@ -43,7 +43,7 @@ const TodoList = () => {
 
   // Edit todo
   const editTodo = async (id, title) => {
-    console.log(title);
+
     let res;
     setTodos(
       todos.map((todo) => {
@@ -59,7 +59,7 @@ const TodoList = () => {
       title: res.title,
       completed: res.completed,
     };
-    console.log(title);
+
     await updateTodo(id, dataTodo);
   };
   const getTitle = (id, title) => {
@@ -67,7 +67,6 @@ const TodoList = () => {
       id: id,
       todoEdit: title,
     });
-   
   };
 
   const deleteTodos = async (id) => {
@@ -84,25 +83,27 @@ const TodoList = () => {
     const res = await postTodo(todoData);
     setTodos([...todos, { ...res }]);
   };
-  console.log(todos);
-  console.log(todoEdit);
+
   return (
     <div className="todo-container">
       <TodoHeader />
-    
-      <AddTodo editTodo={todoEdit} addTodo={addTodo} updateTodo={editTodo} option={opt} setOption={(opt) => setOtp(opt)}/>
 
-      {todos &&
-        todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            getTodoTitle={getTitle}
-            handleChange={handleCheckboxChange}
-            deleteTodo={deleteTodos}
-            option = {(opt) => setOtp(opt)}
-          />
-        ))}
+      <AddTodo
+        editTodo={todoEdit}
+        addTodo={addTodo}
+        updateTodo={editTodo}
+        option={opt}
+        setOption={(opt) => setOtp(opt)}
+      />
+
+
+      <TodoItem
+        datasource={todos}
+        getTodoTitle={getTitle}
+        handleChange={handleCheckboxChange}
+        deleteTodo={deleteTodos}
+        option={(opt) => setOtp(opt)}
+      />
     </div>
   );
 };

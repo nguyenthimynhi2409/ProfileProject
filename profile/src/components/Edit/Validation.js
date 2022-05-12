@@ -1,7 +1,7 @@
 import "react-toastify/dist/ReactToastify.css";
 
 export const emailValidator = (control) => {
-    // RFC 2822 compliant regex
+
     let email_regex = (/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
     if (email_regex.test(control)) {
       return null;
@@ -10,16 +10,6 @@ export const emailValidator = (control) => {
     }
   }
 
-  export const passwordValidator = (control) => {
-    // {6,100}           - Assert password is between 6 and 100 characters
-    // (?=.*[0-9])       - Assert a string has at least one number
-    let password_regex = (/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/);
-    if (password_regex.test(control)) {
-      return null;
-    } else {
-      return 'Mật khẩu phải 6 kí tự và chưa số.';
-    }
-  }
 
   export const numberValidator = (control) => {
     let phone_regex = (/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/);
@@ -30,21 +20,7 @@ export const emailValidator = (control) => {
     }
   }
 
-  export const passwordMatch = (control) => {
-    const parent = control.parent;
-    if (parent) {
-      const password = parent.get('password').value;
-      const confirmPassword = control.value;
 
-      if (password !== confirmPassword) {
-        return 'Hai mật khẩu phải giống nhau.';
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
 
   export const requireValue = (control) => {
     let require_regex = (/^[A-Za-z]+$/i );
