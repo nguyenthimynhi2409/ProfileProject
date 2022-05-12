@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Space, Button, Popconfirm } from "antd";
+import "../TodoList/TodoList.css";
 
 const TodoItem = (props) => {
   // const { completed, id, title } = props.todo;
@@ -77,6 +78,7 @@ const TodoItem = (props) => {
       }
       setSelectedRowKeys(record);
     },
+    
   };
   return (
     // <li className="todo-item">
