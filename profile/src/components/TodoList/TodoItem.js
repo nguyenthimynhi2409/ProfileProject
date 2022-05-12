@@ -1,32 +1,59 @@
-import React from "react";
-import { Popconfirm } from "antd";
-import { AiFillEdit } from "react-icons/ai";
+import { Table, Button, Space, Popconfirm } from "antd";
+import React, { useState } from "react";
+
 const TodoItem = (props) => {
-  const { completed, id, title } = props.todo;
+  const [selectedRowsKey, setSelectedRowsKey] = useState([]);
+  const columns = [
+    {
+      width: "50%",
+      ellipsis: true,
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Action",
+      dataIndex: "",
+      key: "x",
+      render: (record) => (
+        <Space className="action">
+          <Button
+            type="primary"
+            onClick={() => {
+              props.getTodoTitle(record.id, record.title);
+              props.option(2);
+            }}
+          >
+            Edit
+          </Button>
+          <Popconfirm
+            title="Are you sure?"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={() => props.deleteTodo(record.id)}
+          >
+            <Button type="danger">
+              <a>Delete</a>
+            </Button>
+          </Popconfirm>
+        </Space>
+      ),
+    },
+  ];
+  const rowSelection = {selectedRowsKey,
+    onSelect: (record, selected, selectedRows) => {
+      console.log(record, selected, selectedRows);
+    }
+  };
+
   return (
-    <li className="todo-item">
-      <input
-        type="checkbox"
-        checked={completed}
-        onChange={() => props.handleChange(id)}
+    <div>
+      <Table
+        rowSelection={{...rowSelection }}
+        columns={columns}
+        dataSource={props.datasource}
       />
-      <span className={completed ? "completed" : null}>{title}</span>
-      <div className="btn_edit">
-        <AiFillEdit onClick={() => {
-          props.getTodoTitle(id, title);
-          props.option(2);
-        } 
-        }/>
-      </div>
-      <Popconfirm
-        title="Hãy Suy Nghĩ Kỹ Trước Khi Xoá"
-        okText="Yes"
-        cancelText="No"
-        onConfirm={() => props.deleteTodo(id)}
-      >
-        <button className="btn-style">X</button>
-      </Popconfirm>
-    </li>
+    </div>
   );
 };
 
