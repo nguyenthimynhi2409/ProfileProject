@@ -62,9 +62,13 @@ const ListUsers = () => {
 					</div>
 					<div>
 						<Button
+							className={
+								user && user.role !== "manager" ? "btn-display" : ""
+							}
 							onClick={() => {
 								navigate(`/user/new`);
 							}}
+
 						>
 							Create Account
 						</Button>
