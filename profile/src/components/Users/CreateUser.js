@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import {
-	validateAge,
-	validateEmail,
-	validateGender,
-	validatePassword,
-	validatePhone,
+  validateAge,
+  validateEmail,
+  validateGender,
+  validatePassword,
+  validatePhone,
 } from "../Register/validation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

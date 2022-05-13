@@ -99,6 +99,11 @@
 .todo-item:last-child {
   padding-bottom: 30px;
 }
-.btn_edit{
+
+.btn_edit {
   display: inline-block;
+}
+
+.ant-table-thead tr .ant-table-selection-column div {
+  display: none;
 }

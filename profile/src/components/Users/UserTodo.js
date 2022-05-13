@@ -92,7 +92,6 @@ const UserTodo = () => {
         setOption={(opt) => setOtp(opt)}
       />
 
-
       <TodoItem
         datasource={todos}
         getTodoTitle={getTitle}

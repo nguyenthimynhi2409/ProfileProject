@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getAllAccount } from "../../api/api";
 
 toast.configure();
-var phone_regex = /0[1-9]\d{8}/;
+var phone_regex = /0[1-9]\d{8}$/;
 var email_regex =   
   /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
