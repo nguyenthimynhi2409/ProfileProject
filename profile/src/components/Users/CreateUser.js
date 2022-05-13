@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import {
-  validateAge,
-  validateEmail,
-  validateGender,
-  validatePassword,
-  validatePhone,
+	validateAge,
+	validateEmail,
+	validateGender,
+	validatePassword,
+	validatePhone,
 } from "../Register/validation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -104,6 +104,7 @@ const CreateUser = () => {
 								]}
 							>
 								<Input
+									placeholder="Enter your first name..."
 									className="input--style-4"
 								/>
 							</Form.Item>
@@ -117,7 +118,7 @@ const CreateUser = () => {
 								]}
 								style={{}}
 							>
-								<Input className="input--style-4" />
+								<Input placeholder="Enter your last name..." className="input--style-4" />
 							</Form.Item>
 							<Form.Item
 								label="Age:  "
@@ -142,7 +143,7 @@ const CreateUser = () => {
 									{ required: true, message: "Please input your address!" },
 								]}
 							>
-								<Input placeholder='address' className="input--style-4" />
+								<Input placeholder="Enter your address..." className="input--style-4" />
 							</Form.Item>
 
 							<Form.Item
@@ -153,6 +154,7 @@ const CreateUser = () => {
 								]}
 							>
 								<Input
+									placeholder="Enter your email..."
 									className="input--style-4" />
 							</Form.Item>
 
@@ -167,6 +169,7 @@ const CreateUser = () => {
 								]}
 							>
 								<Input
+									placeholder="Enter your phone..."
 									maxLength={12} minLength={9}
 									className="input--style-4" />
 							</Form.Item>
@@ -189,7 +192,9 @@ const CreateUser = () => {
 									{ required: true, message: "Please input your password!" },
 								]}
 							>
-								<Input.Password className="input--style-4" />
+								<Input.Password
+									placeholder="Enter your password..."
+									className="input--style-4" />
 							</Form.Item>
 							<Form.Item
 								name={"confirm_password"}
@@ -201,7 +206,8 @@ const CreateUser = () => {
 									},
 								]}
 							>
-								<Input.Password className="input--style-4" />
+								<Input.Password
+									placeholder="Confirm password..." className="input--style-4" />
 							</Form.Item>
 
 							<div className="p-t-15">
