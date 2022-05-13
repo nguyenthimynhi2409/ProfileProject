@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
 	validateAge,
 	validateEmail,
@@ -6,31 +6,38 @@ import {
 	validatePassword,
 	validatePhone,
 } from "../Register/validation";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {register} from "../../api/api";
-import {Button} from "antd";
+import { register } from "../../api/api";
+import {
+	Form,
+	Input,
+	Button,
+	Select,
+	InputNumber,
+} from "antd";
+import { useState } from "react";
 
 const CreateUser = () => {
 	const navigate = useNavigate();
+	const [form] = Form.useForm();
 
-	const create = async (e) => {
-		e.preventDefault();
-		const first_name = e.target.first_name.value;
-		const last_name = e.target.last_name.value;
-		const email = e.target.email.value;
-		const age = e.target.age.value;
-		const gender = e.target.gender.value;
-		const password = e.target.password.value;
-		const confirm_password = e.target.confirm_password.value;
-		const phone = e.target.phone_number.value;
-		const role = e.target.role.value;
+	const create = async (value) => {
+		const first_name = value.first_name;
+		const last_name = value.last_name;
+		const email = value.email;
+		const age = value.age;
+		const gender = value.gender;
+		const password = value.password;
+		const confirm_password = value.confirm_password;
+		const phone = value.phone_number;
+		const address = value.address;
+		const role = "user";
 		let avatar = "";
-		const address = "";
-		if (gender == "Male")
+		if (gender === "Male")
 			avatar =
 				"https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269617/ProfileProject/male_huq2ca.png";
-		if (gender == "Female")
+		if (gender === "Female")
 			avatar =
 				"https://res.cloudinary.com/dn1b78bjj/image/upload/v1650269619/ProfileProject/female_foayqk.png";
 
@@ -61,148 +68,143 @@ const CreateUser = () => {
 			}
 		}
 	};
+	const [componentSize, setComponentSize] = useState("default");
 
+	const onFormLayoutChange = ({ size }) => {
+		setComponentSize(size);
+	};
 	return (
 		<div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
 			<div className="wrapper wrapper--w680">
 				<div className="card card-4">
 					<div className="card-body">
 						<h2 className="title">Create user</h2>
-						<form onSubmit={create}>
-							<div className="row row-space">
-								<div className="col-6">
-									<div className="input-group">
-										<label className="label">First Name</label>
-										<input
-											required
-											placeholder="Enter your first'name"
-											className="input--style-4"
-											type="text"
-											name="first_name"
-										/>
-									</div>
-								</div>
-								<div className="col-6">
-									<div class="input-group">
-										<label className="label">Last Name</label>
-										<input
-											required
-											placeholder="Enter your last'name"
-											className="input--style-4"
-											type="text"
-											name="last_name"
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="row row-space">
-								<div className="col-6">
-									<div className="input-group">
-										<label className="label">Age</label>
-										<input
-											required
-											placeholder="Enter your age"
-											className="input--style-4"
-											type="number"
-											max={90}
-											min={1}
-											name="age"
-										/>
-									</div>
-								</div>
 
-								<div className="col-6">
-									<div className="input-group">
-										<label className="label">Address</label>
-										<input
-											required
-											placeholder="Enter your address"
-											className="input--style-4"
-											type="text"
-											name="address"
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="row row-space">
-								<div className="col-6">
-									<div className="input-group">
-										<label className="label">Email</label>
-										<input
-											className="input--style-4"
-											placeholder="Enter your email"
-											type="email"
-											name="email"
-											required
-										/>
-									</div>
-								</div>
-								<div className="col-6">
-									<div className="input-group">
-										<label className="label">Phone Number</label>
-										<input
-											required
-											placeholder="Enter your phone number"
-											className="input--style-4"
-											type="text"
-											maxLength={12}
-											minLength={9}
-											name="phone_number"
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="input-group">
-								<label className="label">Gender</label>
-								<div className="select">
-									<select name="gender">
-										<option value="Male">Male</option>
-										<option value="Female">Female</option>
-									</select>
-									<div className="select-dropdown"></div>
-								</div>
-							</div>
-							<div className="input-group">
-								<label className="label">Role</label>
-								<div className="select">
-									<select name="role">
-										<option value="user">User</option>
-										<option value="admin">Admin</option>
-										<option value="manager">Manager</option>
-									</select>
-									<div className="select-dropdown"></div>
-								</div>
-							</div>
-							<div className="row row-space">
-								<div className="col-6">
-									<div className="input-group">
-										<label className="label">Password</label>
-										<input
-											required
-											className="input--style-4"
-											placeholder="Enter your password"
-											type="password"
-											name="password"
-										/>
-									</div>
-								</div>
-								<div className="col-6">
-									<div class="input-group">
-										<label className="label">Confirm Password</label>
-										<input
-											required
-											placeholder="Comfirm your password"
-											className="input--style-4"
-											type="password"
-											name="confirm_password"
-										/>
-									</div>
-								</div>
-							</div>
+						<Form
+							form={form}
+							onFinish={create}
+							labelCol={{
+								span: 8
+							}}
+							wrapperCol={{
+								span: 24
+							}}
+							layout="horizontal"
+							initialValues={{
+								size: componentSize
+							}}
+							onValuesChange={onFormLayoutChange}
+							size={componentSize}
+						>
+							<Form.Item
+								label="First Name:"
+								name="first_name"
+								rules={[
+									{ required: true, message: "Please input your name!" },
+								]}
+							>
+								<Input
+									className="input--style-4"
+								/>
+							</Form.Item>
+
+							<Form.Item
+								label="Last Name:  "
+								required
+								name="last_name"
+								rules={[
+									{ required: true, message: "Please input your name!" },
+								]}
+								style={{}}
+							>
+								<Input className="input--style-4" />
+							</Form.Item>
+							<Form.Item
+								label="Age:  "
+								required
+								name="age"
+								rules={[
+									{
+										type: "number",
+										min: 1,
+										max: 150,
+										required: true
+									},
+								]}
+							>
+								<InputNumber className="input--style-4" />
+							</Form.Item>
+
+							<Form.Item
+								label="Address:"
+								name="address"
+								rules={[
+									{ required: true, message: "Please input your address!" },
+								]}
+							>
+								<Input placeholder='address' className="input--style-4" />
+							</Form.Item>
+
+							<Form.Item
+								label="Email:  "
+								name="email"
+								rules={[
+									{ required: true, message: "Please input your email!", type: "email" },
+								]}
+							>
+								<Input
+									className="input--style-4" />
+							</Form.Item>
+
+							<Form.Item
+								label="Phone Number:"
+								name="phone_number"
+								rules={[
+									{
+										required: true,
+										message: "Please input your phone number!",
+									},
+								]}
+							>
+								<Input
+									maxLength={12} minLength={9}
+									className="input--style-4" />
+							</Form.Item>
+
+							<Form.Item
+								label="Gender:"
+								required
+								name="gender"
+							>
+								<Select className="select" allowClear>
+									<Select.Option value="Male">Male</Select.Option>
+									<Select.Option value="Female">Female</Select.Option>
+								</Select>
+							</Form.Item>
+
+							<Form.Item
+								name={"password"}
+								label="Password"
+								rules={[
+									{ required: true, message: "Please input your password!" },
+								]}
+							>
+								<Input.Password className="input--style-4" />
+							</Form.Item>
+							<Form.Item
+								name={"confirm_password"}
+								label="Confirm Password"
+								rules={[
+									{
+										required: true,
+										message: "Please input your confirm password!",
+									},
+								]}
+							>
+								<Input.Password className="input--style-4" />
+							</Form.Item>
+
 							<div className="p-t-15">
-								{/* <button className="btn-edit" type="submit">
-                  Create
-                </button> */}
 								<Button
 									className="btn-edit"
 									type="primary"
@@ -218,7 +220,7 @@ const CreateUser = () => {
 									Cancel
 								</Button>
 							</div>
-						</form>
+						</Form>
 					</div>
 				</div>
 			</div>
