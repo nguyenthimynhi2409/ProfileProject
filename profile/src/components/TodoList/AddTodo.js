@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 const AddTodo = (props) => {
   const [title, setTitle] = useState("");
 
-  console.log(props.editTodo.todoEdit);
   const onInputChange = (e) => {
     setTitle(e.target.value);
   };

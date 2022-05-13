@@ -3,6 +3,7 @@ import { editUser, getUserById } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
 import "antd/dist/antd.css";
 import { Form, Input, Button, Select, InputNumber } from "antd";
+import { validatePhone } from "../Register/validation";
 
 const UserDetails = () => {
   const navigate = useNavigate();
@@ -63,9 +64,11 @@ const UserDetails = () => {
       gender: gender,
       password: user.password,
     };
-    editUser(id, userUpdate).then(() => {
-      navigate(`/users`);
-    });
+
+    if (validatePhone(userUpdate.phone_number))
+      editUser(id, userUpdate).then(() => {
+        navigate(`/users`);
+      });
   };
   const [componentSize, setComponentSize] = useState("default");
 
@@ -77,7 +80,7 @@ const UserDetails = () => {
       <div className="wrapper wrapper--w680">
         <div className="card card-4">
           <div className="card-body">
-            <h2 className="title">Edit ser</h2>
+            <h2 className="title">Edit user</h2>
             <Form
               form={form}
               onFinish={update}
@@ -110,8 +113,18 @@ const UserDetails = () => {
               >
                 <Input className="input--style-4" />
               </Form.Item>
-              <Form.Item label="Age:  " required name="age" style={{}}>
-                <InputNumber min={"10"} max={"99"} className="input--style-4" />
+              <Form.Item
+                label="Age:  "
+                required
+                name="age"
+                rules={[
+                  {
+                    type: "number",
+                    required: true,
+                  },
+                ]}
+              >
+                <InputNumber min={"1"} max={"150"} className="input--style-4" />
               </Form.Item>
 
               <Form.Item
@@ -151,7 +164,7 @@ const UserDetails = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your phone number!",
+                    message: "Please enter your phone number!",
                   },
                 ]}
               >
@@ -163,14 +176,14 @@ const UserDetails = () => {
               </Form.Item>
 
               <Form.Item label="Gender:" required name="gender">
-                <Select className="select" allowClear>
+                <Select className="select">
                   <Select.Option value="Male">Male</Select.Option>
                   <Select.Option value="Female">Female</Select.Option>
                 </Select>
               </Form.Item>
 
               <Form.Item label="Role:" required name="role">
-                <Select className="select" allowClear>
+                <Select className="select">
                   <Select.Option value="user">User</Select.Option>
                   <Select.Option value="manager">Manager</Select.Option>
                   <Select.Option value="admin">Admin</Select.Option>

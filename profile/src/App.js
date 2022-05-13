@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem("user", user);
   }, [user]);
-
+  console.log(role);
   return (
     <Router>
       <Routes>

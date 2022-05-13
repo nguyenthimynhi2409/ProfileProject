@@ -142,15 +142,17 @@ const Edit = () => {
                   rules={[
                     {
                       type: "number",
-                      min: 1,
-                      max: 150,
                       required: true,
                     },
                   ]}
                   name="age"
                   style={{}}
                 >
-                  <InputNumber className="input--style-4" />
+                  <InputNumber
+                    min={"1"}
+                    max={"150"}
+                    className="input--style-4"
+                  />
                 </Form.Item>
                 <Form.Item
                   label="Address:"
@@ -192,13 +194,15 @@ const Edit = () => {
                   rules={[
                     {
                       required: true,
-                      // type: "number",
-                      // max: 10,
-                      // message: "Please enter your phone number!",
+                      message: "Please enter your phone number!",
                     },
                   ]}
                 >
-                  <Input className="input--style-4" />
+                  <Input
+                    minLength={"9"}
+                    maxLength={"12"}
+                    className="input--style-4"
+                  />
                 </Form.Item>
 
                 <Form.Item
