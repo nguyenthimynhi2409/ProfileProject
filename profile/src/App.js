@@ -15,8 +15,9 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("user", user);
+    setRole(localStorage.getItem("role"));
   }, [user]);
-  console.log(role);
+
   return (
     <Router>
       <Routes>
@@ -25,7 +26,7 @@ function App() {
           path="/"
           element={
             <Login
-              auth={(u) => {
+              auth={() => {
                 setUser(true);
               }}
               user={user}
@@ -44,7 +45,6 @@ function App() {
                     setUser(false);
                   }}
                   option={1}
-                  role={role}
                 />
               }
             />
@@ -58,7 +58,6 @@ function App() {
                     setUser(false);
                   }}
                   option={3}
-                  role={role}
                 />
               }
             />
@@ -71,73 +70,69 @@ function App() {
                     setUser(false);
                   }}
                   option={4}
-                  role={role}
                 />
               }
             />
-          </>
-        )}
-        {user && role !== "user" && (
-          <>
-            <Route
-              path="/users"
-              element={
-                <Dashboard
-                  logout={() => {
-                    localStorage.clear();
-                    setUser(false);
-                  }}
-                  option={2}
-                  role={role}
+            {user && role !== '"user"' && (
+              <>
+                <Route
+                  path="/users"
+                  element={
+                    <Dashboard
+                      logout={() => {
+                        localStorage.clear();
+                        setUser(false);
+                      }}
+                      option={2}
+                    />
+                  }
                 />
-              }
-            />
 
-            <Route
-              path="/todo/:id"
-              element={
-                <Dashboard
-                  logout={() => {
-                    localStorage.clear();
-                    setUser(false);
-                  }}
-                  option={7}
-                  role={role}
+                <Route
+                  path="/todo/:id"
+                  element={
+                    <Dashboard
+                      logout={() => {
+                        localStorage.clear();
+                        setUser(false);
+                      }}
+                      option={7}
+                    />
+                  }
                 />
-              }
-            />
+              </>
+            )}
+            {user && role === '"manager"' && (
+              <>
+                <Route
+                  path="/user/:id"
+                  element={
+                    <Dashboard
+                      logout={() => {
+                        localStorage.clear();
+                        setUser(false);
+                      }}
+                      option={6}
+                    />
+                  }
+                />
+                <Route
+                  path="/user/new"
+                  element={
+                    <Dashboard
+                      logout={() => {
+                        localStorage.clear();
+                        setUser(false);
+                      }}
+                      option={5}
+                    />
+                  }
+                />
+              </>
+            )}
           </>
         )}
-        {user && role == "manager" && (
-          <>
-            <Route
-              path="/user/:id"
-              element={
-                <Dashboard
-                  logout={() => {
-                    localStorage.clear();
-                    setUser(false);
-                  }}
-                  option={6}
-                  role={role}
-                />
-              }
-            />
-            <Route
-              path="/user/new"
-              element={
-                <Dashboard
-                  logout={() => {
-                    localStorage.clear();
-                    setUser(false);
-                  }}
-                  option={5}
-                  role={role}
-                />
-              }
-            />
-          </>
-        )}
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

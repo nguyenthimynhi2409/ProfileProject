@@ -16,7 +16,7 @@ const Login = (props) => {
 
     const user = await login(email, password);
     if (user) {
-      props.auth(user);
+      props.auth();
       props.role(user.role);
       console.log(user.role);
       navigate(`/dashboard`);
