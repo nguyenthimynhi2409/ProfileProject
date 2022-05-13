@@ -15,9 +15,11 @@ const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [todoEdit, setTodoEdit] = useState({});
   const [opt, setOtp] = useState(1);
+  
   useEffect(() => {
     getTodos();
   }, []);
+
   const getTodos = async () => {
     const data = await getTodoByIdUser(id_user);
     setTodos(data);
@@ -43,7 +45,6 @@ const TodoList = () => {
 
   // Edit todo
   const editTodo = async (id, title) => {
-
     let res;
     setTodos(
       todos.map((todo) => {
@@ -95,7 +96,6 @@ const TodoList = () => {
         option={opt}
         setOption={(opt) => setOtp(opt)}
       />
-
 
       <TodoItem
         datasource={todos}
