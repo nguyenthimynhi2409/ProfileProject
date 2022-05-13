@@ -8,16 +8,20 @@ const AddTodo = (props) => {
   };
 
   const addTodo = (e) => {
-    e.preventDefault();
-    props.addTodo(title);
+    e.preventDefault();let require_regex = (/^[A-Za-z]+$/i );
+
+    if( require_regex.test(title))  props.addTodo(title);
     setTitle("");
   };
   
   useEffect(() => {
+
     if (props.editTodo.todoEdit) setTitle(props.editTodo.todoEdit);
+    console.log(props.editTodo.todoEdit)
   }, [props.editTodo.todoEdit]);
 
   return (
+
     <>
       {props.option == 1 ? (
         <form className="form-container">
@@ -26,6 +30,7 @@ const AddTodo = (props) => {
             placeholder="Add Todo..."
             className="input-text"
             value={title}
+            required="true"
             onChange={onInputChange}
           />
           <input
