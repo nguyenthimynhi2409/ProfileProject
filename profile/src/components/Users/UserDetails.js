@@ -119,7 +119,6 @@ const UserDetails = () => {
                 name="age"
                 rules={[
                   {
-                    type: "number",
                     required: true,
                   },
                 ]}

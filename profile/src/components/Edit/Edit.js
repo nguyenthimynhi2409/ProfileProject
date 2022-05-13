@@ -141,7 +141,6 @@ const Edit = () => {
                   required
                   rules={[
                     {
-                      type: "number",
                       required: true,
                     },
                   ]}
