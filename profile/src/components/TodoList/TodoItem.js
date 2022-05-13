@@ -17,30 +17,34 @@ const TodoItem = (props) => {
       title: "Action",
       dataIndex: "",
       key: "x",
-      align: "center",
+
       render: (record) => (
-        <Space className="action">
-          <Button
-            type="primary"
-            onClick={() => {
-              console.log(record.key);
-              props.getTodoTitle(record.key, record.title);
-              props.option(2);
-            }}
-          >
-            Edit
-          </Button>
-          <Popconfirm
-            title="Are you sure?"
-            okText="Yes"
-            cancelText="No"
-            onConfirm={() => props.deleteTodo(record.key)}
-          >
-            <Button type="danger">
-              <a>Delete</a>
+          <Space className="action">
+            <Button
+                // style={{display: "none"}}
+                //   className={record && record.completed === true ? "display-btn" : "block"}
+                disabled={record && record.completed === true    }
+                type="primary"
+                onClick={() => {
+                  console.log(record.completed)
+                  ;
+                  props.getTodoTitle(record.key, record.title);
+                  props.option(2);
+                }}
+            >
+              Edit
             </Button>
-          </Popconfirm>
-        </Space>
+            <Popconfirm
+                title="Are you sure?"
+                okText="Yes"
+                cancelText="No"
+                onConfirm={() => props.deleteTodo(record.key)}
+            >
+              <Button type="danger">
+                <a>Delete</a>
+              </Button>
+            </Popconfirm>
+          </Space>
       ),
     },
   ];
@@ -78,39 +82,15 @@ const TodoItem = (props) => {
       }
       setSelectedRowKeys(record);
     },
-    
+
   };
   return (
-    // <li className="todo-item">
-    //   <input
-    //     type="checkbox"
-    //     checked={completed}
-    //     onChange={() => props.handleChange(id)}
-    //   />
-    //   <span className={completed ? "completed" : null}>{title}</span>
-    //   <div className="btn_edit">
-    //     <AiFillEdit onClick={() => {
-    //       props.getTodoTitle(id, title);
-    //       props.option(2);
-    //     }
-    //     }/>
-    //   </div>
-    //   <Popconfirm
-    //     title="Are you sure"
-    //     okText="Yes"
-    //     cancelText="No"
-    //     onConfirm={() => props.deleteTodo(id)}
-    //   >
-    //     <button className="btn-style">X</button>
-    //   </Popconfirm>
-    // </li>
-
-    <Table
-      rowSelection={rowSelection}
-      columns={columns}
-      dataSource={data}
-      pagination={false}
-    />
+      <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+      />
   );
 };
 

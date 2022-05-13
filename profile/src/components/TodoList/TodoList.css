@@ -107,3 +107,10 @@
 .ant-table-thead tr .ant-table-selection-column div {
   display: none;
 }
+.display-btn {
+  display: none;
+}
+.bock{
+  display: block;
+
+}
